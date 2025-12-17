@@ -31,20 +31,45 @@
         }
 
         .nav-container {
-            max-width: 1200px; margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: center;
-            height: 90px; padding: 0 24px;
-        }
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    height: 90px; padding: 0 15px; /* 패딩을 살짝 줄임 */
+}
 
-        .logo-area { display: flex; align-items: center; text-decoration: none; color: var(--text-main); cursor: pointer; }
-        .logo-img { height: 56px; margin-right: 15px; transition: height 0.3s; }
-        .logo-text { font-weight: 800; font-size: 26px; letter-spacing: -1px; }
+.logo-area { display: flex; align-items: center; text-decoration: none; color: var(--text-main); cursor: pointer; flex-shrink: 0; }
+.logo-img { height: 50px; margin-right: 10px; transition: all 0.3s; }
+.logo-text { font-weight: 800; font-size: 24px; letter-spacing: -1px; transition: all 0.3s; }
 
-        .nav-menu a {
-            font-size: 16px; color: var(--text-main); text-decoration: none;
-            margin-left: 30px; opacity: 0.8; transition: 0.2s; cursor: pointer; font-weight: 600;
-        }
-        .nav-menu a:hover { opacity: 1; color: var(--primary-color); }
+.nav-menu { display: flex; align-items: center; }
+.nav-menu a {
+    font-size: 15px; color: var(--text-main); text-decoration: none;
+    margin-left: 20px; opacity: 0.8; transition: 0.2s; cursor: pointer; font-weight: 600;
+    white-space: nowrap; /* 글자 줄바꿈 방지 */
+}
+
+/* ########## 모바일용 미디어 쿼리 (가장 중요한 수정 부분) ########## */
+@media (max-width: 768px) {
+    .nav-container { height: 60px; padding: 0 10px; } /* 상단바 높이 축소 */
+    
+    .logo-img { height: 28px; margin-right: 5px; } /* 로고 대폭 축소 */
+    .logo-text { font-size: 15px; letter-spacing: -0.5px; } /* 회사명 축소 */
+    
+    .nav-menu a { 
+        margin-left: 8px; /* 메뉴 간격 축소 */
+        font-size: 12px; /* 폰트 크기 축소 */
+        letter-spacing: -0.5px;
+    }
+    
+    .hero { padding: 80px 20px; }
+    .typing-container { margin-top: 20px; }
+    
+    /* 카드 레이아웃 모바일 최적화 */
+    .flex-container, .buy-container { flex-direction: column; }
+    .executive-grid, .product-grid { grid-template-columns: 1fr; }
+    
+    .section-header { padding: 50px 20px 30px; }
+    .section-header h2 { font-size: 28px; }
+}
 
         /* 페이지 전환 설정 */
         .page { display: none; padding-top: 90px; animation: fadeIn 0.4s ease-out; }
