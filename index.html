@@ -11,8 +11,8 @@
             --text-sub: #86868b;
             --bg-light: #f5f5f7;
             --white: #ffffff;
-            --header-bg: #1d1d1f; /* 검은색 헤더 배경 */
-            --header-text: #fff; /* 흰색 헤더 텍스트 */
+            --header-bg: #1d1d1f;
+            --header-text: #fff;
         }
 
         body {
@@ -24,7 +24,7 @@
             word-break: keep-all;
         }
 
-        /* --- 네비게이션 --- (기존 유지) */
+        /* --- 네비게이션 --- */
         .navbar {
             position: fixed; top: 0; width: 100%;
             background-color: rgba(255, 255, 255, 0.8);
@@ -49,26 +49,26 @@
             white-space: nowrap;
         }
 
-        /* --- 공통 섹션 헤더 스타일 (수정 및 통일) --- */
+        /* --- 공통 섹션 헤더 스타일 --- */
         .section-header {
-            padding: 100px 24px 60px; /* 상하 여백 조정 */
+            padding: 100px 24px 60px;
             text-align: center;
-            background-color: var(--header-bg); /* 검은색 배경 통일 */
-            color: var(--header-text); /* 흰색 텍스트 통일 */
+            background-color: var(--header-bg);
+            color: var(--header-text);
         }
         .section-header h2 {
-            font-size: 42px; /* 글씨 크기 통일 */
-            font-weight: 700; /* 볼드체 적용 */
+            font-size: 42px;
+            font-weight: 700;
             margin: 0 0 15px 0;
             letter-spacing: -1px;
         }
         .section-header p {
-            font-size: 18px; /* 보조 문구 크기 통일 */
+            font-size: 18px;
             opacity: 0.8;
             margin: 0;
         }
 
-        /* 모바일 대응 (기존 유지) */
+        /* 모바일 대응 */
         @media (max-width: 768px) {
             .nav-container { height: 60px; padding: 0 10px; }
             .logo-img { height: 28px; margin-right: 5px; }
@@ -87,7 +87,7 @@
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- [HOME] --- (기존 유지) */
+        /* --- [HOME] --- */
         .hero {
             padding: 160px 24px; text-align: center;
             background: radial-gradient(circle at center, #ffffff 0%, #f2f2f2 100%);
@@ -115,7 +115,7 @@
         .product-card { background: #fff; border-radius: 30px; padding: 50px; border: 1px solid #efefef; transition: 0.3s; display: flex; flex-direction: column; }
         .product-img-box { width: 100%; height: 320px; background: #f5f5f7; border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
 
-        /* --- [BUY & PAYMENT] --- (기존 유지) */
+        /* --- [BUY & PAYMENT] --- */
         .buy-container { max-width: 1100px; margin: 60px auto; display: flex; flex-wrap: wrap; gap: 50px; padding: 0 24px; }
         .buy-form { background: #fbfbfd; padding: 40px; border-radius: 24px; border: 1px solid #e5e5e5; flex: 1; min-width: 320px; }
         .pay-method-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
@@ -123,7 +123,7 @@
         .pay-btn img { height: 20px; margin-right: 8px; }
         .pay-btn:hover { filter: brightness(0.85); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
-        /* --- [RECEIPT] --- (기존 유지) */
+        /* --- [RECEIPT] --- */
         .receipt-card { max-width: 500px; margin: 60px auto; background: #fff; padding: 40px; border-radius: 24px; border: 1px solid #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .receipt-line { display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed #eee; padding-bottom: 4px; }
 
@@ -133,12 +133,12 @@
         .footer { background-color: var(--bg-light); padding: 80px 24px; border-top: 1px solid #e5e5e5; }
         .footer-content { max-width: 1100px; margin: 0 auto; color: var(--text-sub); font-size: 13px; }
 
-		/* --- [PARTNER LOGO SECTION] --- */
+        /* --- [PARTNER LOGO SECTION] --- */
         .partner-section {
             padding: 60px 24px 80px;
-            background-color: #ffffff; /* 흰색 배경 */
+            background-color: #ffffff;
             text-align: center;
-            border-top: 1px solid #f5f5f7; /* 은은한 구분선 */
+            border-top: 1px solid #f5f5f7;
         }
 
         .partner-title {
@@ -155,15 +155,24 @@
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
-            gap: 40px 60px; /* 로고 간격 (세로, 가로) */
+            gap: 40px 60px;
             max-width: 1000px;
             margin: 0 auto;
         }
 
+        .partner-logo {
+            height: 35px; /* 기본 로고 크기 (원래대로) */
+            width: auto;
+            opacity: 0.4;
+            filter: grayscale(100%);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        /* ⭐ GJMST 로고만 키우는 클래스 */
         .partner-logo.main-logo {
-            height: 60px; /* 다른 로고보다 1.7배 크게 */
-            opacity: 0.8; /* 평소에도 좀 더 진하게 */
-            margin-bottom: -5px; /* 크기 때문에 살짝 뜨는 것 보정 */
+            height: 55px; /* 기본(35px)보다 훨씬 크게 설정 */
+            opacity: 0.8; /* 평소에도 조금 더 진하게 */
         }
 
         .partner-logo:hover {
@@ -171,18 +180,12 @@
             filter: grayscale(0%);
             transform: scale(1.05);
         }
-        
-        /* 메인 로고는 마우스 올렸을 때 더 크게 */
-        .partner-logo.main-logo:hover {
-            transform: scale(1.1);
-        }
 
-        /* 모바일 대응 수정 */
+        /* 모바일 대응 */
         @media (max-width: 768px) {
             .logo-grid { gap: 30px 40px; }
             .partner-logo { height: 28px; }
-            /* 모바일에서 메인 로고 크기 */
-            .partner-logo.main-logo { height: 45px; } 
+            .partner-logo.main-logo { height: 45px; } /* 모바일에서도 GJMST만 더 크게 */
         }
     </style>
 </head>
@@ -272,34 +275,34 @@
             <div class="product-card" style="background-color: #fafafa; border-style: dashed; opacity: 0.6;">
                 <h4 style="color:var(--text-sub); margin-bottom: 5px;">Office Edition</h4>
                 <h3 style="font-size: 28px; margin-top: 0; color: #86868b;">SRC-04 For Office</h3>
-                <p style="color: #a1a1a6;">사원증 및 얼굴 인식 기능이 추가된 제품.</br>더 많은 기능의 관리자 페이지와 우수한 보안의 로그 서버를 제공합니다.</p>
+                <p>사원증 및 얼굴 인식 기능이 추가된 제품.</br>더 많은 기능의 관리자 페이지와 우수한 보안의 로그 서버를 제공합니다.</p>
                 <div class="product-img-box" style="opacity: 1;">[ 개발 중 ]</div>
                 <button class="cta-button" style="background-color: #ccc; cursor: default;">준비 중</button>
             </div>
         </section>
     </main>
 
-	<main id="buy" class="page">
-		<div class="buy-container">
-			<div style="flex: 1; min-width: 320px;">
-				<h2>주문서 작성</h2>
-				<div style="background: #fff; padding: 25px; border-radius: 12px; border: 1px solid #eee; margin-top: 20px;">
-					<p style="font-weight:700;">SRC-04</p>
-					<p style="font-size: 16px; color: var(--text-sub); margin: 0 0 5px 0; text-decoration: line-through;">149,900원</p>
-					<p style="font-size: 28px; font-weight: 800; color: var(--primary-color); margin: 0;">89,000원</p>
-					</div>
-			</div>
-			<div class="buy-form">
-				<h3 style="margin-top:0;">배송 정보</h3>
-				<form onsubmit="goToPayment(event)">
-					<input type="text" id="buyer_name" placeholder="수령인" style="width:100%; padding:14px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;" required>
-					<input type="text" id="buyer_tel" placeholder="연락처 ( - 를 제외하고 입력 )" style="width:100%; padding:14px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;" required>
-					<input type="text" id="buyer_addr" placeholder="배송지" style="width:100%; padding:14px; margin-bottom:20px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;" required>
-					<button type="submit" class="cta-button" style="width: 100%;">결제하기</button>
-				</form>
-			</div>
-		</div>
-	</main>
+    <main id="buy" class="page">
+        <div class="buy-container">
+            <div style="flex: 1; min-width: 320px;">
+                <h2>주문서 작성</h2>
+                <div style="background: #fff; padding: 25px; border-radius: 12px; border: 1px solid #eee; margin-top: 20px;">
+                    <p style="font-weight:700;">SRC-04</p>
+                    <p style="font-size: 16px; color: var(--text-sub); margin: 0 0 5px 0; text-decoration: line-through;">149,900원</p>
+                    <p style="font-size: 28px; font-weight: 800; color: var(--primary-color); margin: 0;">89,000원</p>
+                    </div>
+            </div>
+            <div class="buy-form">
+                <h3 style="margin-top:0;">배송 정보</h3>
+                <form onsubmit="goToPayment(event)">
+                    <input type="text" id="buyer_name" placeholder="수령인" style="width:100%; padding:14px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;" required>
+                    <input type="text" id="buyer_tel" placeholder="연락처 ( - 를 제외하고 입력 )" style="width:100%; padding:14px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;" required>
+                    <input type="text" id="buyer_addr" placeholder="배송지" style="width:100%; padding:14px; margin-bottom:20px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;" required>
+                    <button type="submit" class="cta-button" style="width: 100%;">결제하기</button>
+                </form>
+            </div>
+        </div>
+    </main>
 
     <main id="payment" class="page">
         <div style="max-width: 500px; margin: 60px auto; padding: 0 20px; text-align: center;">
@@ -350,11 +353,11 @@
             </div>
         </div>
     </main>
-	<section class="partner-section">
+    <section class="partner-section">
         <p class="partner-title">Trusted by Innovative Companies</p>
         <div class="logo-grid">
             <img src="images/gjmst.svg" alt="Gjmst" class="partner-logo main-logo">
-			<img src="images/aws.png" alt="Amazon" class="partner-logo">
+            <img src="images/aws.png" alt="Amazon" class="partner-logo">
             <img src="images/samsung.svg" alt="Samsung" class="partner-logo">
             <img src="images/toss.png" alt="Toss" class="partner-logo">
             <img src="images/tesla.png" alt="Tesla" class="partner-logo">
