@@ -22,7 +22,7 @@
             word-break: keep-all;
         }
 
-        /* --- 네비게이션 (PC/모바일 공통) --- */
+        /* --- 네비게이션 --- */
         .navbar {
             position: fixed; top: 0; width: 100%;
             background-color: rgba(255, 255, 255, 0.8);
@@ -47,21 +47,18 @@
             white-space: nowrap;
         }
 
-        /* ########## 모바일용 미디어 쿼리 (핵심) ########## */
+        /* 모바일 대응 */
         @media (max-width: 768px) {
             .nav-container { height: 60px; padding: 0 10px; }
             .logo-img { height: 28px; margin-right: 5px; }
             .logo-text { font-size: 15px; letter-spacing: -0.5px; }
             .nav-menu a { margin-left: 8px; font-size: 12px; letter-spacing: -0.5px; }
-            
             .hero { padding: 80px 20px; }
             .typing-container { margin-top: 20px; }
             .flex-container, .buy-container { flex-direction: column; }
             .executive-grid, .product-grid { grid-template-columns: 1fr; }
             .section-header { padding: 50px 20px 30px; }
             .section-header h2 { font-size: 28px; }
-
-            /* 모바일에서 네이버페이 제외 텍스트 검정색 고정 */
             .pay-btn:not(.naver-pay) { color: #1d1d1f !important; }
         }
 
@@ -102,13 +99,8 @@
         /* --- [BUY & PAYMENT] --- */
         .buy-container { max-width: 1100px; margin: 60px auto; display: flex; flex-wrap: wrap; gap: 50px; padding: 0 24px; }
         .buy-form { background: #fbfbfd; padding: 40px; border-radius: 24px; border: 1px solid #e5e5e5; flex: 1; min-width: 320px; }
-        
         .pay-method-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
-        .pay-btn {
-            padding: 18px; border-radius: 12px; border: 1px solid #d2d2d7;
-            background: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
-            display: flex; align-items: center; justify-content: center; color: #1d1d1f; /* PC 기본 검정 */
-        }
+        .pay-btn { padding: 18px; border-radius: 12px; border: 1px solid #d2d2d7; background: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; color: #1d1d1f; }
         .pay-btn img { height: 20px; margin-right: 8px; }
         .pay-btn:hover { filter: brightness(0.85); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
@@ -116,11 +108,7 @@
         .receipt-card { max-width: 500px; margin: 60px auto; background: #fff; padding: 40px; border-radius: 24px; border: 1px solid #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .receipt-line { display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed #eee; padding-bottom: 4px; }
 
-        .cta-button {
-            display: inline-block; background-color: var(--primary-color); color: white;
-            padding: 18px 40px; border-radius: 35px; text-decoration: none;
-            font-weight: 700; font-size: 18px; cursor: pointer; transition: 0.3s; text-align: center; border: none;
-        }
+        .cta-button { display: inline-block; background-color: var(--primary-color); color: white; padding: 18px 40px; border-radius: 35px; text-decoration: none; font-weight: 700; font-size: 18px; cursor: pointer; transition: 0.3s; text-align: center; border: none; }
         .cta-button:hover { background-color: #005bb7; transform: scale(1.02); }
 
         .footer { background-color: var(--bg-light); padding: 80px 24px; border-top: 1px solid #e5e5e5; }
@@ -136,9 +124,9 @@
                 <span class="logo-text">공마고의 도둑들</span>
             </div>
             <div class="nav-menu">
-                <a onclick="showPage('home')">회사소개</a>
-                <a onclick="showPage('team')">임원소개</a>
-                <a onclick="showPage('product')">제품 구매</a>
+                <a onclick="showPage('home')">홈</a>
+                <a onclick="showPage('team')">임원진</a>
+                <a onclick="showPage('product')">구매하기</a>
                 <a onclick="showPage('contact')">문의</a>
             </div>
         </div>
@@ -169,23 +157,30 @@
         </header>
         <section class="team-container">
             <div class="ceo-card">
-    <div class="profile-initial">윤</div>
-    <span style="color:var(--primary-color); font-weight:700; letter-spacing: 1px;">CEO & Founder</span>
-    <h3 style="font-size: 36px; margin: 15px 0; font-weight: 800;">윤수원</h3>
-    <p style="color:var(--text-main); font-size: 18px; font-weight: 600; margin-bottom: 20px;">
-        "의심이 필요 없는 일상을 설계합니다."
-    </p>
-    <p style="color:var(--text-sub); max-width: 600px; margin: 0 auto; line-height: 1.8;">
-        우리는 기술이 인간의 도덕성을 감시하는 것이 아니라, <br>
-        모두가 서로를 믿을 수 있는 환경을 뒷받침해야 한다고 믿습니다. <br>
-        공마고의 도둑들은 기숙사와 오피스 냉장고에서 일어나는 <br>
-        작은 갈등을 해결하고, 진정한 공유의 가치를 실현합니다.
-    </p>
-</div>
+                <div class="profile-initial">윤</div>
+                <span style="color:var(--primary-color); font-weight:700;">CEO & Founder</span>
+                <h3 style="font-size: 32px; margin: 10px 0;">윤수원</h3>
+                <p style="color:var(--text-main); font-size: 18px; font-weight: 600; margin-bottom: 20px;">"의심이 필요 없는 일상을 설계합니다."</p>
+            </div>
             <div class="executive-grid">
-                <div class="member-card"><div class="member-initial">배</div><div class="member-name">배충만 / CTO</div></div>
-                <div class="member-card"><div class="member-initial">이</div><div class="member-name">이시환 / CIO</div></div>
-                <div class="member-card"><div class="member-initial">이</div><div class="member-name">이지후 / CFO</div></div>
+                <div class="member-card">
+                    <div class="member-initial">배</div>
+                    <div class="member-name">배충만</div>
+                    <div class="member-role" style="color:var(--primary-color); font-weight:600; font-size:14px;">CTO & CPO</div>
+                    <p style="font-size: 14px; color: var(--text-sub); margin-top: 15px;">하드웨어 설계 및 소프트웨어 설계 총괄</p>
+                </div>
+                <div class="member-card">
+                    <div class="member-initial">이</div>
+                    <div class="member-name">이시환</div>
+                    <div class="member-role" style="color:var(--primary-color); font-weight:600; font-size:14px;">CIO & DevOps</div>
+                    <p style="font-size: 14px; color: var(--text-sub); margin-top: 15px;">소프트웨어 개발 및 클라우드 개발 총괄</p>
+                </div>
+                <div class="member-card">
+                    <div class="member-initial">이</div>
+                    <div class="member-name">이지후</div>
+                    <div class="member-role" style="color:var(--primary-color); font-weight:600; font-size:14px;">CFO & CMO</div>
+                    <p style="font-size: 14px; color: var(--text-sub); margin-top: 15px;">재무 회계 및 전략 및 마케팅 총괄</p>
+                </div>
             </div>
         </section>
     </main>
@@ -236,7 +231,7 @@
             <h2 style="font-size: 32px;">결제 수단</h2>
             <div class="pay-method-grid">
                 <button class="pay-btn naver-pay" style="background: #000000; border-color: #000000; color: #00d25a;" onclick="completeOrder('네이버페이')">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMe6jelIGKUqp-zJPV5CfQ_yA6jnUTXrAOaw&s" alt="네이버페이"> 네이버페이
+                    <img src="https://image.fnnews.com/resource/media/image/2024/01/13/202401132030029565_l.jpg" alt="네이버페이"> 네이버페이
                 </button>
                 <button class="pay-btn" style="background: #fee500; border-color: #fee500;" onclick="completeOrder('카카오페이')">
                     <img src="https://i.namu.wiki/i/DRTBUHA314XYTx-pkzY4XSmQ0Job0j10vQhiETotjLCGUULQemriSC67Yh9UCsYq7Dw7WyvK0GkP9f3jP8r8gA.svg" alt="카카오페이"> 카카오페이
