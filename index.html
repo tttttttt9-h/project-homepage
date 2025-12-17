@@ -229,10 +229,12 @@
 
         .bar-fill {
             height: 100%;
-            background: var(--primary-color); /* 파란색 */
+            background: var(--primary-color);
             border-radius: 12px;
-            width: 0; /* 초기값 0 */
-            animation: fillBar 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; /* 애니메이션 효과 */
+            width: 0%; /* 시작은 0% */
+            
+            /* ⭐ 수정된 부분: 1.5s -> 3s로 변경 (더 천천히 차오름) */
+            transition: width 3s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         @keyframes fillBar {
