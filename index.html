@@ -22,7 +22,7 @@
             word-break: keep-all;
         }
 
-        /* --- 네비게이션 --- */
+        /* --- 네비게이션 (PC/모바일 공통) --- */
         .navbar {
             position: fixed; top: 0; width: 100%;
             background-color: rgba(255, 255, 255, 0.8);
@@ -47,23 +47,29 @@
             white-space: nowrap;
         }
 
+        /* ########## 모바일용 미디어 쿼리 (핵심) ########## */
         @media (max-width: 768px) {
             .nav-container { height: 60px; padding: 0 10px; }
             .logo-img { height: 28px; margin-right: 5px; }
             .logo-text { font-size: 15px; letter-spacing: -0.5px; }
             .nav-menu a { margin-left: 8px; font-size: 12px; letter-spacing: -0.5px; }
-            .hero { padding: 100px 20px; }
+            
+            .hero { padding: 80px 20px; }
             .typing-container { margin-top: 20px; }
             .flex-container, .buy-container { flex-direction: column; }
             .executive-grid, .product-grid { grid-template-columns: 1fr; }
             .section-header { padding: 50px 20px 30px; }
             .section-header h2 { font-size: 28px; }
+
+            /* 모바일에서 네이버페이 제외 텍스트 검정색 고정 */
+            .pay-btn:not(.naver-pay) { color: #1d1d1f !important; }
         }
 
         .page { display: none; padding-top: 90px; animation: fadeIn 0.4s ease-out; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+        /* --- [HOME] --- */
         .hero {
             padding: 160px 24px; text-align: center;
             background: radial-gradient(circle at center, #ffffff 0%, #f2f2f2 100%);
@@ -79,70 +85,35 @@
 
         .section-header { padding: 100px 24px 60px; text-align: center; background-color: #1d1d1f; color: #fff; }
 
+        /* --- [TEAM] --- */
         .team-container { max-width: 1100px; margin: 80px auto; padding: 0 24px; }
-        .ceo-card { 
-            background: #fbfbfd; padding: 60px 24px; border-radius: 40px; 
-            text-align: center; border: 1px solid #eee; margin-bottom: 60px;
-        }
-        .profile-initial {
-            width: 160px; height: 160px; background: #e8e8ed; border-radius: 50%; 
-            margin: 0 auto 30px; display: flex; align-items: center; justify-content: center;
-            font-size: 64px; font-weight: 800; color: #1d1d1f;
-        }
-        .executive-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;
-        }
-        .member-card {
-            background: #fff; border: 1px solid #efefef; padding: 40px; border-radius: 30px; text-align: center;
-            transition: 0.3s;
-        }
+        .ceo-card { background: #fbfbfd; padding: 60px 24px; border-radius: 40px; text-align: center; border: 1px solid #eee; margin-bottom: 60px; }
+        .profile-initial { width: 160px; height: 160px; background: #e8e8ed; border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; font-size: 64px; font-weight: 800; color: #1d1d1f; }
+        .executive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .member-card { background: #fff; border: 1px solid #efefef; padding: 40px; border-radius: 30px; text-align: center; transition: 0.3s; }
         .member-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .member-initial {
-            width: 100px; height: 100px; background: #f5f5f7; border-radius: 50%; 
-            margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
-            font-size: 40px; font-weight: 700; color: #86868b;
-        }
+        .member-initial { width: 100px; height: 100px; background: #f5f5f7; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 700; color: #86868b; }
 
-        .product-grid {
-            max-width: 1100px; margin: 80px auto;
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; padding: 0 24px;
-        }
-        .product-card {
-            background: #fff; border-radius: 30px; padding: 50px;
-            border: 1px solid #efefef; transition: 0.3s; display: flex; flex-direction: column;
-        }
-        .product-img-box {
-            width: 100%; height: 320px; background: #f5f5f7; border-radius: 20px;
-            margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc;
-        }
+        /* --- [PRODUCT] --- */
+        .product-grid { max-width: 1100px; margin: 80px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; padding: 0 24px; }
+        .product-card { background: #fff; border-radius: 30px; padding: 50px; border: 1px solid #efefef; transition: 0.3s; display: flex; flex-direction: column; }
+        .product-img-box { width: 100%; height: 320px; background: #f5f5f7; border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
 
-        .buy-container {
-            max-width: 1100px; margin: 60px auto; display: flex; flex-wrap: wrap; gap: 50px; padding: 0 24px;
-        }
-        .buy-info, .buy-form { flex: 1; min-width: 320px; }
-        .buy-form { background: #fbfbfd; padding: 40px; border-radius: 24px; border: 1px solid #e5e5e5; }
-
-        /* 결제 수단 전용 스타일 */
+        /* --- [BUY & PAYMENT] --- */
+        .buy-container { max-width: 1100px; margin: 60px auto; display: flex; flex-wrap: wrap; gap: 50px; padding: 0 24px; }
+        .buy-form { background: #fbfbfd; padding: 40px; border-radius: 24px; border: 1px solid #e5e5e5; flex: 1; min-width: 320px; }
+        
         .pay-method-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
         .pay-btn {
             padding: 18px; border-radius: 12px; border: 1px solid #d2d2d7;
-            background: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.2s;
-            display: flex; align-items: center; justify-content: center; /* 로고 중앙 정렬 */
+            background: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
+            display: flex; align-items: center; justify-content: center; color: #1d1d1f; /* PC 기본 검정 */
         }
-        .pay-btn:hover {
-		filter: brightness(0.85); /* 전체적으로 15% 어둡게 만들어 색상 변화 체감 */
-		transform: translateY(-3px) scale(1.02); /* 위로 살짝 올라가면서 커짐 */
-		box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* 그림자를 진하게 추가 */
-		transition: all 0.2s ease; /* 부드러운 움직임 */
-		}
-        .pay-btn img { height: 20px; margin-right: 8px; } /* 로고 이미지 크기 및 간격 */
+        .pay-btn img { height: 20px; margin-right: 8px; }
+        .pay-btn:hover { filter: brightness(0.85); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
-
-        /* 영수증 전용 스타일 */
-        .receipt-card {
-            max-width: 500px; margin: 60px auto; background: #fff; padding: 40px;
-            border-radius: 24px; border: 1px solid #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
+        /* --- [RECEIPT] --- */
+        .receipt-card { max-width: 500px; margin: 60px auto; background: #fff; padding: 40px; border-radius: 24px; border: 1px solid #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .receipt-line { display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed #eee; padding-bottom: 4px; }
 
         .cta-button {
@@ -165,9 +136,9 @@
                 <span class="logo-text">공마고의 도둑들</span>
             </div>
             <div class="nav-menu">
-                <a onclick="showPage('home')">홈</a>
-                <a onclick="showPage('team')">임원진</a>
-                <a onclick="showPage('product')">구매하기</a>
+                <a onclick="showPage('home')">회사소개</a>
+                <a onclick="showPage('team')">임원소개</a>
+                <a onclick="showPage('product')">제품 구매</a>
                 <a onclick="showPage('contact')">문의</a>
             </div>
         </div>
@@ -194,7 +165,7 @@
     <main id="team" class="page">
         <header class="section-header">
             <h2 style="font-size: 42px;">Leadership</h2>
-            <p style="opacity: 0.8;">공용 공간의 신뢰를 혁신하는 핵심 팀입니다.</p>
+            <p style="opacity: 0.8;">공용 공간의 신뢰를 혁신하는 핵심 임원진입니다.</p>
         </header>
         <section class="team-container">
             <div class="ceo-card">
@@ -204,33 +175,15 @@
                 <p style="color:var(--text-sub); max-width: 500px; margin: 0 auto;">"사소한 불신을 기술로 해결하여, 모든 공용 공간에 평화가 깃들게 하겠습니다."</p>
             </div>
             <div class="executive-grid">
-                <div class="member-card">
-                    <div class="member-initial">배</div>
-                    <div class="member-name">배충만</div>
-                    <div class="member-role" style="color:var(--primary-color); font-weight:600; font-size:14px;">CTO & CPO</div>
-                    <p style="font-size: 14px; color: var(--text-sub); margin-top: 15px;">HW/SW 설계 총괄</p>
-                </div>
-                <div class="member-card">
-                    <div class="member-initial">이</div>
-                    <div class="member-name">이시환</div>
-                    <div class="member-role" style="color:var(--primary-color); font-weight:600; font-size:14px;">CIO & DevOps</div>
-                    <p style="font-size: 14px; color: var(--text-sub); margin-top: 15px;">클라우드 개발 총괄</p>
-                </div>
-                <div class="member-card">
-                    <div class="member-initial">이</div>
-                    <div class="member-name">이지후</div>
-                    <div class="member-role" style="color:var(--primary-color); font-weight:600; font-size:14px;">CFO & CMO</div>
-                    <p style="font-size: 14px; color: var(--text-sub); margin-top: 15px;">전략 및 마케팅 총괄</p>
-                </div>
+                <div class="member-card"><div class="member-initial">배</div><div class="member-name">배충만 / CTO</div></div>
+                <div class="member-card"><div class="member-initial">이</div><div class="member-name">이시환 / CIO</div></div>
+                <div class="member-card"><div class="member-initial">이</div><div class="member-name">이지후 / CFO</div></div>
             </div>
         </section>
     </main>
 
     <main id="product" class="page">
-        <header class="section-header">
-            <h2 style="font-size: 42px;">Lineup</h2>
-            <p>공용 냉장고 환경에 특화된 고성능 보안 제품</p>
-        </header>
+        <header class="section-header"><h2>Lineup</h2><p>공용 냉장고 환경에 특화된 고성능 보안 제품</p></header>
         <section class="product-grid">
             <div class="product-card">
                 <h4 style="color:var(--primary-color); margin-bottom: 5px;">Personal</h4>
@@ -239,7 +192,7 @@
                 <div class="product-img-box">[ 제품 이미지 ]</div>
                 <button onclick="showPage('buy')" class="cta-button">제품 구매하기</button>
             </div>
-            <div class="product-card" style="background-color: #fafafa; border-style: dashed;">
+            <div class="product-card" style="background-color: #fafafa; border-style: dashed; opacity: 0.6;">
                 <h4 style="color:var(--text-sub); margin-bottom: 5px;">Enterprise</h4>
                 <h3 style="font-size: 28px; margin-top: 0; color: #86868b;">Smart Door-Lock</h3>
                 <p style="color: #a1a1a6;">사원증 인식 시스템 연동을 테스트 중입니다.</p>
@@ -251,7 +204,7 @@
 
     <main id="buy" class="page">
         <div class="buy-container">
-            <div class="buy-info">
+            <div style="flex: 1; min-width: 320px;">
                 <h2>주문서 작성</h2>
                 <div style="background: #fff; padding: 25px; border-radius: 12px; border: 1px solid #eee; margin-top: 20px;">
                     <p style="font-weight:700;">Fridge-Eye Mini (Personal)</p>
@@ -274,9 +227,15 @@
         <div style="max-width: 500px; margin: 60px auto; padding: 0 20px; text-align: center;">
             <h2 style="font-size: 32px;">결제 수단</h2>
             <div class="pay-method-grid">
-                <button class="pay-btn" style="background: #000000; border-color: #000000; color: #00d25a;" onclick="completeOrder('네이버페이')"><img src="https://image.fnnews.com/resource/media/image/2024/01/13/202401132030029565_l.jpg" alt="네이버페이 로고"> 네이버페이</button>
-                <button class="pay-btn" style="background: #fee500; border-color: #fee500;" onclick="completeOrder('카카오페이')"><img src="https://i.namu.wiki/i/DRTBUHA314XYTx-pkzY4XSmQ0Job0j10vQhiETotjLCGUULQemriSC67Yh9UCsYq7Dw7WyvK0GkP9f3jP8r8gA.svg" alt="카카오페이 로고"> 카카오페이</button>
-                <button class="pay-btn" style="color: #0064ff;" onclick="completeOrder('토스페이')"><img src="toss.png" alt="토스페이 로고" onerror="this.style.display='none'"> 토스페이</button>
+                <button class="pay-btn naver-pay" style="background: #000000; border-color: #000000; color: #00d25a;" onclick="completeOrder('네이버페이')">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMe6jelIGKUqp-zJPV5CfQ_yA6jnUTXrAOaw&s" alt="네이버페이"> 네이버페이
+                </button>
+                <button class="pay-btn" style="background: #fee500; border-color: #fee500;" onclick="completeOrder('카카오페이')">
+                    <img src="https://i.namu.wiki/i/DRTBUHA314XYTx-pkzY4XSmQ0Job0j10vQhiETotjLCGUULQemriSC67Yh9UCsYq7Dw7WyvK0GkP9f3jP8r8gA.svg" alt="카카오페이"> 카카오페이
+                </button>
+                <button class="pay-btn" style="border-color: #d2d2d7;" onclick="completeOrder('토스페이')">
+                    <img src="toss.png" alt="토스페이" onerror="this.style.display='none'"> 토스페이
+                </button>
                 <button class="pay-btn" onclick="completeOrder('신용카드')">💳 신용/체크카드</button>
                 <button class="pay-btn" onclick="completeOrder('무통장입금')">🏦 무통장 입금</button>
             </div>
@@ -301,12 +260,12 @@
         <div style="max-width: 900px; margin: 80px auto; padding: 60px 24px; text-align: center; border-radius: 40px; background-color: #f5f5f7;">
             <h2 style="font-size: 38px;">Partnership</h2>
             <p style="font-size: 18px; margin-bottom: 40px; color: var(--text-sub);">"서로 믿을 수 있는 공용 공간의 문화를 설계합니다."</p>
-            <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-                <div style="background: #fff; padding: 30px; border-radius: 20px; flex: 1; min-width: 280px; border: 1px solid #eee;">
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <div style="background: #fff; padding: 30px; border-radius: 20px; flex: 1; min-width: 250px; border: 1px solid #eee;">
                     <p style="font-weight: bold; color: var(--primary-color);">이메일 문의</p>
                     <p style="font-size: 18px; font-weight: 600;">sales@gjmst-thives.com</p>
                 </div>
-                <div style="background: #fff; padding: 30px; border-radius: 20px; flex: 1; min-width: 280px; border: 1px solid #eee;">
+                <div style="background: #fff; padding: 30px; border-radius: 20px; flex: 1; min-width: 250px; border: 1px solid #eee;">
                     <p style="font-weight: bold; color: var(--primary-color);">고객 센터</p>
                     <p style="font-size: 18px; font-weight: 600;">201-704-04</p>
                 </div>
@@ -324,53 +283,37 @@
 
     <script>
         let orderInfo = {};
-
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             window.scrollTo(0, 0);
         }
-
-        // 주문서 -> 결제 선택
         function goToPayment(e) {
             e.preventDefault();
             orderInfo.name = document.getElementById('buyer_name').value;
-            orderInfo.tel = document.getElementById('buyer_tel').value; // 전화번호 추가
             orderInfo.addr = document.getElementById('buyer_addr').value;
             showPage('payment');
         }
-
-        // 결제 선택 -> 영수증
         function completeOrder(method) {
             if(confirm(method + "(으)로 결제하시겠습니까?")) {
                 const orderNo = "ORD-" + Math.floor(Math.random() * 900000 + 100000);
                 document.getElementById('rec_no').innerText = orderNo;
                 document.getElementById('rec_name').innerText = orderInfo.name;
                 document.getElementById('rec_addr').innerText = orderInfo.addr;
-                document.getElementById('rec_method').innerText = method; // 결제 수단 추가
+                document.getElementById('rec_method').innerText = method;
                 showPage('receipt');
             }
         }
-
         const textElement = document.getElementById('typewriter');
         const sentences = ["기숙사 냉장고의 평화,", "오피스 냉장고의 신뢰,", "기술로 완성합니다."];
         let sentenceIdx = 0; let charIdx = 0; let isDeleting = false;
-
         function type() {
             const currentSentence = sentences[sentenceIdx];
-            if (isDeleting) {
-                textElement.innerText = currentSentence.substring(0, charIdx - 1);
-                charIdx--;
-            } else {
-                textElement.innerText = currentSentence.substring(0, charIdx + 1);
-                charIdx++;
-            }
+            if (isDeleting) textElement.innerText = currentSentence.substring(0, charIdx - 1), charIdx--;
+            else textElement.innerText = currentSentence.substring(0, charIdx + 1), charIdx++;
             let typeSpeed = isDeleting ? 40 : 120;
-            if (!isDeleting && charIdx === currentSentence.length) {
-                typeSpeed = 2000; isDeleting = true;
-            } else if (isDeleting && charIdx === 0) {
-                isDeleting = false; sentenceIdx = (sentenceIdx + 1) % sentences.length; typeSpeed = 500;
-            }
+            if (!isDeleting && charIdx === currentSentence.length) typeSpeed = 2000, isDeleting = true;
+            else if (isDeleting && charIdx === 0) isDeleting = false, sentenceIdx = (sentenceIdx + 1) % sentences.length, typeSpeed = 500;
             setTimeout(type, typeSpeed);
         }
         window.onload = type;
