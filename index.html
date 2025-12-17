@@ -19,10 +19,9 @@
             background-color: var(--white);
             color: var(--text-main);
             line-height: 1.6;
-            word-break: keep-all;
         }
 
-        /* --- 네비게이션 --- */
+        /* --- 내비게이션 (원래 사이즈 복구) --- */
         .navbar {
             position: fixed; top: 0; width: 100%;
             background-color: rgba(255, 255, 255, 0.8);
@@ -33,46 +32,41 @@
         .nav-container {
             max-width: 1200px; margin: 0 auto;
             display: flex; justify-content: space-between; align-items: center;
-            height: 90px; padding: 0 15px;
+            height: 90px; padding: 0 24px;
         }
 
-        .logo-area { display: flex; align-items: center; text-decoration: none; color: var(--text-main); cursor: pointer; flex-shrink: 0; }
-        .logo-img { height: 50px; margin-right: 10px; transition: all 0.3s; }
-        .logo-text { font-weight: 800; font-size: 24px; letter-spacing: -1px; transition: all 0.3s; }
+        .logo-area { display: flex; align-items: center; text-decoration: none; color: var(--text-main); cursor: pointer; }
+        .logo-img { height: 56px; margin-right: 15px; } 
+        .logo-text { font-weight: 800; font-size: 26px; letter-spacing: -1px; }
 
-        .nav-menu { display: flex; align-items: center; }
         .nav-menu a {
-            font-size: 15px; color: var(--text-main); text-decoration: none;
-            margin-left: 20px; opacity: 0.8; transition: 0.2s; cursor: pointer; font-weight: 600;
-            white-space: nowrap;
+            font-size: 16px; color: var(--text-main); text-decoration: none;
+            margin-left: 35px; opacity: 0.8; transition: 0.2s; cursor: pointer; font-weight: 600;
         }
         .nav-menu a:hover { opacity: 1; color: var(--primary-color); }
 
-        /* 페이지 전환 설정 */
+        /* 페이지 전환 */
         .page { display: none; padding-top: 90px; animation: fadeIn 0.4s ease-out; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- [HOME] --- */
+        /* --- [HOME PAGE] --- */
         .hero {
-            padding: 160px 24px; text-align: center;
+            padding: 160px 20px; text-align: center;
             background: radial-gradient(circle at center, #ffffff 0%, #f2f2f2 100%);
         }
         .typing-container {
-            font-size: clamp(36px, 6vw, 68px); 
-            font-weight: 800; margin-bottom: 24px;
-            letter-spacing: -2px; line-height: 1.2; min-height: 1.2em;
+            font-size: 68px; font-weight: 800; margin-bottom: 24px;
+            letter-spacing: -2.5px; line-height: 1.2; min-height: 1.2em;
         }
         .typing-text::after { content: '|'; animation: blink 0.7s infinite; }
         @keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; } }
-        .hero p { font-size: clamp(18px, 3vw, 24px); color: var(--text-sub); max-width: 800px; margin: 0 auto 50px; }
+        .hero p { font-size: 24px; color: var(--text-sub); max-width: 850px; margin: 0 auto 50px; }
 
-        .section-header { padding: 80px 24px 60px; text-align: center; background-color: #1d1d1f; color: #fff; }
-
-        /* --- [TEAM] --- */
-        .team-container { max-width: 1100px; margin: 80px auto; padding: 0 24px; }
+        /* --- [TEAM PAGE] --- */
+        .team-container { max-width: 1100px; margin: 80px auto; padding: 0 20px; }
         .ceo-card { 
-            background: #fbfbfd; padding: 60px 24px; border-radius: 40px; 
+            background: #fbfbfd; padding: 60px; border-radius: 40px; 
             text-align: center; border: 1px solid #eee; margin-bottom: 60px;
         }
         .profile-initial {
@@ -81,45 +75,43 @@
             font-size: 64px; font-weight: 800; color: #1d1d1f;
         }
         .executive-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;
         }
         .member-card {
             background: #fff; border: 1px solid #efefef; padding: 40px; border-radius: 30px; text-align: center;
-            transition: 0.3s;
         }
-        .member-card:hover { transform: translateY(-10px); }
         .member-initial {
             width: 100px; height: 100px; background: #f5f5f7; border-radius: 50%; 
             margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
             font-size: 40px; font-weight: 700; color: #86868b;
         }
 
-        /* --- [PRODUCT] --- */
+        /* --- [PRODUCT PAGE] --- */
+        .product-hero { background-color: #1d1d1f; color: #fff; padding: 100px 20px; text-align: center; }
         .product-grid {
-            max-width: 1100px; margin: 80px auto;
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; padding: 0 24px;
+            max-width: 1100px; margin: 60px auto;
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; padding: 0 20px;
         }
         .product-card {
             background: #fff; border-radius: 30px; padding: 50px;
-            border: 1px solid #efefef; transition: 0.3s;
-            display: flex; flex-direction: column; justify-content: space-between;
+            border: 1px solid #efefef; display: flex; flex-direction: column; justify-content: space-between;
         }
         .product-img-box {
-            width: 100%; height: 250px; background: #f5f5f7; border-radius: 20px;
-            margin: 20px 0; display: flex; align-items: center; justify-content: center; color: #ccc;
+            width: 100%; height: 320px; background: #f5f5f7; border-radius: 20px;
+            margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc;
         }
 
         /* --- [BUY & PAYMENT] --- */
-        .buy-container { max-width: 1100px; margin: 60px auto; display: flex; flex-wrap: wrap; gap: 50px; padding: 0 24px; }
-        .buy-form-box { background: #fbfbfd; padding: 40px; border-radius: 24px; border: 1px solid #e5e5e5; flex: 1; min-width: 320px; }
+        .buy-container { max-width: 1000px; margin: 60px auto; display: flex; gap: 50px; padding: 0 20px; }
+        .buy-form-box { background: #fbfbfd; padding: 40px; border-radius: 24px; border: 1px solid #e5e5e5; flex: 1; }
         .form-input { width: 100%; padding: 14px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
         
         .pay-method-btn {
             width: 100%; padding: 18px; border-radius: 12px; border: 1px solid #d2d2d7;
-            background: #fff; font-size: 16px; cursor: pointer; transition: all 0.2s;
-            display: flex; align-items: center; justify-content: center; margin-bottom: 12px;
+            background: #fff; font-size: 16px; cursor: pointer; margin-bottom: 12px;
+            display: flex; align-items: center; justify-content: center;
         }
-        .pay-method-btn:hover { background: #f5f5f7; transform: translateY(-2px); }
+        .pay-method-btn:hover { background: #f5f5f7; }
 
         /* --- [RECEIPT] --- */
         .receipt-card {
@@ -128,26 +120,23 @@
         }
         .receipt-item { display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px dashed #eee; padding-bottom: 5px; }
 
-        /* 공통 버튼 */
         .cta-button {
             display: inline-block; background-color: var(--primary-color); color: white;
-            padding: 16px 30px; border-radius: 35px; text-decoration: none;
-            font-weight: 700; font-size: 17px; cursor: pointer; transition: 0.3s; text-align: center; border: none;
-            width: 100%; box-sizing: border-box;
+            padding: 18px 40px; border-radius: 35px; text-decoration: none;
+            font-weight: 700; font-size: 18px; cursor: pointer; text-align: center; border: none; width: 100%;
         }
-        .cta-button:hover { background-color: #005bb7; transform: scale(1.02); }
 
         /* 푸터 */
-        .footer { background-color: var(--bg-light); padding: 60px 24px; border-top: 1px solid #e5e5e5; }
-        .footer-content { max-width: 1100px; margin: 0 auto; color: var(--text-sub); font-size: 13px; }
+        .footer { background-color: var(--bg-light); padding: 80px 20px; border-top: 1px solid #e5e5e5; }
 
-        /* 모바일 대응 */
+        /* 모바일 대응 (상단바 한줄 유지용) */
         @media (max-width: 768px) {
             .nav-container { height: 60px; padding: 0 10px; }
             .logo-img { height: 28px; margin-right: 5px; }
             .logo-text { font-size: 15px; }
             .nav-menu a { margin-left: 8px; font-size: 11.5px; }
             .hero { padding: 100px 20px; }
+            .executive-grid, .product-grid, .buy-container { grid-template-columns: 1fr; flex-direction: column; }
         }
     </style>
 </head>
@@ -160,8 +149,8 @@
                 <span class="logo-text">공마고의 도둑들</span>
             </div>
             <div class="nav-menu">
-                <a onclick="showPage('home')">홈</a>
-                <a onclick="showPage('team')">임원진</a>
+                <a onclick="showPage('home')">회사소개</a>
+                <a onclick="showPage('team')">임원소개</a>
                 <a onclick="showPage('product')">제품 구매</a>
                 <a onclick="showPage('contact')">문의</a>
             </div>
@@ -171,41 +160,40 @@
     <main id="home" class="page active">
         <header class="hero">
             <div class="typing-container"><span class="typing-text" id="typewriter"></span></div>
-            <p>공용 냉장고 무단 취식, 더 이상 감정에 호소하지 마세요.<br><b>공마고의 도둑들</b>의 하드웨어가 완벽한 해답을 제시합니다.</p>
+            <p>공용 냉장고 무단 취식, 더 이상 감정에 호소하지 마세요.<br><b>공마고의 도둑들</b>의 정밀 보안 하드웨어가 완벽한 해답을 제시합니다.</p>
             <a onclick="showPage('product')" class="cta-button" style="width:auto;">제품 라인업 확인</a>
         </header>
     </main>
 
     <main id="team" class="page">
-        <header class="section-header"><h2>Leadership</h2></header>
-        <section class="team-container">
+        <div class="team-container">
             <div class="ceo-card">
                 <div class="profile-initial">윤</div>
                 <h3 style="font-size: 32px; margin: 10px 0;">윤수원 / CEO</h3>
-                <p>"기술로 공용 공간의 평화를 지키겠습니다."</p>
+                <p>"기술로 공용 공간의 신뢰를 혁신하겠습니다."</p>
             </div>
             <div class="executive-grid">
                 <div class="member-card"><div class="member-initial">배</div><div class="member-name">배충만 / CTO</div></div>
                 <div class="member-card"><div class="member-initial">이</div><div class="member-name">이시환 / CIO</div></div>
                 <div class="member-card"><div class="member-initial">이</div><div class="member-name">이지후 / CFO</div></div>
             </div>
-        </section>
+        </div>
     </main>
 
     <main id="product" class="page">
-        <header class="section-header"><h2>Product</h2></header>
+        <header class="product-hero"><h2>Product</h2></header>
         <section class="product-grid">
             <div class="product-card">
                 <div>
                     <h3>Fridge-Eye Mini</h3>
-                    <p style="color:var(--text-sub);">냉장고용 초소형 4K 카메라 모듈</p>
-                    <div class="product-img-box">[ Fridge-Eye Mini ]</div>
+                    <p>냉장고용 초소형 4K 보안 카메라</p>
+                    <div class="product-img-box">[ 제품 이미지 ]</div>
                 </div>
                 <button onclick="showPage('buy')" class="cta-button">제품 구매하기 (89,000원)</button>
             </div>
             <div class="product-card" style="background-color:#fafafa; border-style:dashed; opacity:0.6;">
-                <div><h3>Smart Door-Lock</h3><p>기업용 잠금 솔루션</p><div class="product-img-box">[ 개발 중 ]</div></div>
-                <button class="cta-button" style="background:#ccc;" disabled>출시 준비 중</button>
+                <div><h3>Smart Lock</h3><p>출시 예정</p><div class="product-img-box">[ 개발 중 ]</div></div>
+                <button class="cta-button" style="background:#ccc;" disabled>준비 중</button>
             </div>
         </section>
     </main>
@@ -213,96 +201,81 @@
     <main id="buy" class="page">
         <div class="buy-container">
             <div class="buy-form-box">
-                <h2 style="margin-top:0;">배송지 정보 입력</h2>
-                <form onsubmit="handleOrderSubmit(event)">
-                    <input type="text" id="order_name" placeholder="받으시는 분 성함" class="form-input" required>
-                    <input type="tel" placeholder="연락처 (- 없이 입력)" class="form-input" required>
-                    <input type="text" id="order_addr" placeholder="배송지 주소" class="form-input" required>
-                    <button type="submit" class="cta-button">결제 수단 선택하기</button>
+                <h2 style="margin-top:0;">배송 정보 입력</h2>
+                <form onsubmit="tempSaveOrder(event)">
+                    <input type="text" id="name" placeholder="받으시는 분 성함" class="form-input" required>
+                    <input type="tel" placeholder="연락처" class="form-input" required>
+                    <input type="text" id="addr" placeholder="배송지 주소" class="form-input" required>
+                    <button type="submit" class="cta-button">결제 수단 선택</button>
                 </form>
             </div>
         </div>
     </main>
 
     <main id="payment_select" class="page">
-        <div style="max-width: 500px; margin: 60px auto; padding: 0 20px; text-align: center;">
+        <div style="max-width: 500px; margin: 60px auto; text-align: center;">
             <h2>결제 수단 선택</h2>
-            <button class="pay-method-btn" onclick="processPayment('네이버페이')"><b>N Pay</b> 네이버페이</button>
-            <button class="pay-method-btn" onclick="processPayment('카카오페이')" style="background:#fee500;"><b>kakao</b> pay</button>
-            <button class="pay-method-btn" onclick="processPayment('토스페이')" style="color:#0064ff;"><b>toss</b> pay</button>
-            <button class="pay-method-btn" onclick="processPayment('신용카드')">💳 일반 신용카드</button>
-            <button class="pay-method-btn" onclick="processPayment('무통장입금')">🏦 무통장 입금</button>
+            <button class="pay-method-btn" onclick="finalizePayment('네이버페이')">네이버페이</button>
+            <button class="pay-method-btn" onclick="finalizePayment('카카오페이')" style="background:#fee500;">카카오페이</button>
+            <button class="pay-method-btn" onclick="finalizePayment('토스페이')" style="color:#0064ff;">토스페이</button>
+            <button class="pay-method-btn" onclick="finalizePayment('신용카드')">신용카드</button>
+            <button onclick="showPage('buy')" style="background:none; border:none; color:#86868b; text-decoration:underline; cursor:pointer;">뒤로가기</button>
         </div>
     </main>
 
     <main id="receipt" class="page">
         <div class="receipt-card">
-            <div style="text-align: center; margin-bottom: 30px;">
-                <h2 style="margin:0; color:var(--primary-color);">주문이 완료되었습니다!</h2>
-                <p style="color:var(--text-sub);">믿고 구매해주셔서 감사합니다.</p>
+            <h2 style="text-align:center; color:var(--primary-color);">주문 완료</h2>
+            <div class="receipt-item"><span>주문번호</span><b id="r_no"></b></div>
+            <div class="receipt-item"><span>상품명</span><b>Fridge-Eye Mini</b></div>
+            <div class="receipt-item"><span>결제자</span><span id="r_name"></span></div>
+            <div class="receipt-item"><span>배송지</span><span id="r_addr"></span></div>
+            <div class="receipt-item" style="border:none; font-size:20px; margin-top:20px;">
+                <span>결제금액</span><b style="color:var(--primary-color);">89,000원</b>
             </div>
-            <div style="padding: 20px; background: #f9f9f9; border-radius: 10px;">
-                <div class="receipt-item"><span>주문 번호</span><b id="receipt_no">20251217-001</b></div>
-                <div class="receipt-item"><span>주문 일시</span><span id="receipt_date">2025-12-17</span></div>
-                <div class="receipt-item"><span>상품명</span><b>Fridge-Eye Mini</b></div>
-                <div class="receipt-item"><span>주문자</span><span id="receipt_name">윤수원</span></div>
-                <div class="receipt-item"><span>배송지</span><span id="receipt_addr">서울시...</span></div>
-                <div class="receipt-item" style="border:none; margin-top:20px; font-size:20px;">
-                    <span>최종 결제 금액</span><b style="color:var(--primary-color);">89,000원</b>
-                </div>
-            </div>
-            <button onclick="showPage('home')" class="cta-button" style="margin-top:30px; background:#1d1d1f;">홈으로 돌아가기</button>
+            <button onclick="showPage('home')" class="cta-button" style="margin-top:30px; background:#1d1d1f;">홈으로</button>
         </div>
     </main>
 
     <main id="contact" class="page">
-        <div style="max-width: 800px; margin: 80px auto; text-align: center; background:#f5f5f7; padding:60px; border-radius:40px;">
+        <div style="max-width: 900px; margin: 80px auto; padding: 60px; text-align: center; border-radius: 40px; background-color: #f5f5f7;">
             <h2>Partnership</h2>
-            <p>"공용 공간의 문화를 기술로 바꿉니다."</p>
-            <p><b>이메일:</b> sales@gjmst-thives.com</p>
+            <p>"단순한 보안 장치를 넘어, 서로를 믿을 수 있는 문화를 설계합니다."</p>
+            <p>sales@gjmst-thives.com / 201-704-04</p>
         </div>
     </main>
 
     <footer class="footer">
         <div class="footer-content">
-            <p><b>(주)공마고의 도둑들</b> | 대표이사: 윤수원</p>
-            <p>충청남도 공주시 유구읍 중앙1길 27-12 | © 2025 The Gjmst Thieves.</p>
+            <p><b>(주)공마고의 도둑들</b> | 대표이사: 윤수원 | 충남 공주시 유구읍 중앙1길 27-12</p>
+            <p>© 2025 The Gjmst Thieves. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // 페이지 전환 함수
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             window.scrollTo(0, 0);
         }
 
-        // 주문서 제출 -> 결제수단 선택으로
-        let tempOrderData = {};
-        function handleOrderSubmit(e) {
+        let orderData = {};
+        function tempSaveOrder(e) {
             e.preventDefault();
-            tempOrderData.name = document.getElementById('order_name').value;
-            tempOrderData.addr = document.getElementById('order_addr').value;
+            orderData.name = document.getElementById('name').value;
+            orderData.addr = document.getElementById('addr').value;
             showPage('payment_select');
         }
 
-        // 결제 처리 -> 영수증 발행
-        function processPayment(method) {
-            if(confirm(method + '(으)로 결제를 진행할까요?')) {
-                // 영수증 데이터 매핑
-                const now = new Date();
-                const orderNo = now.getTime().toString().substring(0, 10);
-                document.getElementById('receipt_no').innerText = "ORD-" + orderNo;
-                document.getElementById('receipt_date').innerText = now.toLocaleString();
-                document.getElementById('receipt_name').innerText = tempOrderData.name;
-                document.getElementById('receipt_addr').innerText = tempOrderData.addr;
-                
+        function finalizePayment(method) {
+            if(confirm(method + '(으)로 결제할까요?')) {
+                document.getElementById('r_no').innerText = "ORD-" + Math.floor(Math.random()*1000000);
+                document.getElementById('r_name').innerText = orderData.name;
+                document.getElementById('r_addr').innerText = orderData.addr;
                 showPage('receipt');
             }
         }
 
-        // 타이핑 효과
         const textElement = document.getElementById('typewriter');
         const sentences = ["기숙사 냉장고의 평화,", "오피스 냉장고의 신뢰,", "기술로 완성합니다."];
         let sentenceIdx = 0, charIdx = 0, isDeleting = false;
