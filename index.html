@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공마고의 도둑들 | 기숙사·오피스 보안 솔루션</title>
+    <title>공마고의 도둑들 | Refrigerator Security</title>
     <style>
         :root {
             --primary-color: #0071e3;
@@ -19,9 +19,10 @@
             background-color: var(--white);
             color: var(--text-main);
             line-height: 1.6;
+            word-break: keep-all;
         }
 
-        /* 내비게이션 */
+        /* --- 네비게이션 (PC/모바일 공통) --- */
         .navbar {
             position: fixed; top: 0; width: 100%;
             background-color: rgba(255, 255, 255, 0.8);
@@ -30,77 +31,114 @@
         }
 
         .nav-container {
-            max-width: 1100px; margin: 0 auto;
+            max-width: 1200px; margin: 0 auto;
             display: flex; justify-content: space-between; align-items: center;
-            height: 52px; padding: 0 20px;
+            height: 90px; padding: 0 24px;
         }
 
         .logo-area { display: flex; align-items: center; text-decoration: none; color: var(--text-main); cursor: pointer; }
-        .logo-img { height: 24px; margin-right: 10px; }
-        .logo-text { font-weight: 700; font-size: 19px; }
+        .logo-img { height: 56px; margin-right: 15px; transition: height 0.3s; }
+        .logo-text { font-weight: 800; font-size: 26px; letter-spacing: -1px; }
 
         .nav-menu a {
-            font-size: 13px; color: var(--text-main); text-decoration: none;
-            margin-left: 30px; opacity: 0.8; transition: 0.2s; cursor: pointer;
+            font-size: 16px; color: var(--text-main); text-decoration: none;
+            margin-left: 30px; opacity: 0.8; transition: 0.2s; cursor: pointer; font-weight: 600;
         }
         .nav-menu a:hover { opacity: 1; color: var(--primary-color); }
 
-        /* 페이지 전환 처리 */
-        .page { display: none; padding-top: 52px; animation: fadeIn 0.4s ease-out; }
+        /* 페이지 전환 설정 */
+        .page { display: none; padding-top: 90px; animation: fadeIn 0.4s ease-out; }
         .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- [HOME PAGE] 스타일 --- */
+        /* --- [HOME] 히어로 섹션 --- */
         .hero {
-            padding: 160px 20px 100px; text-align: center;
-            background: radial-gradient(circle at top, #ffffff 0%, #f5f5f7 100%);
+            padding: 160px 24px; text-align: center;
+            background: radial-gradient(circle at center, #ffffff 0%, #f2f2f2 100%);
         }
-        .hero h1 { font-size: 60px; font-weight: 700; margin-bottom: 24px; letter-spacing: -2px; line-height: 1.1; }
-        .hero p { font-size: 24px; color: var(--text-sub); margin-bottom: 44px; }
+        .typing-container {
+            font-size: clamp(36px, 6vw, 68px); 
+            font-weight: 800; margin-bottom: 24px;
+            letter-spacing: -2px; line-height: 1.2; min-height: 1.2em;
+        }
+        .typing-text::after { content: '|'; animation: blink 0.7s infinite; }
+        @keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; } }
 
-        .market-focus {
-            display: flex; max-width: 1100px; margin: 0 auto; padding: 100px 20px; gap: 40px;
-        }
-        .focus-card {
-            flex: 1; background: #fbfbfd; padding: 40px; border-radius: 28px; text-align: left;
-        }
-        .focus-card h2 { font-size: 28px; margin-bottom: 15px; }
-        .focus-card p { color: var(--text-sub); }
+        .hero p { font-size: clamp(18px, 3vw, 24px); color: var(--text-sub); max-width: 800px; margin: 0 auto 50px; }
 
-        /* --- [PRODUCT PAGE] 스타일 --- */
-        .product-hero { background-color: #1d1d1f; color: #fff; padding: 120px 20px; text-align: center; }
-        .product-hero h2 { font-size: 48px; margin-bottom: 10px; }
-        
+        /* --- 공통 섹션 헤더 --- */
+        .section-header { padding: 100px 24px 60px; text-align: center; background-color: #1d1d1f; color: #fff; }
+
+        /* --- [TEAM] 임원 소개 --- */
+        .team-container { max-width: 1100px; margin: 80px auto; padding: 0 24px; }
+        .ceo-card { 
+            background: #fbfbfd; padding: 60px 24px; border-radius: 40px; 
+            text-align: center; border: 1px solid #eee; margin-bottom: 60px;
+        }
+        .profile-initial {
+            width: 160px; height: 160px; background: #e8e8ed; border-radius: 50%; 
+            margin: 0 auto 30px; display: flex; align-items: center; justify-content: center;
+            font-size: 64px; font-weight: 800; color: #1d1d1f;
+        }
+        .executive-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;
+        }
+        .member-card {
+            background: #fff; border: 1px solid #efefef; padding: 40px; border-radius: 30px; text-align: center;
+            transition: 0.3s;
+        }
+        .member-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .member-initial {
+            width: 100px; height: 100px; background: #f5f5f7; border-radius: 50%; 
+            margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
+            font-size: 40px; font-weight: 700; color: #86868b;
+        }
+
+        /* --- [PRODUCT] 제품 구매 --- */
         .product-grid {
             max-width: 1100px; margin: 80px auto;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 0 20px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; padding: 0 24px;
         }
         .product-card {
-            background: #fff; border: 1px solid #e5e5e5; border-radius: 24px; padding: 40px;
-            display: flex; flex-direction: column; transition: 0.3s;
+            background: #fff; border-radius: 30px; padding: 50px;
+            border: 1px solid #efefef; transition: 0.3s; display: flex; flex-direction: column;
         }
-        .product-card:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .product-card .tag { color: var(--primary-color); font-weight: 600; font-size: 14px; margin-bottom: 10px; }
-        .product-image-placeholder {
-            width: 100%; height: 280px; background: #f5f5f7; border-radius: 12px;
-            margin: 30px 0; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #aaa;
+        .product-img-box {
+            width: 100%; height: 320px; background: #f5f5f7; border-radius: 20px;
+            margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc;
         }
 
-        /* 공통 버튼 */
+        /* --- [BUY] 결제 페이지 --- */
+        .buy-container {
+            max-width: 1100px; margin: 60px auto; display: flex; flex-wrap: wrap; gap: 50px; padding: 0 24px;
+        }
+        .buy-info, .buy-form { flex: 1; min-width: 320px; }
+        .buy-form { background: #fbfbfd; padding: 40px; border-radius: 24px; border: 1px solid #e5e5e5; }
+
+        /* 버튼 */
         .cta-button {
             display: inline-block; background-color: var(--primary-color); color: white;
-            padding: 14px 28px; border-radius: 25px; text-decoration: none; font-weight: 600; cursor: pointer; transition: 0.2s;
+            padding: 18px 40px; border-radius: 35px; text-decoration: none;
+            font-weight: 700; font-size: 18px; cursor: pointer; transition: 0.3s; text-align: center; border: none;
         }
-        .cta-button:hover { background-color: #0077ed; }
+        .cta-button:hover { background-color: #005bb7; transform: scale(1.02); }
 
         /* 푸터 */
-        .footer { background-color: var(--bg-light); padding: 80px 20px; color: var(--text-sub); font-size: 13px; }
-        .footer-content { max-width: 1100px; margin: 0 auto; }
-        .footer-logo { height: 20px; filter: grayscale(1); opacity: 0.5; margin-bottom: 20px; }
+        .footer { background-color: var(--bg-light); padding: 80px 24px; border-top: 1px solid #e5e5e5; }
+        .footer-content { max-width: 1100px; margin: 0 auto; color: var(--text-sub); font-size: 13px; }
+
+        /* ########## 모바일용 미디어 쿼리 (핵심) ########## */
+        @media (max-width: 768px) {
+            .nav-container { height: 70px; }
+            .logo-img { height: 40px; }
+            .logo-text { font-size: 20px; }
+            .nav-menu a { margin-left: 15px; font-size: 14px; }
+            
+            .hero { padding: 100px 20px; }
+            .team-container, .product-grid { margin: 40px auto; }
+            .ceo-card { padding: 40px 20px; }
+            .product-card { padding: 30px; }
+        }
     </style>
 </head>
 <body>
@@ -108,128 +146,170 @@
     <nav class="navbar">
         <div class="nav-container">
             <div onclick="showPage('home')" class="logo-area">
-                <img src="icon.png" alt="Logo" class="logo-img" onerror="this.style.display='none'">
+                <img src="icon.png" alt="Logo" class="logo-img" onerror="this.style.backgroundColor='#0071e3'; this.style.width='50px'; this.style.borderRadius='10px';">
                 <span class="logo-text">공마고의 도둑들</span>
             </div>
             <div class="nav-menu">
-                <a onclick="showPage('home')">비즈니스 소개</a>
-                <a onclick="showPage('product')">솔루션/제품</a>
-                <a onclick="showPage('contact')">대량구매 문의</a>
+                <a onclick="showPage('home')">홈</a>
+                <a onclick="showPage('team')">임원진</a>
+                <a onclick="showPage('product')">구매하기</a>
+                <a onclick="showPage('contact')">문의</a>
             </div>
         </div>
     </nav>
 
     <main id="home" class="page active">
         <header class="hero">
-            <h1>공용 공간의 매너,<br>기술로 완성합니다.</h1>
-            <p>기숙사와 사무실, 더 이상 서로 얼굴 붉히지 마세요.</p>
-            <a onclick="showPage('product')" class="cta-button">보안 솔루션 보기</a>
+            <div class="typing-container">
+                <span class="typing-text" id="typewriter"></span>
+            </div>
+            <p>공용 냉장고 무단 취식, 더 이상 감정에 호소하지 마세요.<br><b>공마고의 도둑들</b>의 정밀 보안 하드웨어가 완벽한 해답을 제시합니다.</p>
+            <a onclick="showPage('product')" class="cta-button">제품 라인업 확인</a>
         </header>
 
-        <section class="market-focus">
-            <div class="focus-card">
-                <h2>For Dormitory</h2>
-                <p>룸메이트와의 갈등을 원천 차단합니다. 내 간식과 소지품을 지키는 가장 스마트한 방법, 개인용 보안 센서가 답입니다.</p>
+        <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); max-width: 1100px; margin: 0 auto; padding: 80px 24px; gap: 30px;">
+            <div style="padding: 40px; border-radius: 24px; background: #fbfbfd; border: 1px solid #eee;">
+                <h3>Dormitory Edition</h3>
+                <p>기숙사생들의 스트레스 1위 냉장고 절도, 설치 즉시 분쟁을 해결합니다.</p>
             </div>
-            <div class="focus-card">
-                <h2>For Office</h2>
-                <p>사무실 탕비실의 '음료 실종 사건'을 해결합니다. 신뢰를 바탕으로 한 건강한 오피스 문화를 위한 최적의 감시 시스템.</p>
+            <div style="padding: 40px; border-radius: 24px; background: #fbfbfd; border: 1px solid #eee;">
+                <h3>Office Solution</h3>
+                <p>탕비실 냉장고 에티켓 관리, 기술로 건강하고 신뢰 있는 문화를 만듭니다.</p>
             </div>
         </section>
+    </main>
 
-        <section style="text-align: center; padding: 100px 20px; background-color: #000; color: #fff;">
-            <h2 style="font-size: 40px; margin-bottom: 20px;">"98%의 갈등 감소 효과"</h2>
-            <p style="opacity: 0.7; font-size: 20px;">공마고의 솔루션을 도입한 기숙사들의 실제 통계입니다.</p>
+    <main id="team" class="page">
+        <header class="section-header">
+            <h2 style="font-size: 42px;">Leadership</h2>
+            <p style="opacity: 0.8;">공용 공간의 신뢰를 혁신하는 핵심 팀입니다.</p>
+        </header>
+        <section class="team-container">
+            <div class="ceo-card">
+                <div class="profile-initial">윤</div>
+                <span style="color:var(--primary-color); font-weight:700;">CEO & Founder</span>
+                <h3 style="font-size: 32px; margin: 10px 0;">윤수원</h3>
+                <p style="color:var(--text-sub); max-width: 500px; margin: 0 auto;">"사소한 불신을 기술로 해결하여, 모든 공용 공간에 평화가 깃들게 하겠습니다."</p>
+            </div>
+            <div class="executive-grid">
+                <div class="member-card">
+                    <div class="member-initial">배</div>
+                    <div class="member-name">배충만</div>
+                    <div class="member-role" style="color:var(--primary-color); font-weight:600; font-size:14px;">CTO & CPO</div>
+                    <p style="font-size: 14px; color: var(--text-sub); margin-top: 15px;">HW/SW 설계 총괄</p>
+                </div>
+                <div class="member-card">
+                    <div class="member-initial">이</div>
+                    <div class="member-name">이시환</div>
+                    <div class="member-role" style="color:var(--primary-color); font-weight:600; font-size:14px;">CIO & DevOps</div>
+                    <p style="font-size: 14px; color: var(--text-sub); margin-top: 15px;">클라우드 개발 총괄</p>
+                </div>
+                <div class="member-card">
+                    <div class="member-initial">이</div>
+                    <div class="member-name">이지후</div>
+                    <div class="member-role" style="color:var(--primary-color); font-weight:600; font-size:14px;">CFO & CMO</div>
+                    <p style="font-size: 14px; color: var(--text-sub); margin-top: 15px;">전략 및 마케팅 총괄</p>
+                </div>
+            </div>
         </section>
     </main>
 
     <main id="product" class="page">
-        <header class="product-hero">
-            <h2>Product Lineup</h2>
-            <p>공동생활 공간에 최적화된 저소음·초소형 보안 디바이스</p>
+        <header class="section-header">
+            <h2>Product Solutions</h2>
+            <p>공용 냉장고 환경에 특화된 고성능 보안 제품</p>
         </header>
-
         <section class="product-grid">
             <div class="product-card">
-                <span class="tag">기숙사 개인용</span>
-                <h3>Dorm-Guard Cam</h3>
-                <p>책상 위, 냉장고 속 어디든 설치 가능한 초소형 모듈. 룸메이트 몰래 조용히 알림을 보냅니다.</p>
-                <div class="product-image-placeholder">
-                    [ Dorm-Guard Cam 이미지 ]
-                </div>
-                <a href="#" class="cta-button" style="text-align: center;">상세보기</a>
+                <h4 style="color:var(--primary-color); margin-bottom: 5px;">Personal</h4>
+                <h3 style="font-size: 28px; margin-top: 0;">Fridge-Eye Mini</h3>
+                <p>냉장고 선반에 자석으로 부착하는 초소형 4K 카메라 모듈입니다.</p>
+                <div class="product-img-box">[ 제품 이미지 ]</div>
+                <button onclick="showPage('buy')" class="cta-button">제품 구매하기</button>
             </div>
-            <div class="product-card">
-                <span class="tag">오피스 공용</span>
-                <h3>Office-Pantry 360</h3>
-                <p>사무실 탕비실 전용 고해상도 캠. 동작 감지 및 안면 인식 기술로 '누가' 열었는지 기록합니다.</p>
-                <div class="product-image-placeholder">
-                    [ Office-Pantry 360 이미지 ]
-                </div>
-                <a href="#" class="cta-button" style="text-align: center; background-color: #1d1d1f;">상세보기</a>
+            <div class="product-card" style="background-color: #fafafa; border-style: dashed;">
+                <h4 style="color:var(--text-sub); margin-bottom: 5px;">Enterprise</h4>
+                <h3 style="font-size: 28px; margin-top: 0; color: #86868b;">Smart Door-Lock</h3>
+                <p style="color: #a1a1a6;">사원증 인식 시스템 연동을 테스트 중입니다.</p>
+                <div class="product-img-box" style="opacity: 0.5;">[ 개발 중 ]</div>
+                <button class="cta-button" style="background-color: #ccc; cursor: default;">준비 중</button>
             </div>
         </section>
+    </main>
 
-        <section style="max-width: 1100px; margin: 100px auto; padding: 0 20px;">
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center;">
-                <div>
-                    <h4 style="font-size: 20px;">무음 감지</h4>
-                    <p style="color: var(--text-sub);">셔터음이나 작동 불빛 없이 은밀하게 증거를 수집합니다.</p>
-                </div>
-                <div>
-                    <h4 style="font-size: 20px;">스마트 알림</h4>
-                    <p style="color: var(--text-sub);">사전 등록된 본인 외의 움직임에만 즉각 푸시 알림을 발송합니다.</p>
-                </div>
-                <div>
-                    <h4 style="font-size: 20px;">강력한 법적 증거</h4>
-                    <p style="color: var(--text-sub);">타임스탬프와 위변조 방지 기술로 확실한 증거력을 확보합니다.</p>
+    <main id="buy" class="page">
+        <div class="buy-container">
+            <div class="buy-info">
+                <h2>주문서 작성</h2>
+                <div style="background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #eee; margin-top: 20px;">
+                    <p style="font-weight:700;">Fridge-Eye Mini (Personal)</p>
+                    <p style="font-size: 24px; font-weight: 800; color: var(--primary-color);">89,000원</p>
                 </div>
             </div>
-        </section>
+            <div class="buy-form">
+                <h3 style="margin-top:0;">배송 정보</h3>
+                <input type="text" placeholder="성함" style="width:100%; padding:14px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;">
+                <input type="text" placeholder="연락처" style="width:100%; padding:14px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;">
+                <input type="text" placeholder="배송지 주소" style="width:100%; padding:14px; margin-bottom:20px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;">
+                <button class="cta-button" style="width:100%;" onclick="alert('주문이 완료되었습니다!')">결제하기</button>
+            </div>
+        </div>
     </main>
 
     <main id="contact" class="page">
-        <div style="max-width: 600px; margin: 100px auto; padding: 0 20px; text-align: center;">
-            <h2 style="font-size: 40px; margin-bottom: 20px;">Partner with us</h2>
-            <p style="color: var(--text-sub); margin-bottom: 40px;">대학교 기숙사, 공유 오피스, 기업 관리를 위한 단체 구매 상담을 환영합니다.</p>
-            <div style="background: #f5f5f7; padding: 40px; border-radius: 20px; text-align: left;">
-                <p><b>이메일:</b> b2b@refrigeratorthieves.com</p>
-                <p><b>전화번호:</b> 070-1234-5678</p>
-                <p><b>운영시간:</b> 평일 10:00 ~ 18:00</p>
+        <div style="max-width: 900px; margin: 80px auto; padding: 60px 24px; text-align: center; border-radius: 40px; background-color: #f5f5f7;">
+            <h2 style="font-size: 38px;">Partnership</h2>
+            <p style="font-size: 18px; margin-bottom: 40px; color: var(--text-sub);">"서로 믿을 수 있는 공용 공간의 문화를 설계합니다."</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+                <div style="background: #fff; padding: 30px; border-radius: 20px; flex: 1; min-width: 280px; border: 1px solid #eee;">
+                    <p style="font-weight: bold; color: var(--primary-color);">이메일 문의</p>
+                    <p style="font-size: 18px; font-weight: 600;">sales@gjmst-thives.com</p>
+                </div>
+                <div style="background: #fff; padding: 30px; border-radius: 20px; flex: 1; min-width: 280px; border: 1px solid #eee;">
+                    <p style="font-weight: bold; color: var(--primary-color);">고객 센터</p>
+                    <p style="font-size: 18px; font-weight: 600;">201-704-04</p>
+                </div>
             </div>
         </div>
     </main>
 
     <footer class="footer">
         <div class="footer-content">
-            <img src="icon.png" alt="Footer Logo" class="footer-logo" onerror="this.style.display='none'">
-            <div style="display: flex; gap: 40px; margin-bottom: 30px;">
-                <div>
-                    <p><b>(주)공마고의 도둑들</b></p>
-                    <p>사업자등록번호: 123-45-67890</p>
-                    <p>서울특별시 강남구 테헤란로 123</p>
-                </div>
-                <div>
-                    <p><b>고객센터</b></p>
-                    <p>1588-0000</p>
-                    <p>help@refrigeratorthieves.com</p>
-                </div>
-            </div>
-            <p>Copyright © 2025 The Refrigerator Thieves. All rights reserved.</p>
+            <p><b>(주)공마고의 도둑들</b> | 대표이사: 윤수원</p>
+            <p>충청남도 공주시 유구읍 중앙1길 27-12 | contact@gjmst-thives.com</p>
+            <p style="margin-top: 20px;">Copyright © 2025 The Gjmst Thieves. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
         function showPage(pageId) {
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-
-            const targetPage = document.getElementById(pageId);
-            if (targetPage) {
-                targetPage.classList.add('active');
-                window.scrollTo(0, 0);
-            }
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
         }
+
+        const textElement = document.getElementById('typewriter');
+        const sentences = ["기숙사 냉장고의 평화,", "오피스 냉장고의 신뢰,", "기술로 완성합니다."];
+        let sentenceIdx = 0; let charIdx = 0; let isDeleting = false;
+
+        function type() {
+            const currentSentence = sentences[sentenceIdx];
+            if (isDeleting) {
+                textElement.innerText = currentSentence.substring(0, charIdx - 1);
+                charIdx--;
+            } else {
+                textElement.innerText = currentSentence.substring(0, charIdx + 1);
+                charIdx++;
+            }
+            let typeSpeed = isDeleting ? 40 : 120;
+            if (!isDeleting && charIdx === currentSentence.length) {
+                typeSpeed = 2000; isDeleting = true;
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false; sentenceIdx = (sentenceIdx + 1) % sentences.length; typeSpeed = 500;
+            }
+            setTimeout(type, typeSpeed);
+        }
+        window.onload = type;
     </script>
 </body>
 </html>
