@@ -94,7 +94,7 @@
             font-size: 40px; font-weight: 700; color: #86868b;
         }
 
-        /* --- [PRODUCT] (버튼 높이 정렬 핵심) --- */
+        /* --- [PRODUCT] --- */
         .product-grid {
             max-width: 1100px; margin: 80px auto;
             display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; padding: 0 24px;
@@ -102,22 +102,33 @@
         .product-card {
             background: #fff; border-radius: 30px; padding: 50px;
             border: 1px solid #efefef; transition: 0.3s;
-            display: flex; flex-direction: column; /* 세로 방향 레이아웃 */
-            justify-content: space-between; /* 상단 내용과 하단 버튼을 끝으로 밀어냄 */
+            display: flex; flex-direction: column; justify-content: space-between;
         }
         .product-img-box {
             width: 100%; height: 250px; background: #f5f5f7; border-radius: 20px;
             margin: 20px 0; display: flex; align-items: center; justify-content: center; color: #ccc;
         }
 
-        /* --- [BUY] --- */
-        .buy-container {
-            max-width: 1100px; margin: 60px auto; display: flex; flex-wrap: wrap; gap: 50px; padding: 0 24px;
+        /* --- [BUY & PAYMENT] --- */
+        .buy-container { max-width: 1100px; margin: 60px auto; display: flex; flex-wrap: wrap; gap: 50px; padding: 0 24px; }
+        .buy-form-box { background: #fbfbfd; padding: 40px; border-radius: 24px; border: 1px solid #e5e5e5; flex: 1; min-width: 320px; }
+        .form-input { width: 100%; padding: 14px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+        
+        .pay-method-btn {
+            width: 100%; padding: 18px; border-radius: 12px; border: 1px solid #d2d2d7;
+            background: #fff; font-size: 16px; cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center; margin-bottom: 12px;
         }
-        .buy-info, .buy-form-box { flex: 1; min-width: 320px; }
-        .buy-form-box { background: #fbfbfd; padding: 40px; border-radius: 24px; border: 1px solid #e5e5e5; }
+        .pay-method-btn:hover { background: #f5f5f7; transform: translateY(-2px); }
 
-        /* 공통 버튼 및 입력창 */
+        /* --- [RECEIPT] --- */
+        .receipt-card {
+            max-width: 500px; margin: 60px auto; background: #fff; padding: 40px;
+            border-radius: 20px; border: 1px solid #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .receipt-item { display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px dashed #eee; padding-bottom: 5px; }
+
+        /* 공통 버튼 */
         .cta-button {
             display: inline-block; background-color: var(--primary-color); color: white;
             padding: 16px 30px; border-radius: 35px; text-decoration: none;
@@ -125,26 +136,18 @@
             width: 100%; box-sizing: border-box;
         }
         .cta-button:hover { background-color: #005bb7; transform: scale(1.02); }
-        
-        .form-input {
-            width: 100%; padding: 14px; margin-bottom: 12px; border: 1px solid #ddd; 
-            border-radius: 8px; box-sizing: border-box; font-size: 16px;
-        }
 
         /* 푸터 */
         .footer { background-color: var(--bg-light); padding: 60px 24px; border-top: 1px solid #e5e5e5; }
         .footer-content { max-width: 1100px; margin: 0 auto; color: var(--text-sub); font-size: 13px; }
 
-        /* 모바일용 미디어 쿼리 */
+        /* 모바일 대응 */
         @media (max-width: 768px) {
             .nav-container { height: 60px; padding: 0 10px; }
             .logo-img { height: 28px; margin-right: 5px; }
-            .logo-text { font-size: 15px; letter-spacing: -0.5px; }
-            .nav-menu a { margin-left: 8px; font-size: 11.5px; letter-spacing: -0.5px; }
-            
+            .logo-text { font-size: 15px; }
+            .nav-menu a { margin-left: 8px; font-size: 11.5px; }
             .hero { padding: 100px 20px; }
-            .ceo-card { padding: 40px 20px; }
-            .product-card { padding: 30px; }
         }
     </style>
 </head>
@@ -159,7 +162,7 @@
             <div class="nav-menu">
                 <a onclick="showPage('home')">홈</a>
                 <a onclick="showPage('team')">임원진</a>
-                <a onclick="showPage('product')">구매하기</a>
+                <a onclick="showPage('product')">제품 구매</a>
                 <a onclick="showPage('contact')">문의</a>
             </div>
         </div>
@@ -167,148 +170,150 @@
 
     <main id="home" class="page active">
         <header class="hero">
-            <div class="typing-container">
-                <span class="typing-text" id="typewriter"></span>
-            </div>
+            <div class="typing-container"><span class="typing-text" id="typewriter"></span></div>
             <p>공용 냉장고 무단 취식, 더 이상 감정에 호소하지 마세요.<br><b>공마고의 도둑들</b>의 하드웨어가 완벽한 해답을 제시합니다.</p>
             <a onclick="showPage('product')" class="cta-button" style="width:auto;">제품 라인업 확인</a>
         </header>
     </main>
 
     <main id="team" class="page">
-        <header class="section-header">
-            <h2 style="font-size: 42px;">Leadership</h2>
-            <p style="opacity: 0.8;">공용 공간의 신뢰를 혁신하는 핵심 팀입니다.</p>
-        </header>
+        <header class="section-header"><h2>Leadership</h2></header>
         <section class="team-container">
             <div class="ceo-card">
                 <div class="profile-initial">윤</div>
-                <span style="color:var(--primary-color); font-weight:700;">CEO & Founder</span>
-                <h3 style="font-size: 32px; margin: 10px 0;">윤수원</h3>
-                <p style="color:var(--text-sub); max-width: 500px; margin: 0 auto;">"사소한 불신을 기술로 해결하여, 모든 공용 공간에 평화가 깃들게 하겠습니다."</p>
+                <h3 style="font-size: 32px; margin: 10px 0;">윤수원 / CEO</h3>
+                <p>"기술로 공용 공간의 평화를 지키겠습니다."</p>
             </div>
             <div class="executive-grid">
-                <div class="member-card">
-                    <div class="member-initial">배</div>
-                    <div class="member-name">배충만 / CTO</div>
-                </div>
-                <div class="member-card">
-                    <div class="member-initial">이</div>
-                    <div class="member-name">이시환 / CIO</div>
-                </div>
-                <div class="member-card">
-                    <div class="member-initial">이</div>
-                    <div class="member-name">이지후 / CFO</div>
-                </div>
+                <div class="member-card"><div class="member-initial">배</div><div class="member-name">배충만 / CTO</div></div>
+                <div class="member-card"><div class="member-initial">이</div><div class="member-name">이시환 / CIO</div></div>
+                <div class="member-card"><div class="member-initial">이</div><div class="member-name">이지후 / CFO</div></div>
             </div>
         </section>
     </main>
 
     <main id="product" class="page">
-        <header class="section-header">
-            <h2>Product Solutions</h2>
-            <p>공용 냉장고 환경에 특화된 고성능 보안 제품</p>
-        </header>
+        <header class="section-header"><h2>Product</h2></header>
         <section class="product-grid">
             <div class="product-card">
                 <div>
-                    <h4 style="color:var(--primary-color); margin-bottom: 5px;">Personal</h4>
-                    <h3 style="font-size: 28px; margin-top: 0;">Fridge-Eye Mini</h3>
-                    <p style="color:var(--text-sub);">냉장고 선반에 자석으로 부착하는 초소형 4K 카메라 모듈입니다.</p>
-                    <div class="product-img-box">[ 제품 이미지 ]</div>
+                    <h3>Fridge-Eye Mini</h3>
+                    <p style="color:var(--text-sub);">냉장고용 초소형 4K 카메라 모듈</p>
+                    <div class="product-img-box">[ Fridge-Eye Mini ]</div>
                 </div>
-                <button onclick="showPage('buy')" class="cta-button">제품 구매하기</button>
+                <button onclick="showPage('buy')" class="cta-button">제품 구매하기 (89,000원)</button>
             </div>
-            <div class="product-card" style="background-color: #fafafa; border-style: dashed;">
-                <div>
-                    <h4 style="color:var(--text-sub); margin-bottom: 5px;">Enterprise</h4>
-                    <h3 style="font-size: 28px; margin-top: 0; color: #86868b;">Smart Door-Lock</h3>
-                    <p style="color: #a1a1a6;">사원증 인식 시스템 연동을 테스트 중인 기업 전용 잠금장치입니다.</p>
-                    <div class="product-img-box" style="opacity: 0.5;">[ 개발 중 ]</div>
-                </div>
-                <button class="cta-button" style="background-color: #ccc; cursor: default;" disabled>출시 준비 중</button>
+            <div class="product-card" style="background-color:#fafafa; border-style:dashed; opacity:0.6;">
+                <div><h3>Smart Door-Lock</h3><p>기업용 잠금 솔루션</p><div class="product-img-box">[ 개발 중 ]</div></div>
+                <button class="cta-button" style="background:#ccc;" disabled>출시 준비 중</button>
             </div>
         </section>
     </main>
 
     <main id="buy" class="page">
         <div class="buy-container">
-            <div class="buy-info">
-                <h2>주문서 작성</h2>
-                <div style="background: #fff; padding: 25px; border-radius: 12px; border: 1px solid #eee; margin-top: 20px;">
-                    <p style="font-weight:700; margin-bottom: 5px;">Fridge-Eye Mini (Personal)</p>
-                    <p style="font-size: 24px; font-weight: 800; color: var(--primary-color); margin: 0;">89,000원</p>
-                </div>
-                <p style="margin-top: 20px; font-size: 14px; color: var(--text-sub);">* 현재 사전 예약 주문으로 진행되며 배송은 약 2주 소요됩니다.</p>
-            </div>
             <div class="buy-form-box">
-                <h3 style="margin-top:0; margin-bottom: 20px;">배송지 정보</h3>
-                <form onsubmit="handlePayment(event)">
-                    <input type="text" placeholder="받으시는 분 성함" class="form-input" required>
+                <h2 style="margin-top:0;">배송지 정보 입력</h2>
+                <form onsubmit="handleOrderSubmit(event)">
+                    <input type="text" id="order_name" placeholder="받으시는 분 성함" class="form-input" required>
                     <input type="tel" placeholder="연락처 (- 없이 입력)" class="form-input" required>
-                    <input type="text" placeholder="배송지 주소" class="form-input" required>
-                    <textarea placeholder="배송 요청사항 (선택)" class="form-input" style="height: 100px; resize: none;"></textarea>
-                    <button type="submit" class="cta-button">결제 및 주문 완료</button>
+                    <input type="text" id="order_addr" placeholder="배송지 주소" class="form-input" required>
+                    <button type="submit" class="cta-button">결제 수단 선택하기</button>
                 </form>
             </div>
         </div>
     </main>
 
-    <main id="contact" class="page">
-        <div style="max-width: 900px; margin: 80px auto; padding: 60px 24px; text-align: center; border-radius: 40px; background-color: #f5f5f7;">
-            <h2 style="font-size: 38px;">Partnership</h2>
-            <p style="font-size: 18px; margin-bottom: 40px; color: var(--text-sub);">"서로 믿을 수 있는 공용 공간의 문화를 설계합니다."</p>
-            <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-                <div style="background: #white; padding: 30px; border-radius: 20px; flex: 1; min-width: 250px; background: white; border: 1px solid #eee;">
-                    <p style="font-weight: bold; color: var(--primary-color);">이메일 문의</p>
-                    <p style="font-size: 18px; font-weight: 600;">sales@gjmst-thives.com</p>
+    <main id="payment_select" class="page">
+        <div style="max-width: 500px; margin: 60px auto; padding: 0 20px; text-align: center;">
+            <h2>결제 수단 선택</h2>
+            <button class="pay-method-btn" onclick="processPayment('네이버페이')"><b>N Pay</b> 네이버페이</button>
+            <button class="pay-method-btn" onclick="processPayment('카카오페이')" style="background:#fee500;"><b>kakao</b> pay</button>
+            <button class="pay-method-btn" onclick="processPayment('토스페이')" style="color:#0064ff;"><b>toss</b> pay</button>
+            <button class="pay-method-btn" onclick="processPayment('신용카드')">💳 일반 신용카드</button>
+            <button class="pay-method-btn" onclick="processPayment('무통장입금')">🏦 무통장 입금</button>
+        </div>
+    </main>
+
+    <main id="receipt" class="page">
+        <div class="receipt-card">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h2 style="margin:0; color:var(--primary-color);">주문이 완료되었습니다!</h2>
+                <p style="color:var(--text-sub);">믿고 구매해주셔서 감사합니다.</p>
+            </div>
+            <div style="padding: 20px; background: #f9f9f9; border-radius: 10px;">
+                <div class="receipt-item"><span>주문 번호</span><b id="receipt_no">20251217-001</b></div>
+                <div class="receipt-item"><span>주문 일시</span><span id="receipt_date">2025-12-17</span></div>
+                <div class="receipt-item"><span>상품명</span><b>Fridge-Eye Mini</b></div>
+                <div class="receipt-item"><span>주문자</span><span id="receipt_name">윤수원</span></div>
+                <div class="receipt-item"><span>배송지</span><span id="receipt_addr">서울시...</span></div>
+                <div class="receipt-item" style="border:none; margin-top:20px; font-size:20px;">
+                    <span>최종 결제 금액</span><b style="color:var(--primary-color);">89,000원</b>
                 </div>
             </div>
+            <button onclick="showPage('home')" class="cta-button" style="margin-top:30px; background:#1d1d1f;">홈으로 돌아가기</button>
+        </div>
+    </main>
+
+    <main id="contact" class="page">
+        <div style="max-width: 800px; margin: 80px auto; text-align: center; background:#f5f5f7; padding:60px; border-radius:40px;">
+            <h2>Partnership</h2>
+            <p>"공용 공간의 문화를 기술로 바꿉니다."</p>
+            <p><b>이메일:</b> sales@gjmst-thives.com</p>
         </div>
     </main>
 
     <footer class="footer">
         <div class="footer-content">
             <p><b>(주)공마고의 도둑들</b> | 대표이사: 윤수원</p>
-            <p>© 2025 The Gjmst Thieves. All rights reserved.</p>
+            <p>충청남도 공주시 유구읍 중앙1길 27-12 | © 2025 The Gjmst Thieves.</p>
         </div>
     </footer>
 
     <script>
+        // 페이지 전환 함수
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             window.scrollTo(0, 0);
         }
 
-        // 결제 처리 로직
-        function handlePayment(event) {
-            event.preventDefault(); // 폼 제출로 인한 페이지 새로고침 방지
-            alert('주문이 정상적으로 접수되었습니다. 결제 페이지로 이동합니다.');
-            showPage('home'); // 주문 완료 후 홈으로 이동
+        // 주문서 제출 -> 결제수단 선택으로
+        let tempOrderData = {};
+        function handleOrderSubmit(e) {
+            e.preventDefault();
+            tempOrderData.name = document.getElementById('order_name').value;
+            tempOrderData.addr = document.getElementById('order_addr').value;
+            showPage('payment_select');
+        }
+
+        // 결제 처리 -> 영수증 발행
+        function processPayment(method) {
+            if(confirm(method + '(으)로 결제를 진행할까요?')) {
+                // 영수증 데이터 매핑
+                const now = new Date();
+                const orderNo = now.getTime().toString().substring(0, 10);
+                document.getElementById('receipt_no').innerText = "ORD-" + orderNo;
+                document.getElementById('receipt_date').innerText = now.toLocaleString();
+                document.getElementById('receipt_name').innerText = tempOrderData.name;
+                document.getElementById('receipt_addr').innerText = tempOrderData.addr;
+                
+                showPage('receipt');
+            }
         }
 
         // 타이핑 효과
         const textElement = document.getElementById('typewriter');
         const sentences = ["기숙사 냉장고의 평화,", "오피스 냉장고의 신뢰,", "기술로 완성합니다."];
-        let sentenceIdx = 0; let charIdx = 0; let isDeleting = false;
+        let sentenceIdx = 0, charIdx = 0, isDeleting = false;
 
         function type() {
             const currentSentence = sentences[sentenceIdx];
-            if (isDeleting) {
-                textElement.innerText = currentSentence.substring(0, charIdx - 1);
-                charIdx--;
-            } else {
-                textElement.innerText = currentSentence.substring(0, charIdx + 1);
-                charIdx++;
-            }
-            let typeSpeed = isDeleting ? 40 : 120;
-            if (!isDeleting && charIdx === currentSentence.length) {
-                typeSpeed = 2000; isDeleting = true;
-            } else if (isDeleting && charIdx === 0) {
-                isDeleting = false; sentenceIdx = (sentenceIdx + 1) % sentences.length; typeSpeed = 500;
-            }
-            setTimeout(type, typeSpeed);
+            textElement.innerText = isDeleting ? currentSentence.substring(0, charIdx--) : currentSentence.substring(0, charIdx++);
+            let speed = isDeleting ? 40 : 120;
+            if (!isDeleting && charIdx > currentSentence.length) { speed = 2000; isDeleting = true; }
+            else if (isDeleting && charIdx < 0) { isDeleting = false; sentenceIdx = (sentenceIdx + 1) % sentences.length; speed = 500; }
+            setTimeout(type, speed);
         }
         window.onload = type;
     </script>
