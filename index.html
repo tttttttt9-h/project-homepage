@@ -160,25 +160,29 @@
             margin: 0 auto;
         }
 
-        .partner-logo {
-            height: 35px; /* 로고 높이 통일 */
-            width: auto;
-            opacity: 0.4; /* 평소엔 흐리게 */
-            filter: grayscale(100%); /* 평소엔 흑백 */
-            transition: all 0.3s ease;
-            cursor: pointer;
+        .partner-logo.main-logo {
+            height: 60px; /* 다른 로고보다 1.7배 크게 */
+            opacity: 0.8; /* 평소에도 좀 더 진하게 */
+            margin-bottom: -5px; /* 크기 때문에 살짝 뜨는 것 보정 */
         }
 
         .partner-logo:hover {
-            opacity: 1; /* 마우스 올리면 선명하게 */
-            filter: grayscale(0%); /* 마우스 올리면 컬러 */
-            transform: scale(1.05); /* 살짝 커지는 효과 */
+            opacity: 1;
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+        
+        /* 메인 로고는 마우스 올렸을 때 더 크게 */
+        .partner-logo.main-logo:hover {
+            transform: scale(1.1);
         }
 
-        /* 모바일 대응 */
+        /* 모바일 대응 수정 */
         @media (max-width: 768px) {
             .logo-grid { gap: 30px 40px; }
             .partner-logo { height: 28px; }
+            /* 모바일에서 메인 로고 크기 */
+            .partner-logo.main-logo { height: 45px; } 
         }
     </style>
 </head>
@@ -349,7 +353,7 @@
 	<section class="partner-section">
         <p class="partner-title">Trusted by Innovative Companies</p>
         <div class="logo-grid">
-            <img src="images/gjmst.svg" alt="Gjmst" class="partner-logo">
+            <img src="images/gjmst.svg" alt="Gjmst" class="partner-logo main-logo">
 			<img src="images/aws.png" alt="Amazon" class="partner-logo">
             <img src="images/samsung.svg" alt="Samsung" class="partner-logo">
             <img src="images/toss.png" alt="Toss" class="partner-logo">
