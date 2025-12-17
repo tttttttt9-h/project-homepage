@@ -227,26 +227,27 @@
         </section>
     </main>
 
-    <main id="buy" class="page">
-        <div class="buy-container">
-            <div style="flex: 1; min-width: 320px;">
-                <h2>주문서 작성</h2>
-                <div style="background: #fff; padding: 25px; border-radius: 12px; border: 1px solid #eee; margin-top: 20px;">
-                    <p style="font-weight:700;">Fridge-Eye Mini (Personal)</p>
-                    <p style="font-size: 24px; font-weight: 800; color: var(--primary-color); margin: 0;">89,000원</p>
-                </div>
-            </div>
-            <div class="buy-form">
-                <h3 style="margin-top:0;">배송 정보</h3>
-                <form onsubmit="goToPayment(event)">
-                    <input type="text" id="buyer_name" placeholder="성함" style="width:100%; padding:14px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;" required>
-                    <input type="text" id="buyer_tel" placeholder="연락처" style="width:100%; padding:14px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;" required>
-                    <input type="text" id="buyer_addr" placeholder="배송지 주소" style="width:100%; padding:14px; margin-bottom:20px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;" required>
-                    <button type="submit" class="cta-button" style="width: 100%;">결제 수단 선택하기</button>
-                </form>
-            </div>
-        </div>
-    </main>
+	<main id="buy" class="page">
+		<div class="buy-container">
+			<div style="flex: 1; min-width: 320px;">
+				<h2>주문서 작성</h2>
+				<div style="background: #fff; padding: 25px; border-radius: 12px; border: 1px solid #eee; margin-top: 20px;">
+					<p style="font-weight:700;">Fridge-Eye Mini (Personal)</p>
+					<p style="font-size: 16px; color: var(--text-sub); margin: 0 0 5px 0; text-decoration: line-through;">149,900원</p>
+					<p style="font-size: 28px; font-weight: 800; color: var(--primary-color); margin: 0;">89,000원</p>
+					</div>
+			</div>
+			<div class="buy-form">
+				<h3 style="margin-top:0;">배송 정보</h3>
+				<form onsubmit="goToPayment(event)">
+					<input type="text" id="buyer_name" placeholder="성함" style="width:100%; padding:14px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;" required>
+					<input type="text" id="buyer_tel" placeholder="연락처" style="width:100%; padding:14px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;" required>
+					<input type="text" id="buyer_addr" placeholder="배송지 주소" style="width:100%; padding:14px; margin-bottom:20px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;" required>
+					<button type="submit" class="cta-button" style="width: 100%;">결제 수단 선택하기</button>
+				</form>
+			</div>
+		</div>
+	</main>
 
     <main id="payment" class="page">
         <div style="max-width: 500px; margin: 60px auto; padding: 0 20px; text-align: center;">
