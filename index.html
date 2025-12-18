@@ -13,19 +13,19 @@
             --bg-light: #f5f5f7; 
             --white: #ffffff;
             
-            /* [수정] 홈 히어로 배경 (그라데이션 제거, 단색) */
             --hero-bg: #ffffff;
             
             --header-bg: #ffffff; 
             --header-text: #1d1d1f;
             
-            --nav-bg: rgba(242, 242, 247, 0.9); /* GNB 진하게 유지 */
+            --nav-bg: rgba(242, 242, 247, 0.9);
             
             --card-bg: #fbfbfd; 
             --card-border: rgba(0, 0, 0, 0.08);
             
             --btn-bg: #1d1d1f;
             
+            /* [수정 3] 전환 속도 변수 */
             --theme-speed: 0.5s;
         }
 
@@ -49,24 +49,24 @@
             --btn-bg: #ffffff;
         }
 
-        /* [전환 효과] 배경색 등은 천천히 */
-        body, .navbar, .section-header, .poll-section, .poll-container, 
-        .info-section, .info-card, .app-section, .ceo-card, .member-card, 
-        .product-card, .buy-form, .receipt-card, .partner-section, .footer, .hero {
+        /* [수정 3] 색상 전환 효과 동기화: 거의 모든 요소에 동일한 transition 적용 */
+        body, nav, header, section, footer, div, p, h1, h2, h3, h4, span, a, button, img, input {
             transition: background-color var(--theme-speed) ease,
                         color var(--theme-speed) ease,
                         border-color var(--theme-speed) ease,
                         background var(--theme-speed) ease,
-                        box-shadow var(--theme-speed) ease;
+                        box-shadow var(--theme-speed) ease,
+                        filter var(--theme-speed) ease;
         }
 
-        /* [호버 효과] */
+        /* [예외] 호버 인터랙션은 빠르고 쫀득하게 별도 설정 (색상 전환과 겹치지 않게 transform 위주) */
         .live-view-btn, .cta-button, .partner-logo, .theme-toggle-btn, 
         .info-card, .member-card, .product-card:not(.disabled-card) {
+            /* 호버 시 움직임은 별도 속도 */
             transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
                         box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+                        /* 색상 변화는 위에서 정의한 theme-speed를 따르되, 호버시엔 덮어씀 */
                         background-color 0.3s ease,
-                        filter 0.3s ease,
                         opacity 0.3s ease;
         }
 
@@ -116,30 +116,20 @@
         .section-header h2 { font-size: 42px; font-weight: 700; margin: 0 0 15px 0; letter-spacing: -1px; }
         .section-header p { font-size: 18px; opacity: 0.8; margin: 0; }
 
-        /* [수정 1] 페이지 전환 애니메이션: 오브젝트만 올라오기 */
-        .page { 
-            display: none; 
-            padding-top: 90px; 
-        }
+        /* [수정 1 & 2] 페이지 전환 애니메이션: 부드럽게 20px만 올라옴 + 글씨 포함 모든 내부 요소 적용 */
+        .page { display: none; padding-top: 90px; }
         .page.active { display: block; }
 
-        /* 활성화된 페이지 내부의 주요 컨테이너들만 애니메이션 적용 */
-        .page.active .hero > *,
-        .page.active .poll-container,
-        .page.active .info-grid,
-        .page.active .app-container,
-        .page.active .ceo-card,
-        .page.active .executive-grid,
-        .page.active .product-grid,
-        .page.active .buy-container,
-        .page.active .receipt-card,
-        .page.active .contact-box {
-            animation: objectSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0; /* 애니메이션 시작 전 숨김 */
+        /* active 페이지 내부의 직계 자식 섹션들에게 애니메이션 적용 */
+        .page.active > header,
+        .page.active > section,
+        .page.active > div {
+            animation: softSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0; /* 시작 전 안보임 */
         }
 
-        @keyframes objectSlideUp { 
-            from { opacity: 0; transform: translateY(40px); } 
+        @keyframes softSlideUp { 
+            from { opacity: 0; transform: translateY(20px); } /* 40px -> 20px로 줄임 */
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -158,11 +148,11 @@
             .logo-grid { padding-left: 0 !important; gap: 20px 30px; }
         }
 
-        /* --- [HERO] 수정됨: 그라데이션 제거 --- */
+        /* --- [HERO] --- */
         .hero {
             padding: 160px 24px; text-align: center;
             position: relative; overflow: hidden;
-            background: var(--hero-bg); /* 단색 배경 */
+            background: var(--hero-bg);
         }
         
         .typing-container {
