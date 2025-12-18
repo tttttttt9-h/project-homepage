@@ -6,55 +6,63 @@
     <title>공마고의 도둑들</title>
     <style>
         :root {
-            /* [라이트 모드 기본값] */
+            /* [라이트 모드] 기본 파란색 유지 */
             --primary-color: #0071e3;
             --text-main: #1d1d1f;
             --text-sub: #86868b;
             --bg-light: #f5f5f7;
             --white: #ffffff;
-            
-            /* 헤더 배경: 라이트모드에선 짙은색 */
             --header-bg: #1d1d1f;
             --header-text: #fff;
-            
             --nav-bg: rgba(255, 255, 255, 0.8);
             --card-bg: #ffffff;
             --hero-grad-1: #ffffff;
             --hero-grad-2: #f2f7ff;
             --hero-grad-3: #e8f0ff;
             --btn-bg: #1d1d1f;
+            
+            /* 테마 전환 속도 (배경색 등) */
+            --theme-speed: 0.5s;
         }
 
-        /* [다크 모드 변수 재정의] */
+        /* [다크 모드] 파란톤 제외 -> 세련된 '바이올렛(보라)' 컬러 적용 */
         body.dark-mode {
-            /* 1. 색상 변경: 채도 높은 네온 블루로 변경하여 어두운 곳에서도 예쁘게 */
-            --primary-color: #2997ff; 
+            --primary-color: #bf5af2; /* 네온 바이올렛 */
             
             --text-main: #f5f5f7;
             --text-sub: #a1a1a6;
             --bg-light: #000000;
             --white: #1c1c1e;
-            
-            /* 3. 헤더 배경 수정: 허옇게 뜨지 않도록 투명하게 처리하거나 본문과 동일하게 */
             --header-bg: #1c1c1e; 
             --header-text: #ffffff;
-            
             --nav-bg: rgba(28, 28, 30, 0.8);
             --card-bg: #2c2c2e;
             --hero-grad-1: #1c1c1e;
-            --hero-grad-2: #242426;
+            --hero-grad-2: #242426; /* 약간의 보라빛이 도는 다크 그레이 */
             --hero-grad-3: #000000;
             --btn-bg: #ffffff;
         }
 
-        /* 2. 전환 효과 동기화: 모든 요소(*)에 트랜지션을 강제 적용하여 한 번에 변하게 함 */
-        * {
-            transition: background-color 0.3s ease, 
-                        color 0.3s ease, 
-                        border-color 0.3s ease, 
-                        background 0.3s ease,
-                        box-shadow 0.3s ease,
-                        filter 0.3s ease;
+        /* [전환 효과 최적화] */
+        /* 1. 테마 색상 변경은 천천히 부드럽게 (모든 요소 아님, 필요한 요소만) */
+        body, .navbar, .section-header, .poll-section, .poll-container, 
+        .info-section, .info-card, .app-section, .ceo-card, .member-card, 
+        .product-card, .buy-form, .receipt-card, .partner-section, .footer {
+            transition: background-color var(--theme-speed) ease,
+                        color var(--theme-speed) ease,
+                        border-color var(--theme-speed) ease,
+                        background var(--theme-speed) ease,
+                        box-shadow var(--theme-speed) ease;
+        }
+
+        /* 2. 상호작용(호버) 요소는 빠르고 쫀득하게 별도 설정 */
+        .live-view-btn, .cta-button, .partner-logo, .theme-toggle-btn, .info-card, .member-card {
+            /* transform 등 움직임은 별도의 속도 적용 */
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                        box-shadow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        background-color 0.3s ease,
+                        filter 0.3s ease,
+                        opacity 0.3s ease;
         }
 
         body {
@@ -65,12 +73,7 @@
             line-height: 1.6;
             word-break: keep-all;
             overflow-x: hidden;
-            
-            /* --- 드래그 방지 --- */
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-use-select: none;
-            user-select: none;
+            -webkit-user-select: none; -moz-user-select: none; -ms-use-select: none; user-select: none;
         }
 
         /* --- 네비게이션 --- */
@@ -98,19 +101,16 @@
             white-space: nowrap;
         }
 
-        /* --- 공통 섹션 헤더 스타일 --- */
+        /* --- 공통 섹션 헤더 --- */
         .section-header {
             padding: 100px 24px 60px;
             text-align: center;
             background-color: var(--header-bg);
             color: var(--header-text);
         }
-        .section-header h2 {
-            font-size: 42px; font-weight: 700; margin: 0 0 15px 0; letter-spacing: -1px;
-        }
+        .section-header h2 { font-size: 42px; font-weight: 700; margin: 0 0 15px 0; letter-spacing: -1px; }
         .section-header p { font-size: 18px; opacity: 0.8; margin: 0; }
 
-        /* 모바일 대응 */
         @media (max-width: 768px) {
             .nav-container { height: 60px; padding: 0 10px; }
             .logo-img { height: 28px; margin-right: 5px; }
@@ -130,7 +130,7 @@
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- [HOME HERO] --- */
+        /* --- [HERO] --- */
         .hero {
             padding: 160px 24px; text-align: center;
             position: relative; overflow: hidden;
@@ -141,6 +141,7 @@
             background: linear-gradient(120deg, var(--hero-grad-1), var(--hero-grad-2), var(--hero-grad-3), var(--hero-grad-1));
             background-size: 400% 400%;
             animation: heroGradient 18s ease infinite;
+            transition: background var(--theme-speed) ease;
         }
         .hero > * { position: relative; z-index: 1; }
         @keyframes heroGradient {
@@ -154,10 +155,8 @@
         @keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; } }
         .hero p { font-size: clamp(18px, 3vw, 24px); color: var(--text-sub); max-width: 800px; margin: 0 auto 50px; }
 
-        /* --- [STATISTICS / POLL SECTION] --- */
-        .poll-section {
-            padding: 100px 24px; background-color: var(--bg-light); text-align: center;
-        }
+        /* --- [POLL] --- */
+        .poll-section { padding: 100px 24px; background-color: var(--bg-light); text-align: center; }
         .poll-container {
             max-width: 700px; margin: 0 auto; background: var(--card-bg); padding: 50px 40px;
             border-radius: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); border: 1px solid rgba(128,128,128,0.1);
@@ -167,136 +166,114 @@
         .bar-bg { height: 24px; background: var(--bg-light); border-radius: 12px; margin: 20px 0; overflow: hidden; position: relative; }
         .bar-fill {
             height: 100%; background: var(--primary-color); border-radius: 12px; width: 0;
-            transition: width 2.5s cubic-bezier(0.22, 1, 0.36, 1);
+            transition: width 2.5s cubic-bezier(0.22, 1, 0.36, 1), background-color var(--theme-speed) ease;
         }
         .stat-number { font-size: 64px; font-weight: 800; color: var(--primary-color); display: block; line-height: 1; margin-bottom: 10px; }
 
-        /* --- [INFO CARDS SECTION] --- */
+        /* --- [INFO CARDS] --- */
         .info-section { background: var(--bg-light); padding-bottom: 80px; }
-        .info-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            max-width: 1100px; margin: 0 auto; gap: 30px;
-        }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); max-width: 1100px; margin: 0 auto; gap: 30px; }
         .info-card {
             padding: 50px 40px; border-radius: 30px; display: flex; flex-direction: column; justify-content: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid rgba(128,128,128,0.1); 
-            background: var(--card-bg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid rgba(128,128,128,0.1); background: var(--card-bg);
         }
         .info-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
         .card-dorm h3, .card-office h3 { color: var(--text-main) !important; }
         .card-dorm p, .card-office p { color: var(--text-main) !important; }
 
-        /* --- [APP PREVIEW SECTION] --- */
+        /* --- [APP PREVIEW] --- */
         .app-section { padding: 100px 24px; background: var(--bg-light); overflow: hidden; }
         .app-container { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 50px; }
         .app-text { flex: 1; text-align: left; }
         .app-image { flex: 1; display: flex; justify-content: center; }
-
         .phone-mockup {
             width: 280px; height: 560px; background: #000; border-radius: 40px; border: 12px solid #1d1d1f;
             position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2); overflow: hidden; background: #fff;
         }
-        .notch {
-            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 120px; height: 25px; background: #1d1d1f; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; z-index: 10;
-        }
+        .notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 25px; background: #1d1d1f; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; z-index: 10; }
         .phone-screen { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        
         #notification-list { width: 100%; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; }
         .notification-item { background: #f5f5f7; padding: 15px; border-radius: 12px; display: flex; align-items: center; animation: slideUp 0.5s ease-out forwards; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* [수정됨] 실시간 보기 버튼: 부드러운 확대 효과 */
         .live-view-btn {
             background: var(--primary-color); color: white; padding: 10px 20px; border-radius: 20px; display: inline-block; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .live-view-btn:hover { background-color: #005bb7; transform: scale(1.05) translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.2); }
+        .live-view-btn:hover {
+            filter: brightness(1.1); /* 약간 밝아짐 */
+            transform: scale(1.05) translateY(-2px); /* 부드럽게 확대 및 상승 */
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
 
         /* --- [TEAM] --- */
         .team-container { max-width: 1100px; margin: 80px auto; padding: 0 24px; }
-        .ceo-card { 
-            background: var(--card-bg); padding: 60px 24px; border-radius: 40px; text-align: center; border: 1px solid rgba(128,128,128,0.1); margin-bottom: 60px;
-        }
+        .ceo-card { background: var(--card-bg); padding: 60px 24px; border-radius: 40px; text-align: center; border: 1px solid rgba(128,128,128,0.1); margin-bottom: 60px; }
         .profile-initial { width: 160px; height: 160px; background: #e8e8ed; border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; font-size: 64px; font-weight: 800; color: #1d1d1f; }
         .executive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .member-card { 
-            background: var(--card-bg); border: 1px solid rgba(128,128,128,0.1); padding: 40px; border-radius: 30px; text-align: center; 
-        }
+        .member-card { background: var(--card-bg); border: 1px solid rgba(128,128,128,0.1); padding: 40px; border-radius: 30px; text-align: center; }
         .member-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
         .member-initial { width: 100px; height: 100px; background: var(--bg-light); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 700; color: var(--text-sub); }
 
         /* --- [PRODUCT] --- */
         .product-grid { max-width: 1100px; margin: 80px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; padding: 0 24px; }
-        .product-card { 
-            background: var(--card-bg); border-radius: 30px; padding: 50px; border: 1px solid rgba(128,128,128,0.1); display: flex; flex-direction: column; 
-        }
+        .product-card { background: var(--card-bg); border-radius: 30px; padding: 50px; border: 1px solid rgba(128,128,128,0.1); display: flex; flex-direction: column; }
         .product-img-box { width: 100%; height: 320px; background: var(--bg-light); border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
 
-        /* --- [BUY & PAYMENT] --- */
+        /* --- [BUY & RECEIPT] --- */
         .buy-container { max-width: 1100px; margin: 60px auto; display: flex; flex-wrap: wrap; gap: 50px; padding: 0 24px; }
         .buy-form { background: var(--bg-light); padding: 40px; border-radius: 24px; border: 1px solid rgba(128,128,128,0.1); flex: 1; min-width: 320px; }
         .pay-method-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
         .pay-btn { padding: 18px; border-radius: 12px; border: 1px solid #d2d2d7; background: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; color: #1d1d1f; }
         .pay-btn img { height: 20px; margin-right: 8px; }
         .pay-btn:hover { filter: brightness(0.85); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-
-        /* --- [RECEIPT] --- */
         .receipt-card { max-width: 500px; margin: 60px auto; background: var(--card-bg); padding: 40px; border-radius: 24px; border: 1px solid rgba(128,128,128,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .receipt-line { display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed #eee; padding-bottom: 4px; }
 
+        /* [수정됨] CTA 버튼도 부드러운 호버 */
         .cta-button { display: inline-block; background-color: var(--primary-color); color: white; padding: 18px 40px; border-radius: 35px; text-decoration: none; font-weight: 700; font-size: 18px; cursor: pointer; text-align: center; border: none; }
-        .cta-button:hover { background-color: #005bb7; transform: scale(1.02); }
+        .cta-button:hover { filter: brightness(1.1); transform: scale(1.03); }
 
         /* --- [PARTNER SECTION] --- */
-        .partner-section { 
-            padding: 80px 24px; background-color: var(--card-bg); text-align: center; border-top: 1px solid rgba(128,128,128,0.1);
-        }
-        .partner-title { 
-            font-size: 14px; font-weight: 600; color: var(--text-sub); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 40px; 
-        }
-        .logo-grid { 
-            display: flex; justify-content: center; align-items: center; flex-wrap: wrap; 
-            gap: 20px 20px; max-width: 1000px; margin: 0 auto; padding-left: 50px; 
-        }
+        .partner-section { padding: 80px 24px; background-color: var(--card-bg); text-align: center; border-top: 1px solid rgba(128,128,128,0.1); }
+        .partner-title { font-size: 14px; font-weight: 600; color: var(--text-sub); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 40px; }
+        .logo-grid { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px 20px; max-width: 1000px; margin: 0 auto; padding-left: 50px; }
         
         .partner-logo { 
             height: 30px; width: auto; opacity: 0.4; 
-            filter: grayscale(100%); /* 기본 흑백 */
-            transition: all 0.3s ease; cursor: pointer; 
-        }
-
-        /* 4. 다크모드 로고 호버: 원래 색 대신 '하얀색'으로 나오게 */
-        body.dark-mode .partner-logo:hover {
-            filter: brightness(0) invert(1); /* 완전 흰색 */
-            opacity: 1;
+            filter: grayscale(100%); 
+            cursor: pointer; 
         }
         
-        /* 라이트모드 호버: 원래 색상 */
+        /* [수정됨] 로고 호버 효과 */
+        /* 라이트모드: 원래 색상 복구 */
         body:not(.dark-mode) .partner-logo:hover {
             filter: grayscale(0%);
             opacity: 1;
+            transform: scale(1.1); /* 부드러운 확대 */
+        }
+        /* 다크모드: 흰색으로 빛나게 (가독성 UP) */
+        body.dark-mode .partner-logo:hover {
+            filter: brightness(0) invert(1); /* 완전 흰색 */
+            opacity: 1;
+            transform: scale(1.1);
         }
 
-        .partner-logo.main-logo { height: 50px; opacity: 0.8; } 
-
-        /* 5. Nvidia 로고 위치 조정 (간격 줄여서 중앙으로) */
-        /* Nvidia 로고는 3번째 이미지입니다. 우측 마진을 줄여서 Toss를 끌어당깁니다 */
-        .logo-grid img:nth-child(3) {
-            margin-right: -10px; 
-        }
+        .partner-logo.main-logo { height: 50px; opacity: 0.8; }
+        /* Nvidia 로고(3번째) 위치 미세 조정 */
+        .logo-grid img:nth-child(3) { margin-right: -10px; }
 
         /* --- [FOOTER] --- */
         .footer { background-color: var(--bg-light); padding: 80px 24px; border-top: 1px solid rgba(128,128,128,0.1); }
         .footer-content { max-width: 1100px; margin: 0 auto; color: var(--text-sub); font-size: 13px; }
 
-        /* --- [드래그 방지 예외] --- */
         .allow-select, .allow-select * { -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important; }
 
-        /* --- [NEW] 다크모드 토글 버튼 --- */
+        /* --- [THEME TOGGLE BTN] --- */
         .theme-toggle-btn {
             position: fixed; bottom: 30px; right: 30px;
-            width: 50px; height: 50px;
-            border-radius: 50%;
-            background-color: var(--btn-bg); /* 변수 사용 */
+            width: 50px; height: 50px; border-radius: 50%;
+            background-color: var(--btn-bg);
             border: 1px solid rgba(128,128,128,0.2);
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             cursor: pointer; z-index: 9999;
@@ -306,11 +283,11 @@
         
         .theme-toggle-btn img { 
             width: 24px; height: 24px; 
-            filter: invert(1); 
+            transition: all var(--theme-speed);
+            filter: invert(1); /* 기본(라이트)에서 아이콘 흰색 */
         }
-
         body.dark-mode .theme-toggle-btn img {
-            filter: invert(0);
+            filter: invert(0); /* 다크에서 아이콘 검정 */
         }
     </style>
 </head>
@@ -657,7 +634,7 @@
             list.appendChild(item);
         }
 
-        // --- [다크 모드 & 토글 버튼 로직 수정됨] ---
+        // --- [다크 모드 & 토글 버튼 로직] ---
         const themeBtn = document.getElementById('themeToggle');
         const body = document.body;
 
