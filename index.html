@@ -96,9 +96,25 @@
 
         /* --- [HOME HERO] --- */
         .hero {
-            padding: 160px 24px; text-align: center;
-            background: radial-gradient(circle at center, #ffffff 0%, #f2f2f2 100%);
-        }
+    padding: 160px 24px;
+    text-align: center;
+
+    /* 기본 화이트 계열 그라데이션 */
+    background: linear-gradient(
+        120deg,
+        #ffffff 0%,
+        #f4f6ff 30%,
+        #eaf1ff 50%,
+        #f5f5f7 70%,
+        #ffffff 100%
+    );
+
+    /* 그라데이션을 크게 만들어 이동 여유 확보 */
+    background-size: 300% 300%;
+
+    /* 진한 영역이 흐르듯 이동 */
+    animation: heroGradientMove 18s ease-in-out infinite;
+}
         .typing-container {
             font-size: clamp(36px, 6vw, 68px); 
             font-weight: 800; margin-bottom: 24px;
