@@ -39,28 +39,14 @@
             height: 90px; padding: 0 15px;
         }
 
-        .logo-area { display: flex; align-items: center; text-decoration: none; color: var(--text-main); cursor: pointer; flex-shrink: 0; }
-        .logo-img { height: 50px; margin-right: 10px; transition: all 0.3s; }
-        .logo-text { font-weight: 800; font-size: 24px; letter-spacing: -1px; transition: all 0.3s; }
+        .logo-area { display: flex; align-items: center; text-decoration: none; color: var(--text-main); cursor: pointer; }
+        .logo-img { height: 50px; margin-right: 10px; }
+        .logo-text { font-weight: 800; font-size: 24px; letter-spacing: -1px; }
 
-        .nav-menu { display: flex; align-items: center; }
         .nav-menu a {
             font-size: 15px; color: var(--text-main); text-decoration: none;
             margin-left: 20px; opacity: 0.8; transition: 0.2s; cursor: pointer; font-weight: 600;
-            white-space: nowrap;
         }
-
-        /* --- 공통 섹션 헤더 스타일 --- */
-        .section-header {
-            padding: 100px 24px 60px;
-            text-align: center;
-            background-color: var(--header-bg);
-            color: var(--header-text);
-        }
-        .section-header h2 {
-            font-size: 42px; font-weight: 700; margin: 0 0 15px 0; letter-spacing: -1px;
-        }
-        .section-header p { font-size: 18px; opacity: 0.8; margin: 0; }
 
         /* --- [HOME HERO] --- */
         .hero {
@@ -76,9 +62,12 @@
         @keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; } }
         .hero p { font-size: clamp(18px, 3vw, 24px); color: var(--text-sub); max-width: 800px; margin: 0 auto 50px; }
 
-        /* --- [APP MOCKUP & ANIMATION] --- */
-        .app-section { padding: 100px 24px; background: #f5f5f7; overflow: hidden; }
+        /* --- [APP SECTION 디자인 복원] --- */
+        .app-section { padding: 100px 24px; background: #f5f5f7; }
         .app-container { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 50px; }
+        .app-text { flex: 1; }
+        .app-image { flex: 1; display: flex; justify-content: center; }
+
         .phone-mockup {
             width: 280px; height: 560px; background: #000; border-radius: 40px; border: 12px solid #1d1d1f;
             position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2); overflow: hidden; background: #fff;
@@ -87,47 +76,46 @@
             position: absolute; top: 0; left: 50%; transform: translateX(-50%);
             width: 120px; height: 25px; background: #1d1d1f; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; z-index: 10;
         }
-        .phone-screen { width: 100%; height: 100%; padding-top: 40px; display: flex; flex-direction: column; }
         
+        /* 알림 리스트 스타일 */
+        .phone-screen { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         #notification-list {
-            padding: 10px 15px;
-            display: flex;
-            flex-direction: column-reverse; /* 최신 알림이 위로 */
-            gap: 10px;
+            width: 100%; padding: 20px; box-sizing: border-box;
+            display: flex; flex-direction: column; gap: 10px;
         }
 
         .notification-item {
-            background: #f5f5f7; padding: 12px; border-radius: 12px;
+            background: #f5f5f7; padding: 15px; border-radius: 12px;
             display: flex; align-items: center;
-            animation: slideIn 0.5s ease-out forwards;
+            transition: all 0.5s ease-in-out;
+            animation: slideUp 0.5s ease-out forwards;
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-20px); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- [PARTNER SECTION] --- */
+        .fade-out {
+            opacity: 0; transform: translateY(-20px);
+        }
+
+        /* --- [PARTNER SECTION 보정] --- */
         .partner-section { padding: 80px 24px; background-color: #ffffff; text-align: center; border-top: 1px solid #f5f5f7; }
         .logo-grid { 
             display: flex; justify-content: center; align-items: center; flex-wrap: wrap; 
             gap: 20px 40px; max-width: 1000px; margin: 0 auto; 
-            padding-left: 50px; /* 시각적 보정을 위해 오른쪽으로 이동 */
+            padding-left: 50px; /* 오른쪽으로 살짝 이동 */
         }
-        .partner-logo { height: 30px; opacity: 0.4; filter: grayscale(100%); transition: 0.3s; }
-        .partner-logo.main-logo { height: 50px; opacity: 0.8; }
+        .partner-logo { height: 30px; opacity: 0.4; filter: grayscale(100%); }
 
-        /* --- 공통 스타일 생략 방지 --- */
-        .page { display: none; padding-top: 90px; animation: fadeIn 0.4s ease-out; }
+        .page { display: none; padding-top: 90px; }
         .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .cta-button { display: inline-block; background-color: var(--primary-color); color: white; padding: 18px 40px; border-radius: 35px; text-decoration: none; font-weight: 700; cursor: pointer; transition: 0.3s; border: none; }
-        
-        /* 모바일 대응 */
+        .cta-button { display: inline-block; background-color: var(--primary-color); color: white; padding: 18px 40px; border-radius: 35px; text-decoration: none; font-weight: 700; cursor: pointer; }
+
         @media (max-width: 768px) {
-            .nav-container { height: 60px; }
             .app-container { flex-direction: column; text-align: center; }
-            .logo-grid { padding-left: 0; gap: 20px; }
+            .logo-grid { padding-left: 0; }
         }
     </style>
 </head>
@@ -157,13 +145,12 @@
             <div class="app-container">
                 <div class="app-text">
                     <h2 style="font-size: 42px;">범인은 이 안에.<br>손안에서 확인하세요.</h2>
-                    <p style="color: var(--text-sub); font-size: 18px;">20초마다 새로운 기록이 업데이트됩니다.</p>
+                    <p style="color: var(--text-sub); font-size: 18px;">전용 앱을 통해 실시간 푸시 알림과<br>녹화된 증거 영상을 즉시 확인할 수 있습니다.</p>
                 </div>
                 <div class="app-image">
                     <div class="phone-mockup">
                         <div class="notch"></div>
                         <div class="phone-screen">
-                            <div style="padding: 0 20px 10px; font-weight:bold; border-bottom:1px solid #eee;">최근 감지 기록</div>
                             <div id="notification-list">
                                 </div>
                         </div>
@@ -174,7 +161,7 @@
     </main>
 
     <section class="partner-section">
-        <p class="partner-title">Trusted by Innovative Companies</p>
+        <p style="font-size:14px; color:#86868b; margin-bottom:30px;">PARTNERS</p>
         <div class="logo-grid">
             <div style="font-weight: 900; font-size: 24px; opacity: 0.6;">GJMST</div>
             <div style="font-weight: 900; font-size: 20px; opacity: 0.4;">AWS</div>
@@ -184,7 +171,6 @@
     </section>
 
     <script>
-        // 페이지 전환
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
@@ -205,30 +191,43 @@
             setTimeout(type, speed);
         }
 
-        // 핸드폰 알림 추가 로직 (20초 간격)
-        function addNotification() {
+        // 알림 업데이트 로직 (아래에서 추가, 위로 밀어내기)
+        function updateNotifications() {
             const list = document.getElementById('notification-list');
             const now = new Date();
             const timeStr = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
             
+            // 1. 맨 위 알림 삭제 처리 (있을 경우)
+            if (list.children.length >= 3) {
+                const firstItem = list.firstElementChild;
+                firstItem.classList.add('fade-out'); // 위로 사라지는 효과
+                setTimeout(() => {
+                    if(firstItem.parentNode === list) list.removeChild(firstItem);
+                }, 500);
+            }
+
+            // 2. 새 알림 생성 (맨 아래에 추가)
             const item = document.createElement('div');
             item.className = 'notification-item';
             item.innerHTML = `
-                <div style="margin-right:10px;">📸</div>
+                <div style="margin-right:12px; font-size:20px;">🚨</div>
                 <div>
-                    <div style="font-size:13px; font-weight:bold;">동작 감지됨</div>
-                    <div style="font-size:11px; color:#888;">${timeStr}</div>
+                    <div style="font-size:14px; font-weight:bold; color:#333;">새로운 동작 감지</div>
+                    <div style="font-size:12px; color:#888;">감지 시간: ${timeStr}</div>
                 </div>
             `;
             
-            if (list.children.length >= 5) list.removeChild(list.firstChild);
             list.appendChild(item);
         }
 
         window.onload = () => {
             type();
-            addNotification(); 
-            setInterval(addNotification, 20000); // 20초마다 실행
+            // 초기 알림 2개 생성
+            updateNotifications();
+            setTimeout(updateNotifications, 1000);
+            
+            // 20초마다 실행
+            setInterval(updateNotifications, 20000);
         };
     </script>
 </body>
