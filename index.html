@@ -222,13 +222,10 @@
         /* --- [PRODUCT] --- */
         .product-grid { max-width: 1100px; margin: 80px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; padding: 0 24px; }
         .product-card { background: var(--card-bg); border-radius: 30px; padding: 50px; border: 1px solid var(--card-border); display: flex; flex-direction: column; }
-        
         /* Office도 호버 되게 */
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        
         .disabled-card { opacity: 0.7; cursor: default; }
         .disabled-card:hover { }
-
         .product-img-box { width: 100%; height: 320px; background: var(--bg-light); border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
 
         /* ==========================
@@ -241,7 +238,6 @@
             60% { transform: translateX(-1px); }
             80% { transform: translateX(1px); }
         }
-
         @keyframes shake-jelly {
             0%   { transform: translateX(0) rotate(0deg); }
             14%  { transform: translateX(-5px) rotate(-0.9deg); }
@@ -252,7 +248,6 @@
             84%  { transform: translateX(3px) rotate(0.45deg); }
             100% { transform: translateX(0) rotate(0deg); }
         }
-
         .shake-animation {
             animation:
                 shake 0.25s ease-in-out,
@@ -293,7 +288,6 @@
             opacity: 1; 
             transform: scale(1.1);
         }
-
         body.dark-mode .gjmst-logo {
             filter: grayscale(100%) opacity(0.8);
         }
@@ -302,11 +296,9 @@
             opacity: 1;
             transform: scale(1.1); 
         }
-        
         body:not(.dark-mode) .partner-logo:hover {
             filter: grayscale(0%); opacity: 1; transform: scale(1.1);
         }
-
         .partner-logo.main-logo { height: 50px; opacity: 0.8; }
         .logo-grid img:nth-child(3) { margin-right: -10px; }
 
@@ -363,9 +355,9 @@
         body.dark-mode .scroll-top-btn img { filter: invert(0); }
 
         /* ==========================
-           제품 상세 모달 (사이즈 키우기 + 버튼 위치 조정)
-           - 디자인은 기존 유지
-           - 크기/레이아웃만 수정
+           제품 상세 모달
+           - 사이즈 더 키움
+           - Edition 배경 제거 + 글색 지정 가능
         ========================== */
         .modal-overlay {
             position: fixed;
@@ -383,9 +375,9 @@
             animation: simpleFadeIn 0.25s ease-out forwards;
         }
 
-        /* [수정] 모달 폭/높이감 키움 */
+        /* [수정] 모달 폭 더 키움 */
         .modal-content {
-            width: min(1120px, 100%);
+            width: min(1280px, 100%);
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 34px;
@@ -424,7 +416,6 @@
         }
         .modal-close:hover { transform: scale(1.05); }
 
-        /* [수정] 레이아웃 크게 + 좌측 이미지 더 큼 */
         .modal-body {
             display: grid;
             grid-template-columns: 1.35fr 1fr;
@@ -432,9 +423,11 @@
             padding: 26px;
             align-items: stretch;
         }
+
+        /* [수정] 이미지/우측 높이 더 키움 */
         .modal-image {
             width: 100%;
-            min-height: 380px;
+            min-height: 460px;
             background: var(--bg-light);
             border-radius: 22px;
             display: flex;
@@ -444,6 +437,20 @@
             color: #bbb;
         }
 
+        /* [수정] Edition: 배경 제거 + 글색은 JS에서 주입 가능 */
+        .modal-badge {
+            display: inline-block;
+            padding: 0;
+            border-radius: 0;
+            background: transparent;
+            border: none;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.4px;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+        }
+
         .modal-desc {
             color: var(--text-sub);
             font-size: 16px;
@@ -451,32 +458,19 @@
             margin: 0 0 18px;
             white-space: pre-line;
         }
-        .modal-badge {
-            display: inline-block;
-            padding: 8px 12px;
-            border-radius: 999px;
-            background: var(--bg-light);
-            border: 1px solid var(--card-border);
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 12px;
-        }
 
-        /* [추가] 우측 컬럼을 flex로 만들어 버튼을 아래로 밀어내기 */
         .modal-right {
             display: flex;
             flex-direction: column;
-            min-height: 380px; /* 이미지 박스와 대략 맞추기 */
+            min-height: 460px;
         }
 
-        /* [수정] 버튼을 오른쪽 아래로 */
         .modal-actions {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
-            margin-top: auto;        /* 아래로 붙이기 */
-            justify-content: flex-end; /* 오른쪽 정렬 */
+            margin-top: auto;
+            justify-content: flex-end;
             padding-top: 14px;
         }
         .modal-actions .cta-button {
@@ -756,8 +750,6 @@
             </div>
             <div class="modal-body">
                 <div id="pm_image" class="modal-image">[ 이미지 ]</div>
-
-                <!-- [수정] 우측 영역 wrapper 추가 (버튼 아래로 보내기용) -->
                 <div class="modal-right">
                     <div id="pm_badge" class="modal-badge">Edition</div>
                     <p id="pm_desc" class="modal-desc"></p>
@@ -886,11 +878,8 @@
         // --- [스크롤 탑 버튼 로직] ---
         const scrollTopBtn = document.getElementById('scrollTopBtn');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                scrollTopBtn.classList.add('show');
-            } else {
-                scrollTopBtn.classList.remove('show');
-            }
+            if (window.scrollY > 300) scrollTopBtn.classList.add('show');
+            else scrollTopBtn.classList.remove('show');
         });
 
         // --- [진동 애니메이션 함수] ---
@@ -898,7 +887,7 @@
             btn.classList.add('shake-animation');
             setTimeout(() => {
                 btn.classList.remove('shake-animation');
-            }, 650); // [수정] 과하지 않게
+            }, 650);
         }
 
         // --- 제품 상세 모달 로직 ---
@@ -906,6 +895,7 @@
             src04: {
                 title: "SRC-04",
                 badge: "Dormitory Edition",
+                badgeColor: "var(--primary-color)",
                 desc:
 `냉장고에 설치하는 초소형 카메라 모듈.
 촬영된 사진은 즉시 클라우드에 저장되며, 언제 어디서나 확인 가능합니다.
@@ -920,6 +910,7 @@
             office: {
                 title: "SRC-04 For Office",
                 badge: "Office Edition (개발 중)",
+                badgeColor: "#a1a1a6",
                 desc:
 `사원증 및 얼굴 인식 기능이 추가된 제품.
 더 많은 기능의 관리자 페이지와 우수한 보안의 로그 서버를 제공합니다.
@@ -937,7 +928,11 @@
             if (!data) return;
 
             document.getElementById('pm_title').innerText = data.title;
-            document.getElementById('pm_badge').innerText = data.badge;
+
+            const badgeEl = document.getElementById('pm_badge');
+            badgeEl.innerText = data.badge;
+            badgeEl.style.color = data.badgeColor || 'var(--primary-color)';
+
             document.getElementById('pm_desc').innerText = data.desc;
             document.getElementById('pm_image').innerText = data.imageText;
 
