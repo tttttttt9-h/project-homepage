@@ -7,53 +7,54 @@
     <style>
         :root {
             /* [라이트 모드 기본값] */
-            --primary-color: #0071e3; /* 기본 파랑 */
+            --primary-color: #0071e3;
             --text-main: #1d1d1f;
             --text-sub: #86868b;
             --bg-light: #f5f5f7;
             --white: #ffffff;
+            
+            /* 헤더 배경: 라이트모드에선 짙은색 */
             --header-bg: #1d1d1f;
             --header-text: #fff;
+            
             --nav-bg: rgba(255, 255, 255, 0.8);
             --card-bg: #ffffff;
             --hero-grad-1: #ffffff;
             --hero-grad-2: #f2f7ff;
             --hero-grad-3: #e8f0ff;
             --btn-bg: #1d1d1f;
-            
-            /* 전환 속도 변수 (부드러운 효과) */
-            --trans-speed: 0.5s; 
         }
 
         /* [다크 모드 변수 재정의] */
         body.dark-mode {
-            /* [핵심 수정] 다크모드에서는 더 밝고 잘 보이는 파란색 사용 */
-            --primary-color: #409cff; 
+            /* 1. 색상 변경: 채도 높은 네온 블루로 변경하여 어두운 곳에서도 예쁘게 */
+            --primary-color: #2997ff; 
             
             --text-main: #f5f5f7;
             --text-sub: #a1a1a6;
             --bg-light: #000000;
             --white: #1c1c1e;
-            --header-bg: #121212; 
+            
+            /* 3. 헤더 배경 수정: 허옇게 뜨지 않도록 투명하게 처리하거나 본문과 동일하게 */
+            --header-bg: #1c1c1e; 
             --header-text: #ffffff;
+            
             --nav-bg: rgba(28, 28, 30, 0.8);
             --card-bg: #2c2c2e;
             --hero-grad-1: #1c1c1e;
-            --hero-grad-2: #2c2c2e;
+            --hero-grad-2: #242426;
             --hero-grad-3: #000000;
             --btn-bg: #ffffff;
         }
 
-        /* [전역 트랜지션 적용] 모든 색상 변화를 부드럽게 */
-        body, .navbar, .section-header, .poll-container, .info-card, 
-        .app-section, .ceo-card, .member-card, .product-card, .buy-form, 
-        .receipt-card, .partner-section, .theme-toggle-btn, .cta-button, 
-        .live-view-btn, .bar-fill, .stat-number, span, p, h2, h3, div {
-            transition: background-color var(--trans-speed) ease, 
-                        color var(--trans-speed) ease, 
-                        border-color var(--trans-speed) ease,
-                        background var(--trans-speed) ease,
-                        box-shadow var(--trans-speed) ease;
+        /* 2. 전환 효과 동기화: 모든 요소(*)에 트랜지션을 강제 적용하여 한 번에 변하게 함 */
+        * {
+            transition: background-color 0.3s ease, 
+                        color 0.3s ease, 
+                        border-color 0.3s ease, 
+                        background 0.3s ease,
+                        box-shadow 0.3s ease,
+                        filter 0.3s ease;
         }
 
         body {
@@ -140,7 +141,6 @@
             background: linear-gradient(120deg, var(--hero-grad-1), var(--hero-grad-2), var(--hero-grad-3), var(--hero-grad-1));
             background-size: 400% 400%;
             animation: heroGradient 18s ease infinite;
-            transition: background var(--trans-speed) ease; /* 그라데이션 부드럽게 */
         }
         .hero > * { position: relative; z-index: 1; }
         @keyframes heroGradient {
@@ -167,7 +167,7 @@
         .bar-bg { height: 24px; background: var(--bg-light); border-radius: 12px; margin: 20px 0; overflow: hidden; position: relative; }
         .bar-fill {
             height: 100%; background: var(--primary-color); border-radius: 12px; width: 0;
-            transition: width 2.5s cubic-bezier(0.22, 1, 0.36, 1), background-color var(--trans-speed) ease;
+            transition: width 2.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .stat-number { font-size: 64px; font-weight: 800; color: var(--primary-color); display: block; line-height: 1; margin-bottom: 10px; }
 
@@ -254,13 +254,35 @@
             font-size: 14px; font-weight: 600; color: var(--text-sub); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 40px; 
         }
         .logo-grid { 
-            display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px 20px; max-width: 1000px; margin: 0 auto; padding-left: 50px; 
+            display: flex; justify-content: center; align-items: center; flex-wrap: wrap; 
+            gap: 20px 20px; max-width: 1000px; margin: 0 auto; padding-left: 50px; 
         }
-        .partner-logo { height: 30px; width: auto; opacity: 0.4; filter: grayscale(100%); transition: all 0.3s ease; cursor: pointer; }
-        body.dark-mode .partner-logo { filter: grayscale(100%) invert(1); }
-        body.dark-mode .partner-logo:hover { filter: grayscale(0%) invert(0); }
+        
+        .partner-logo { 
+            height: 30px; width: auto; opacity: 0.4; 
+            filter: grayscale(100%); /* 기본 흑백 */
+            transition: all 0.3s ease; cursor: pointer; 
+        }
+
+        /* 4. 다크모드 로고 호버: 원래 색 대신 '하얀색'으로 나오게 */
+        body.dark-mode .partner-logo:hover {
+            filter: brightness(0) invert(1); /* 완전 흰색 */
+            opacity: 1;
+        }
+        
+        /* 라이트모드 호버: 원래 색상 */
+        body:not(.dark-mode) .partner-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
         .partner-logo.main-logo { height: 50px; opacity: 0.8; } 
-        .partner-logo:hover { opacity: 1; filter: grayscale(0%); transform: scale(1.05); }
+
+        /* 5. Nvidia 로고 위치 조정 (간격 줄여서 중앙으로) */
+        /* Nvidia 로고는 3번째 이미지입니다. 우측 마진을 줄여서 Toss를 끌어당깁니다 */
+        .logo-grid img:nth-child(3) {
+            margin-right: -10px; 
+        }
 
         /* --- [FOOTER] --- */
         .footer { background-color: var(--bg-light); padding: 80px 24px; border-top: 1px solid rgba(128,128,128,0.1); }
@@ -284,7 +306,6 @@
         
         .theme-toggle-btn img { 
             width: 24px; height: 24px; 
-            transition: all var(--trans-speed);
             filter: invert(1); 
         }
 
