@@ -6,6 +6,7 @@
     <title>공마고의 도둑들</title>
     <style>
         :root {
+            /* [라이트 모드 기본값] */
             --primary-color: #0071e3;
             --text-main: #1d1d1f;
             --text-sub: #86868b;
@@ -13,6 +14,26 @@
             --white: #ffffff;
             --header-bg: #1d1d1f;
             --header-text: #fff;
+            --nav-bg: rgba(255, 255, 255, 0.8); /* 네비게이션 배경 */
+            --card-bg: #ffffff; /* 카드 배경 */
+            --hero-grad-1: #ffffff;
+            --hero-grad-2: #f2f7ff;
+            --hero-grad-3: #e8f0ff;
+        }
+
+        /* [다크 모드 변수 재정의] */
+        body.dark-mode {
+            --text-main: #f5f5f7;
+            --text-sub: #a1a1a6;
+            --bg-light: #000000;
+            --white: #1c1c1e; /* 전체 배경 */
+            --header-bg: #f5f5f7;
+            --header-text: #1d1d1f;
+            --nav-bg: rgba(28, 28, 30, 0.8);
+            --card-bg: #2c2c2e;
+            --hero-grad-1: #1c1c1e;
+            --hero-grad-2: #2c2c2e;
+            --hero-grad-3: #000000;
         }
 
         body {
@@ -23,6 +44,8 @@
             line-height: 1.6;
             word-break: keep-all;
             overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s; /* 부드러운 전환 */
+            
             /* --- 드래그 방지 --- */
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -33,9 +56,10 @@
         /* --- 네비게이션 --- */
         .navbar {
             position: fixed; top: 0; width: 100%;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: var(--nav-bg); /* 변수 사용 */
             backdrop-filter: blur(20px); z-index: 1000;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(128,128,128,0.1);
+            transition: background-color 0.3s;
         }
 
         .nav-container {
@@ -61,6 +85,7 @@
             text-align: center;
             background-color: var(--header-bg);
             color: var(--header-text);
+            transition: background-color 0.3s, color 0.3s;
         }
         .section-header h2 {
             font-size: 42px;
@@ -98,10 +123,39 @@
         .hero {
             padding: 160px 24px;
             text-align: center;
-            background: linear-gradient(120deg, #ffffff 0%, #f4f6ff 30%, #eaf1ff 50%, #f5f5f7 70%, #ffffff 100%);
-            background-size: 300% 300%;
-            animation: heroGradientMove 18s ease-in-out infinite;
+            /* 배경색은 body 설정을 따름, 그라데이션은 ::before에서 처리 */
+            position: relative;
+            overflow: hidden;
+            background: var(--white);
+            transition: background 0.3s;
         }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            /* CSS 변수를 활용한 그라데이션 */
+            background: linear-gradient(
+                120deg,
+                var(--hero-grad-1),
+                var(--hero-grad-2),
+                var(--hero-grad-3),
+                var(--hero-grad-1)
+            );
+            background-size: 400% 400%;
+            animation: heroGradient 18s ease infinite;
+            transition: background 0.3s; /* 다크모드 전환 시 부드럽게 */
+        }
+
+        .hero > * { position: relative; z-index: 1; }
+
+        @keyframes heroGradient {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         .typing-container {
             font-size: clamp(36px, 6vw, 68px); 
             font-weight: 800; margin-bottom: 24px;
@@ -114,16 +168,21 @@
         /* --- [STATISTICS / POLL SECTION] --- */
         .poll-section {
             padding: 100px 24px;
-            background-color: #f5f5f7;
+            background-color: var(--bg-light); /* 변수 사용 */
             text-align: center;
+            transition: background-color 0.3s;
         }
         .poll-container {
-            max-width: 700px; margin: 0 auto; background: #fff; padding: 50px 40px;
-            border-radius: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); border: 1px solid #efefef;
+            max-width: 700px; margin: 0 auto; 
+            background: var(--card-bg); /* 변수 사용 */
+            padding: 50px 40px;
+            border-radius: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); 
+            border: 1px solid rgba(128,128,128,0.1);
+            transition: background-color 0.3s;
         }
-        .stat-title { font-size: 24px; font-weight: 700; margin-bottom: 10px; color: #1d1d1f; }
-        .stat-desc { font-size: 16px; color: #86868b; margin-bottom: 40px; }
-        .bar-bg { height: 24px; background: #f5f5f7; border-radius: 12px; margin: 20px 0; overflow: hidden; position: relative; }
+        .stat-title { font-size: 24px; font-weight: 700; margin-bottom: 10px; color: var(--text-main); }
+        .stat-desc { font-size: 16px; color: var(--text-sub); margin-bottom: 40px; }
+        .bar-bg { height: 24px; background: var(--bg-light); border-radius: 12px; margin: 20px 0; overflow: hidden; position: relative; }
         .bar-fill {
             height: 100%; background: var(--primary-color); border-radius: 12px; width: 0;
             transition: width 2.5s cubic-bezier(0.22, 1, 0.36, 1);
@@ -132,7 +191,8 @@
 
         /* --- [INFO CARDS SECTION] --- */
         .info-section {
-            background: #f5f5f7; padding-bottom: 80px;
+            background: var(--bg-light); padding-bottom: 80px;
+            transition: background-color 0.3s;
         }
         .info-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -140,21 +200,22 @@
         }
         .info-card {
             padding: 50px 40px; border-radius: 30px; display: flex; flex-direction: column; justify-content: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
-            border: 1px solid #efefef; 
-            background: #ffffff;
+            border: 1px solid rgba(128,128,128,0.1); 
+            background: var(--card-bg); /* 변수 사용 */
         }
         .info-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
-        .card-dorm h3, .card-office h3 { color: #1d1d1f !important; }
+        .card-dorm h3, .card-office h3 { color: var(--text-main) !important; }
         .card-dorm p, .card-office p { color: var(--text-main) !important; }
 
 
         /* --- [APP PREVIEW SECTION] --- */
         .app-section {
             padding: 100px 24px;
-            background: #f5f5f7;
+            background: var(--bg-light);
             overflow: hidden;
+            transition: background-color 0.3s;
         }
         .app-container {
             max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 50px;
@@ -209,28 +270,41 @@
 
         /* --- [TEAM] --- */
         .team-container { max-width: 1100px; margin: 80px auto; padding: 0 24px; }
-        .ceo-card { background: #fbfbfd; padding: 60px 24px; border-radius: 40px; text-align: center; border: 1px solid #eee; margin-bottom: 60px; }
+        .ceo-card { 
+            background: var(--card-bg); /* 변수 사용 */
+            padding: 60px 24px; border-radius: 40px; text-align: center; border: 1px solid rgba(128,128,128,0.1); margin-bottom: 60px; 
+            transition: background-color 0.3s;
+        }
         .profile-initial { width: 160px; height: 160px; background: #e8e8ed; border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; font-size: 64px; font-weight: 800; color: #1d1d1f; }
         .executive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .member-card { background: #fff; border: 1px solid #efefef; padding: 40px; border-radius: 30px; text-align: center; transition: 0.3s; }
+        .member-card { 
+            background: var(--card-bg); /* 변수 사용 */
+            border: 1px solid rgba(128,128,128,0.1); padding: 40px; border-radius: 30px; text-align: center; transition: 0.3s; 
+        }
         .member-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .member-initial { width: 100px; height: 100px; background: #f5f5f7; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 700; color: #86868b; }
+        .member-initial { width: 100px; height: 100px; background: var(--bg-light); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 700; color: var(--text-sub); }
 
         /* --- [PRODUCT] --- */
         .product-grid { max-width: 1100px; margin: 80px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; padding: 0 24px; }
-        .product-card { background: #fff; border-radius: 30px; padding: 50px; border: 1px solid #efefef; transition: 0.3s; display: flex; flex-direction: column; }
-        .product-img-box { width: 100%; height: 320px; background: #f5f5f7; border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
+        .product-card { 
+            background: var(--card-bg); /* 변수 사용 */
+            border-radius: 30px; padding: 50px; border: 1px solid rgba(128,128,128,0.1); transition: 0.3s; display: flex; flex-direction: column; 
+        }
+        .product-img-box { width: 100%; height: 320px; background: var(--bg-light); border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
 
         /* --- [BUY & PAYMENT] --- */
         .buy-container { max-width: 1100px; margin: 60px auto; display: flex; flex-wrap: wrap; gap: 50px; padding: 0 24px; }
-        .buy-form { background: #fbfbfd; padding: 40px; border-radius: 24px; border: 1px solid #e5e5e5; flex: 1; min-width: 320px; }
+        .buy-form { 
+            background: var(--bg-light); /* 변수 사용 */
+            padding: 40px; border-radius: 24px; border: 1px solid rgba(128,128,128,0.1); flex: 1; min-width: 320px; 
+        }
         .pay-method-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
         .pay-btn { padding: 18px; border-radius: 12px; border: 1px solid #d2d2d7; background: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; color: #1d1d1f; }
         .pay-btn img { height: 20px; margin-right: 8px; }
         .pay-btn:hover { filter: brightness(0.85); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
         /* --- [RECEIPT] --- */
-        .receipt-card { max-width: 500px; margin: 60px auto; background: #fff; padding: 40px; border-radius: 24px; border: 1px solid #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .receipt-card { max-width: 500px; margin: 60px auto; background: var(--card-bg); padding: 40px; border-radius: 24px; border: 1px solid rgba(128,128,128,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .receipt-line { display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed #eee; padding-bottom: 4px; }
 
         .cta-button { display: inline-block; background-color: var(--primary-color); color: white; padding: 18px 40px; border-radius: 35px; text-decoration: none; font-weight: 700; font-size: 18px; cursor: pointer; transition: 0.3s; text-align: center; border: none; }
@@ -239,14 +313,15 @@
         /* --- [PARTNER SECTION] --- */
         .partner-section { 
             padding: 80px 24px; 
-            background-color: #ffffff; 
+            background-color: var(--card-bg); /* 변수 사용 */
             text-align: center; 
-            border-top: 1px solid #f5f5f7; 
+            border-top: 1px solid rgba(128,128,128,0.1); 
+            transition: background-color 0.3s;
         }
         .partner-title { 
             font-size: 14px; 
             font-weight: 600; 
-            color: #86868b; 
+            color: var(--text-sub); 
             letter-spacing: 0.5px; 
             text-transform: uppercase; 
             margin-bottom: 40px; 
@@ -256,7 +331,6 @@
             justify-content: center;
             align-items: center;     
             flex-wrap: wrap; 
-            /* [수정됨] Toss 로고 양옆 간격을 포함해 전체 간격을 줄임 (40px -> 20px) */
             gap: 20px 20px;
             max-width: 1000px; 
             margin: 0 auto; 
@@ -270,6 +344,14 @@
             transition: all 0.3s ease; 
             cursor: pointer; 
         }
+        /* 다크모드 시 로고 잘 보이게 반전 필터 추가 */
+        body.dark-mode .partner-logo {
+            filter: grayscale(100%) invert(1);
+        }
+        body.dark-mode .partner-logo:hover {
+            filter: grayscale(0%) invert(0); /* 호버 시 원본 */
+        }
+
         .partner-logo.main-logo { 
             height: 50px; 
             opacity: 0.8; 
@@ -277,40 +359,40 @@
         .partner-logo:hover { opacity: 1; filter: grayscale(0%); transform: scale(1.05); }
 
         /* --- [FOOTER] --- */
-        .footer { background-color: var(--bg-light); padding: 80px 24px; border-top: 1px solid #e5e5e5; }
+        .footer { background-color: var(--bg-light); padding: 80px 24px; border-top: 1px solid rgba(128,128,128,0.1); }
         .footer-content { max-width: 1100px; margin: 0 auto; color: var(--text-sub); font-size: 13px; }
 
-        /* --- HERO 그라데이션 배경 --- */
-        .hero {
-            position: relative;
-            overflow: hidden;
-            background: #ffffff;
-        }
-
-        .hero::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            background: linear-gradient(120deg, #ffffff, #f2f7ff, #e8f0ff, #ffffff);
-            background-size: 400% 400%;
-            animation: heroGradient 18s ease infinite;
-        }
-
-        .hero > * { position: relative; z-index: 1; }
-
-        @keyframes heroGradient {
-            0%   { background-position: 0% 50%; }
-            50%  { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
         /* --- 드래그 방지 예외 --- */
         .allow-select, .allow-select * {
-        -webkit-user-select: text !important;
-        -moz-user-select: text !important;
-        -ms-user-select: text !important;
-        user-select: text !important;
-}
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+        }
+
+        /* --- [NEW] 다크모드 토글 버튼 --- */
+        .theme-toggle-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--text-main);
+            color: var(--white);
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            cursor: pointer;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
@@ -330,6 +412,10 @@
         </div>
     </nav>
 
+    <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Dark Mode">
+        🌙
+    </button>
+
     <main id="home" class="page active">
         <header class="hero">
             <div class="typing-container"><span class="typing-text" id="typewriter"></span></div>
@@ -343,13 +429,13 @@
                 <p class="stat-desc">자체 설문조사 결과 (응답자 <span id="display-total">0</span>명)</p>
 
                 <span class="stat-number" id="display-percent">0%</span>
-                <p style="font-weight: 600; font-size: 18px; margin-bottom: 5px;">"네, 경험했습니다."</p>
+                <p style="font-weight: 600; font-size: 18px; margin-bottom: 5px; color: var(--text-main);">"네, 경험했습니다."</p>
 
                 <div class="bar-bg">
                     <div class="bar-fill" id="poll-bar" style="width: 0%;"></div>
                 </div>
 
-                <p style="font-size: 15px; line-height: 1.6; margin-top: 30px; color: #424245;">
+                <p style="font-size: 15px; line-height: 1.6; margin-top: 30px; color: var(--text-sub);">
                     기숙사생 10명 중 <span id="display-people-ratio">0</span>명이 겪는 스트레스.<br>
                     더 이상 참지 마세요. <b>공마고의 도둑들</b>이 해결해 드립니다.
                 </p>
@@ -458,7 +544,7 @@
                 <div class="product-img-box">[ 제품 이미지 ]</div>
                 <button onclick="showPage('buy')" class="cta-button">제품 구매하기</button>
             </div>
-            <div class="product-card" style="background-color: #fafafa; border-style: dashed; opacity: 0.6;">
+            <div class="product-card" style="background-color: var(--bg-light); border-style: dashed; opacity: 0.6;">
                 <h4 style="color:var(--text-sub); margin-bottom: 5px;">Office Edition</h4>
                 <h3 style="font-size: 28px; margin-top: 0; color: #86868b;">SRC-04 For Office</h3>
                 <p>사원증 및 얼굴 인식 기능이 추가된 제품.</br>더 많은 기능의 관리자 페이지와 우수한 보안의 로그 서버를 제공합니다.</p>
@@ -472,7 +558,7 @@
         <div class="buy-container">
             <div style="flex: 1; min-width: 320px;">
                 <h2>주문서 작성</h2>
-                <div style="background: #fff; padding: 25px; border-radius: 12px; border: 1px solid #eee; margin-top: 20px;">
+                <div style="background: var(--card-bg); padding: 25px; border-radius: 12px; border: 1px solid rgba(128,128,128,0.1); margin-top: 20px;">
                     <p style="font-weight:700;">SRC-04</p>
                     <p style="font-size: 16px; color: var(--text-sub); margin: 0 0 5px 0; text-decoration: line-through;">149,900원</p>
                     <p style="font-size: 28px; font-weight: 800; color: var(--primary-color); margin: 0;">89,000원</p>
@@ -524,17 +610,17 @@
     </main>
 
     <main id="contact" class="page">
-        <div style="max-width: 900px; margin: 80px auto; padding: 60px 24px; text-align: center; border-radius: 40px; background-color: #f5f5f7;">
+        <div style="max-width: 900px; margin: 80px auto; padding: 60px 24px; text-align: center; border-radius: 40px; background-color: var(--bg-light);">
             <h2 style="font-size: 38px;">Talk to Us</h2>
             <p style="font-size: 18px; margin-bottom: 40px; color: var(--text-sub);">"공마고의 도둑들은 공용 공간의 문화를 설계합니다."</p>
             <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                <div style="background: #fff; padding: 30px; border-radius: 20px; flex: 1; min-width: 250px; border: 1px solid #eee;">
+                <div style="background: var(--card-bg); padding: 30px; border-radius: 20px; flex: 1; min-width: 250px; border: 1px solid rgba(128,128,128,0.1);">
                     <p style="font-weight: bold; color: var(--primary-color);">사업 문의</p>
                     <p class="allow-select" style="font-size: 18px; font-weight: 600;">business@gjmst-thives.com</p>
                 </div>
-                <div style="background: #fff; padding: 30px; border-radius: 20px; flex: 1; min-width: 250px; border: 1px solid #eee;">
+                <div style="background: var(--card-bg); padding: 30px; border-radius: 20px; flex: 1; min-width: 250px; border: 1px solid rgba(128,128,128,0.1);">
                     <p style="font-weight: bold; color: var(--primary-color);">고객 센터</p>
-                    <p class="allow-select" style="font-sizee:18pxx;font-weightt:600;">201-704-04</p>
+                    <p class="allow-select" style="font-size: 18px; font-weight: 600;">201-704-04</p>
                 </div>
             </div>
         </div>
@@ -653,6 +739,25 @@
             
             list.appendChild(item);
         }
+
+        // --- [다크 모드 로직] ---
+        const themeBtn = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // 시스템 설정 확인 및 초기화
+        const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (userPrefersDark) {
+            body.classList.add('dark-mode');
+            themeBtn.innerText = '☀️'; // 다크모드일 때 해 아이콘 보여줌
+        }
+
+        // 버튼 클릭 이벤트
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            themeBtn.innerText = isDark ? '☀️' : '🌙';
+        });
 
         window.onload = function() {
             type();
