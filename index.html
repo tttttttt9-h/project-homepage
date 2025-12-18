@@ -19,7 +19,7 @@
             --hero-grad-1: #ffffff;
             --hero-grad-2: #f2f7ff;
             --hero-grad-3: #e8f0ff;
-            --btn-bg: #1d1d1f; /* 토글 버튼 배경 */
+            --btn-bg: #1d1d1f; /* 토글 버튼 배경 (어두움) */
         }
 
         /* [다크 모드 변수 재정의] */
@@ -29,7 +29,7 @@
             --bg-light: #000000;
             --white: #1c1c1e;
             
-            /* [수정됨] 헤더 배경을 어두운 톤으로 변경하여 눈부심 방지 + 구분감 부여 */
+            /* 헤더 배경을 어두운 톤으로 변경 */
             --header-bg: #121212; 
             --header-text: #ffffff;
             
@@ -38,7 +38,7 @@
             --hero-grad-1: #1c1c1e;
             --hero-grad-2: #2c2c2e;
             --hero-grad-3: #000000;
-            --btn-bg: #ffffff; /* 다크모드일 때 버튼 배경은 밝게 */
+            --btn-bg: #ffffff; /* 다크모드 버튼 배경 (밝음) */
         }
 
         body {
@@ -248,7 +248,7 @@
             display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px 20px; max-width: 1000px; margin: 0 auto; padding-left: 50px; 
         }
         .partner-logo { height: 30px; width: auto; opacity: 0.4; filter: grayscale(100%); transition: all 0.3s ease; cursor: pointer; }
-        body.dark-mode .partner-logo { filter: grayscale(100%) invert(1); } /* 다크모드 시 로고 반전 */
+        body.dark-mode .partner-logo { filter: grayscale(100%) invert(1); }
         body.dark-mode .partner-logo:hover { filter: grayscale(0%) invert(0); }
         .partner-logo.main-logo { height: 50px; opacity: 0.8; } 
         .partner-logo:hover { opacity: 1; filter: grayscale(0%); transform: scale(1.05); }
@@ -273,7 +273,18 @@
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .theme-toggle-btn:hover { transform: scale(1.1); }
-        .theme-toggle-btn img { width: 24px; height: 24px; }
+        
+        .theme-toggle-btn img { 
+            width: 24px; height: 24px; 
+            transition: all 0.3s;
+            /* [수정됨] 기본 모드(화이트 모드)에서는 버튼이 어둡기 때문에 아이콘을 흰색으로 반전 */
+            filter: invert(1); 
+        }
+
+        /* 다크 모드일 때는 버튼이 밝은 색이므로, 아이콘을 원래 검정색으로 복구 */
+        body.dark-mode .theme-toggle-btn img {
+            filter: invert(0);
+        }
     </style>
 </head>
 <body>
@@ -362,7 +373,8 @@
                         <div class="notch"></div>
                         <div class="phone-screen">
                             <div style="width:100%; padding:20px 20px 10px; box-sizing:border-box; font-weight:bold; font-size:18px; color:#333;">최근 감지 기록</div>
-                            <div id="notification-list"></div>
+                            <div id="notification-list">
+                                </div>
                             <div style="margin-bottom:20px; text-align:center;">
                                 <a href="https://project.whanci.xyz" target="_blank" class="live-view-btn">
                                     체험 해보기
