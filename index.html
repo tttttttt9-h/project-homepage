@@ -40,8 +40,8 @@
         }
 
         .logo-area { display: flex; align-items: center; text-decoration: none; color: var(--text-main); cursor: pointer; flex-shrink: 0; }
-        .logo-img { height: 50px; margin-right: 10px; }
-        .logo-text { font-weight: 800; font-size: 24px; letter-spacing: -1px; }
+        .logo-img { height: 50px; margin-right: 10px; transition: all 0.3s; }
+        .logo-text { font-weight: 800; font-size: 24px; letter-spacing: -1px; transition: all 0.3s; }
 
         .nav-menu { display: flex; align-items: center; }
         .nav-menu a {
@@ -50,29 +50,107 @@
             white-space: nowrap;
         }
 
-        /* --- 공통 섹션 헤더 --- */
+        /* --- 공통 섹션 헤더 스타일 --- */
         .section-header {
             padding: 100px 24px 60px;
             text-align: center;
             background-color: var(--header-bg);
             color: var(--header-text);
         }
-        .section-header h2 { font-size: 42px; font-weight: 700; margin: 0 0 15px 0; letter-spacing: -1px; }
-        .section-header p { font-size: 18px; opacity: 0.8; margin: 0; }
+        .section-header h2 {
+            font-size: 42px;
+            font-weight: 700;
+            margin: 0 0 15px 0;
+            letter-spacing: -1px;
+        }
+        .section-header p {
+            font-size: 18px;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        /* 모바일 대응 */
+        @media (max-width: 768px) {
+            .nav-container { height: 60px; padding: 0 10px; }
+            .logo-img { height: 28px; margin-right: 5px; }
+            .logo-text { font-size: 15px; letter-spacing: -0.5px; }
+            .nav-menu a { margin-left: 8px; font-size: 12px; letter-spacing: -0.5px; }
+            .hero { padding: 80px 20px; }
+            .typing-container { margin-top: 20px; }
+            .flex-container, .buy-container { flex-direction: column; }
+            .executive-grid, .product-grid, .info-grid, .app-container { grid-template-columns: 1fr; flex-direction: column; }
+            .section-header { padding: 50px 20px 30px; }
+            .section-header h2 { font-size: 28px; }
+            .app-text { text-align: center; margin-bottom: 40px; }
+            .logo-grid { padding-left: 0 !important; gap: 20px 30px; } /* 모바일에서는 패딩 제거 */
+        }
 
         .page { display: none; padding-top: 90px; animation: fadeIn 0.4s ease-out; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* --- [HOME HERO] --- */
-        .hero { padding: 160px 24px; text-align: center; background: radial-gradient(circle at center, #ffffff 0%, #f2f2f2 100%); }
-        .typing-container { font-size: clamp(36px, 6vw, 68px); font-weight: 800; margin-bottom: 24px; letter-spacing: -2px; min-height: 1.2em; }
+        .hero {
+            padding: 160px 24px; text-align: center;
+            background: radial-gradient(circle at center, #ffffff 0%, #f2f2f2 100%);
+        }
+        .typing-container {
+            font-size: clamp(36px, 6vw, 68px); 
+            font-weight: 800; margin-bottom: 24px;
+            letter-spacing: -2px; line-height: 1.2; min-height: 1.2em;
+        }
         .typing-text::after { content: '|'; animation: blink 0.7s infinite; }
         @keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; } }
+        .hero p { font-size: clamp(18px, 3vw, 24px); color: var(--text-sub); max-width: 800px; margin: 0 auto 50px; }
 
-        /* --- [APP SECTION] --- */
-        .app-section { padding: 100px 24px; background: #f5f5f7; }
-        .app-container { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 50px; }
+        /* --- [STATISTICS / POLL SECTION] --- */
+        .poll-section {
+            padding: 100px 24px;
+            background-color: #f5f5f7;
+            text-align: center;
+        }
+        .poll-container {
+            max-width: 700px; margin: 0 auto; background: #fff; padding: 50px 40px;
+            border-radius: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); border: 1px solid #efefef;
+        }
+        .stat-title { font-size: 24px; font-weight: 700; margin-bottom: 10px; color: #1d1d1f; }
+        .stat-desc { font-size: 16px; color: #86868b; margin-bottom: 40px; }
+        .bar-bg { height: 24px; background: #f5f5f7; border-radius: 12px; margin: 20px 0; overflow: hidden; position: relative; }
+        .bar-fill {
+            height: 100%; background: var(--primary-color); border-radius: 12px; width: 0;
+            transition: width 2.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .stat-number { font-size: 64px; font-weight: 800; color: var(--primary-color); display: block; line-height: 1; margin-bottom: 10px; }
+
+        /* --- [INFO CARDS SECTION] --- */
+        .info-section {
+            background: #f5f5f7; padding-bottom: 80px;
+        }
+        .info-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            max-width: 1100px; margin: 0 auto; gap: 30px;
+        }
+        .info-card {
+            padding: 50px 40px; border-radius: 30px; display: flex; flex-direction: column; justify-content: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+            border: 1px solid #efefef; 
+            background: #ffffff;
+        }
+        .info-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+        .card-dorm h3, .card-office h3 { color: #1d1d1f !important; }
+        .card-dorm p, .card-office p { color: var(--text-main) !important; }
+
+
+        /* --- [APP PREVIEW SECTION] --- */
+        .app-section {
+            padding: 100px 24px;
+            background: #f5f5f7;
+            overflow: hidden;
+        }
+        .app-container {
+            max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 50px;
+        }
         .app-text { flex: 1; text-align: left; }
         .app-image { flex: 1; display: flex; justify-content: center; }
 
@@ -80,36 +158,107 @@
             width: 280px; height: 560px; background: #000; border-radius: 40px; border: 12px solid #1d1d1f;
             position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2); overflow: hidden; background: #fff;
         }
-        .notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 25px; background: #1d1d1f; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; z-index: 10; }
-        .phone-screen { width: 100%; height: 100%; display: flex; flex-direction: column; padding-top: 40px; }
-        #notification-list { width: 100%; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; }
-        
-        .notification-item {
-            background: #f5f5f7; padding: 15px; border-radius: 12px; display: flex; align-items: center;
-            transition: all 0.5s ease-in-out; animation: slideUp 0.5s ease-out forwards;
+        .notch {
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 120px; height: 25px; background: #1d1d1f; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; z-index: 10;
         }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-out { opacity: 0; transform: translateY(-20px); }
-
-        /* --- [TEAM / PRODUCT / BUY 공통 스타일] --- */
-        .team-container, .product-grid, .buy-container { max-width: 1100px; margin: 80px auto; padding: 0 24px; }
-        .member-card, .product-card { background: #fff; border: 1px solid #efefef; padding: 40px; border-radius: 30px; text-align: center; transition: 0.3s; }
-        .member-card:hover, .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .member-initial, .profile-initial { width: 100px; height: 100px; background: #f5f5f7; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 700; color: #86868b; }
-        .product-img-box { width: 100%; height: 200px; background: #f5f5f7; border-radius: 20px; margin: 20px 0; display: flex; align-items: center; justify-content: center; color: #ccc; }
+        /* 앱 화면 및 애니메이션 스타일 추가 */
+        .phone-screen { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         
-        .cta-button { display: inline-block; background-color: var(--primary-color); color: white; padding: 18px 40px; border-radius: 35px; text-decoration: none; font-weight: 700; cursor: pointer; border: none; transition: 0.3s; }
+        #notification-list {
+            width: 100%; padding: 20px; box-sizing: border-box;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+
+        .notification-item {
+            background: #f5f5f7; padding: 15px; border-radius: 12px;
+            display: flex; align-items: center;
+            transition: all 0.5s ease-in-out;
+            animation: slideUp 0.5s ease-out forwards;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-out {
+            opacity: 0; transform: translateY(-20px); transition: all 0.5s ease;
+        }
+
+
+        /* --- [TEAM] --- */
+        .team-container { max-width: 1100px; margin: 80px auto; padding: 0 24px; }
+        .ceo-card { background: #fbfbfd; padding: 60px 24px; border-radius: 40px; text-align: center; border: 1px solid #eee; margin-bottom: 60px; }
+        .profile-initial { width: 160px; height: 160px; background: #e8e8ed; border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; font-size: 64px; font-weight: 800; color: #1d1d1f; }
+        .executive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .member-card { background: #fff; border: 1px solid #efefef; padding: 40px; border-radius: 30px; text-align: center; transition: 0.3s; }
+        .member-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .member-initial { width: 100px; height: 100px; background: #f5f5f7; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 700; color: #86868b; }
+
+        /* --- [PRODUCT] --- */
+        .product-grid { max-width: 1100px; margin: 80px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; padding: 0 24px; }
+        .product-card { background: #fff; border-radius: 30px; padding: 50px; border: 1px solid #efefef; transition: 0.3s; display: flex; flex-direction: column; }
+        .product-img-box { width: 100%; height: 320px; background: #f5f5f7; border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
+
+        /* --- [BUY & PAYMENT] --- */
+        .buy-container { max-width: 1100px; margin: 60px auto; display: flex; flex-wrap: wrap; gap: 50px; padding: 0 24px; }
+        .buy-form { background: #fbfbfd; padding: 40px; border-radius: 24px; border: 1px solid #e5e5e5; flex: 1; min-width: 320px; }
+        .pay-method-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
+        .pay-btn { padding: 18px; border-radius: 12px; border: 1px solid #d2d2d7; background: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; color: #1d1d1f; }
+        .pay-btn img { height: 20px; margin-right: 8px; }
+        .pay-btn:hover { filter: brightness(0.85); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+        /* --- [RECEIPT] --- */
+        .receipt-card { max-width: 500px; margin: 60px auto; background: #fff; padding: 40px; border-radius: 24px; border: 1px solid #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .receipt-line { display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed #eee; padding-bottom: 4px; }
+
+        .cta-button { display: inline-block; background-color: var(--primary-color); color: white; padding: 18px 40px; border-radius: 35px; text-decoration: none; font-weight: 700; font-size: 18px; cursor: pointer; transition: 0.3s; text-align: center; border: none; }
         .cta-button:hover { background-color: #005bb7; transform: scale(1.02); }
 
-        /* --- [PARTNER SECTION] --- */
-        .partner-section { padding: 80px 24px; background-color: #ffffff; text-align: center; border-top: 1px solid #f5f5f7; }
-        .logo-grid { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px 40px; max-width: 1000px; margin: 0 auto; padding-left: 50px; }
-
-        /* 모바일 대응 */
-        @media (max-width: 768px) {
-            .app-container { flex-direction: column; text-align: center; }
-            .logo-grid { padding-left: 0; }
+        /* --- [PARTNER SECTION 수정됨] --- */
+        .partner-section { 
+            padding: 80px 24px; 
+            background-color: #ffffff; 
+            text-align: center; 
+            border-top: 1px solid #f5f5f7; 
         }
+        .partner-title { 
+            font-size: 14px; 
+            font-weight: 600; 
+            color: #86868b; 
+            letter-spacing: 0.5px; 
+            text-transform: uppercase; 
+            margin-bottom: 40px; 
+        }
+        .logo-grid { 
+            display: flex; 
+            justify-content: center;
+            align-items: center;     
+            flex-wrap: wrap; 
+            gap: 20px 40px;
+            max-width: 1000px; 
+            margin: 0 auto; 
+            /* [수정됨] 오른쪽으로 이동 요청 반영 */
+            padding-left: 50px; 
+        }
+        .partner-logo { 
+            height: 30px; 
+            width: auto; 
+            opacity: 0.4; 
+            filter: grayscale(100%); 
+            transition: all 0.3s ease; 
+            cursor: pointer; 
+        }
+        .partner-logo.main-logo { 
+            height: 50px; 
+            opacity: 0.8; 
+        } 
+        .partner-logo:hover { opacity: 1; filter: grayscale(0%); transform: scale(1.05); }
+
+        /* --- [FOOTER] --- */
+        .footer { background-color: var(--bg-light); padding: 80px 24px; border-top: 1px solid #e5e5e5; }
+        .footer-content { max-width: 1100px; margin: 0 auto; color: var(--text-sub); font-size: 13px; }
     </style>
 </head>
 <body>
@@ -117,6 +266,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <div onclick="showPage('home')" class="logo-area">
+                <img src="images/icon.png" alt="Logo" class="logo-img" onerror="this.style.backgroundColor='#0071e3'; this.style.width='50px'; this.style.borderRadius='10px';">
                 <span class="logo-text">공마고의 도둑들</span>
             </div>
             <div class="nav-menu">
@@ -134,6 +284,45 @@
             <p>공용 냉장고 무단 취식, 더 이상 감정에 호소하지 마세요.<br><b>공마고의 도둑들</b>이 완벽한 보안을 제공합니다.</p>
             <a onclick="showPage('product')" class="cta-button">지금 시작하기</a>
         </header>
+
+        <section class="poll-section">
+            <div class="poll-container">
+                <h2 class="stat-title">"기숙사 냉장고 도난, 경험해보셨나요?"</h2>
+                <p class="stat-desc">자체 설문조사 결과 (응답자 <span id="display-total">0</span>명)</p>
+
+                <span class="stat-number" id="display-percent">0%</span>
+                <p style="font-weight: 600; font-size: 18px; margin-bottom: 5px;">"네, 경험했습니다."</p>
+
+                <div class="bar-bg">
+                    <div class="bar-fill" id="poll-bar" style="width: 0%;"></div>
+                </div>
+
+                <p style="font-size: 15px; line-height: 1.6; margin-top: 30px; color: #424245;">
+                    기숙사생 10명 중 <span id="display-people-ratio">0</span>명이 겪는 스트레스.<br>
+                    더 이상 참지 마세요. <b>공마고의 도둑들</b>이 해결해 드립니다.
+                </p>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <div class="info-grid">
+                <div class="info-card card-dorm">
+                    <h3 style="font-size: 28px; margin-top: 0; margin-bottom: 10px;">Dormitory Edition</h3>
+                    <p style="font-size: 17px; line-height: 1.5; font-weight: 500;">
+                        기숙사생들의 스트레스 1위 '냉장고 절도'.<br>
+                        설치 즉시 완벽하게 분쟁을 해결합니다.
+                    </p>
+                </div>
+
+                <div class="info-card card-office">
+                    <h3 style="font-size: 28px; margin-top: 0; margin-bottom: 10px;">Office Edition</h3>
+                    <p style="font-size: 17px; line-height: 1.5; font-weight: 500;">
+                        탕비실 냉장고 에티켓 관리 솔루션.<br>
+                        기술로 건강하고 신뢰 있는 사내 문화를 만듭니다.
+                    </p>
+                </div>
+            </div>
+        </section>
 
         <section class="app-section">
             <div class="app-container">
@@ -154,8 +343,12 @@
                     <div class="phone-mockup">
                         <div class="notch"></div>
                         <div class="phone-screen">
-                            <div style="padding: 10px 20px; font-weight:bold; border-bottom:1px solid #eee;">최근 감지 기록</div>
-                            <div id="notification-list"></div>
+                            <div style="width:100%; padding:20px 20px 10px; box-sizing:border-box; font-weight:bold; font-size:18px; color:#333;">최근 감지 기록</div>
+                            <div id="notification-list">
+                                </div>
+                            <div style="margin-bottom:20px; text-align:center;">
+                                <div style="background:var(--primary-color); color:white; padding:10px 20px; border-radius:20px; display:inline-block; font-size:14px;">실시간 보기</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -169,15 +362,31 @@
             <p>공용 공간의 신뢰를 기술로 새롭게 정의하는 팀입니다.</p>
         </header>
         <section class="team-container">
-            <div class="member-card" style="max-width: 600px; margin: 0 auto 40px;">
+            <div class="ceo-card">
                 <div class="profile-initial">윤</div>
-                <h3>윤수원 (CEO)</h3>
-                <p>"작은 불편을 해결하는 것이 더 나은 문화를 만든다고 믿습니다."</p>
+                <span style="color:var(--primary-color); font-weight:700;">CEO & Founder</span>
+                <h3 style="font-size: 32px; margin: 10px 0;">윤수원</h3>
+                <p style="color:var(--text-main); font-size: 18px; font-weight: 600; margin-bottom: 20px;">"작은 불편을 해결하는 것이 더 나은 문화를 만든다고 믿습니다."</p>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                <div class="member-card"><div class="member-initial">배</div><h4>배충만</h4><p>CTO</p></div>
-                <div class="member-card"><div class="member-initial">이</div><h4>이시환</h4><p>CIO</p></div>
-                <div class="member-card"><div class="member-initial">이</div><h4>이지후</h4><p>CFO</p></div>
+            <div class="executive-grid">
+                <div class="member-card">
+                    <div class="member-initial">배</div>
+                    <div class="member-name">배충만</div>
+                    <div class="member-role" style="color:var(--primary-color); font-weight:600; font-size:14px;">CTO & CPO</div>
+                    <p style="font-size: 14px; color: var(--text-sub); margin-top: 15px;">하드웨어 설계 및 소프트웨어 설계 총괄</p>
+                </div>
+                <div class="member-card">
+                    <div class="member-initial">이</div>
+                    <div class="member-name">이시환</div>
+                    <div class="member-role" style="color:var(--primary-color); font-weight:600; font-size:14px;">CIO & DevOps</div>
+                    <p style="font-size: 14px; color: var(--text-sub); margin-top: 15px;">소프트웨어 개발 및 클라우드 개발 총괄</p>
+                </div>
+                <div class="member-card">
+                    <div class="member-initial">이</div>
+                    <div class="member-name">이지후</div>
+                    <div class="member-role" style="color:var(--primary-color); font-weight:600; font-size:14px;">CFO & CMO</div>
+                    <p style="font-size: 14px; color: var(--text-sub); margin-top: 15px;">재무 회계 및 하드웨어 제작 총괄</p>
+                </div>
             </div>
         </section>
     </main>
@@ -187,121 +396,230 @@
             <h2>Choose Your Plan</h2>
             <p>필요한 만큼, 확실한 보호를 선택하세요.</p>
         </header>
-        <section class="product-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+        <section class="product-grid">
             <div class="product-card">
-                <h4 style="color:var(--primary-color);">Dormitory Edition</h4>
-                <h3>SRC-04</h3>
-                <div class="product-img-box">SRC-04 이미지</div>
-                <p>89,000원</p>
+                <h4 style="color:var(--primary-color); margin-bottom: 5px;">Dormitory Edition</h4>
+                <h3 style="font-size: 28px; margin-top: 0;">SRC-04</h3>
+                <p>냉장고에 설치하는 초소형 카메라 모듈.</br>촬영된 사진은 즉시 클라우드에 저장되며, 언제 어디서나 확인 가능합니다.</p>
+                <div class="product-img-box">[ 제품 이미지 ]</div>
                 <button onclick="showPage('buy')" class="cta-button">제품 구매하기</button>
             </div>
-            <div class="product-card" style="opacity: 0.5;">
-                <h4>Office Edition</h4>
-                <h3>Coming Soon</h3>
-                <div class="product-img-box">개발 중</div>
-                <button class="cta-button" style="background: #ccc;">준비 중</button>
+            <div class="product-card" style="background-color: #fafafa; border-style: dashed; opacity: 0.6;">
+                <h4 style="color:var(--text-sub); margin-bottom: 5px;">Office Edition</h4>
+                <h3 style="font-size: 28px; margin-top: 0; color: #86868b;">SRC-04 For Office</h3>
+                <p>사원증 및 얼굴 인식 기능이 추가된 제품.</br>더 많은 기능의 관리자 페이지와 우수한 보안의 로그 서버를 제공합니다.</p>
+                <div class="product-img-box" style="opacity: 1;">[ 개발 중 ]</div>
+                <button class="cta-button" style="background-color: #ccc; cursor: default;">준비 중</button>
             </div>
         </section>
     </main>
 
     <main id="buy" class="page">
         <div class="buy-container">
-            <h2>주문서 작성</h2>
-            <form onsubmit="event.preventDefault(); showPage('payment');" style="display: flex; flex-direction: column; gap: 10px; max-width: 500px;">
-                <input type="text" placeholder="수령인" required style="padding:15px; border-radius:10px; border:1px solid #ddd;">
-                <input type="text" placeholder="연락처" required style="padding:15px; border-radius:10px; border:1px solid #ddd;">
-                <input type="text" placeholder="배송지" required style="padding:15px; border-radius:10px; border:1px solid #ddd;">
-                <button type="submit" class="cta-button">결제 단계로 이동</button>
-            </form>
+            <div style="flex: 1; min-width: 320px;">
+                <h2>주문서 작성</h2>
+                <div style="background: #fff; padding: 25px; border-radius: 12px; border: 1px solid #eee; margin-top: 20px;">
+                    <p style="font-weight:700;">SRC-04</p>
+                    <p style="font-size: 16px; color: var(--text-sub); margin: 0 0 5px 0; text-decoration: line-through;">149,900원</p>
+                    <p style="font-size: 28px; font-weight: 800; color: var(--primary-color); margin: 0;">89,000원</p>
+                    </div>
+            </div>
+            <div class="buy-form">
+                <h3 style="margin-top:0;">배송 정보</h3>
+                <form onsubmit="goToPayment(event)">
+                    <input type="text" id="buyer_name" placeholder="수령인" style="width:100%; padding:14px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;" required>
+                    <input type="text" id="buyer_tel" placeholder="연락처 ( - 를 제외하고 입력 )" style="width:100%; padding:14px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;" required>
+                    <input type="text" id="buyer_addr" placeholder="배송지" style="width:100%; padding:14px; margin-bottom:20px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;" required>
+                    <button type="submit" class="cta-button" style="width: 100%;">결제하기</button>
+                </form>
+            </div>
         </div>
     </main>
 
     <main id="payment" class="page">
-        <div style="text-align: center; padding: 100px 24px;">
-            <h2>결제 수단 선택</h2>
-            <button onclick="showPage('receipt')" class="cta-button" style="margin: 10px;">카카오페이</button>
-            <button onclick="showPage('receipt')" class="cta-button" style="margin: 10px; background: #000;">네이버페이</button>
+        <div style="max-width: 500px; margin: 60px auto; padding: 0 20px; text-align: center;">
+            <h2 style="font-size: 32px;">결제 수단을 선택하세요.</h2>
+            <div class="pay-method-grid">
+                <button class="pay-btn naver-pay" style="background: #000000; border-color: #000000; color: #00d25a;" onclick="completeOrder('네이버페이')">
+                    <img src="images/npay.jpg" alt="네이버페이"> 네이버페이
+                </button>
+                <button class="pay-btn" style="background: #ffe000; border-color: #ffe000;" onclick="completeOrder('카카오페이')">
+                    <img src="images/kpay.svg" alt="카카오페이"> 카카오페이
+                </button>
+                <button class="pay-btn" style="border-color: #d2d2d7;" onclick="completeOrder('토스페이')">
+                    <img src="images/toss.png" alt="토스페이" onerror="this.style.display='none'"> 토스페이
+                </button>
+                <button class="pay-btn" onclick="completeOrder('신용/체크카드')">💳 신용/체크카드</button>
+                <button class="pay-btn" onclick="completeOrder('무통장입금')">🏦 무통장 입금</button>
+            </div>
+            <button class="cta-button" style="width:auto; background:none; border:none; color:var(--text-sub); text-decoration:underline; font-size:16px; margin-top:20px;" onclick="showPage('buy')">배송 정보 수정하기</button>
         </div>
     </main>
 
     <main id="receipt" class="page">
-        <div style="text-align: center; padding: 100px 24px;">
-            <h2 style="color: var(--primary-color);">주문이 완료되었습니다!</h2>
-            <p>조금만 기다려주시면 안전하게 배송해 드리겠습니다.</p>
-            <button onclick="showPage('home')" class="cta-button">홈으로 돌아가기</button>
+        <div class="receipt-card">
+            <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 30px;">주문이 완료되었습니다!</h2>
+            <div class="receipt-line"><span>주문 번호</span><b id="rec_no"></b></div>
+            <div class="receipt-line"><span>상품명</span><b>SRC-04</b></div>
+            <div class="receipt-line"><span>수령인</span><span id="rec_name"></span></div>
+            <div class="receipt-line"><span>배송지</span><span id="rec_addr"></span></div>
+            <div class="receipt-line"><span>결제 수단</span><span id="rec_method"></span></div>
+            <div class="receipt-line" style="border: none; margin-top: 20px; font-size: 20px;"><span>결제 금액</span><b style="color: var(--primary-color);">89,000원</b></div>
+            <button class="cta-button" style="width: 100%; margin-top: 30px; background: #1d1d1f;" onclick="showPage('home')">메인으로 돌아가기</button>
         </div>
     </main>
 
     <main id="contact" class="page">
-        <header class="section-header">
-            <h2>Talk to Us</h2>
-            <p>언제든 문의해 주세요.</p>
-        </header>
-        <div style="text-align: center; padding: 40px;">
-            <p>이메일: contact@gjmst-thives.com</p>
-            <p>고객센터: 201-704-04</p>
+        <div style="max-width: 900px; margin: 80px auto; padding: 60px 24px; text-align: center; border-radius: 40px; background-color: #f5f5f7;">
+            <h2 style="font-size: 38px;">Talk to Us</h2>
+            <p style="font-size: 18px; margin-bottom: 40px; color: var(--text-sub);">"공마고의 도둑들은 공용 공간의 문화를 설계합니다."</p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <div style="background: #fff; padding: 30px; border-radius: 20px; flex: 1; min-width: 250px; border: 1px solid #eee;">
+                    <p style="font-weight: bold; color: var(--primary-color);">사업 문의</p>
+                    <p style="font-size: 18px; font-weight: 600;">business@gjmst-thives.com</p>
+                </div>
+                <div style="background: #fff; padding: 30px; border-radius: 20px; flex: 1; min-width: 250px; border: 1px solid #eee;">
+                    <p style="font-weight: bold; color: var(--primary-color);">고객 센터</p>
+                    <p style="font-size: 18px; font-weight: 600;">201-704-04</p>
+                </div>
+            </div>
         </div>
     </main>
 
     <section class="partner-section">
-        <p style="font-size:14px; color:#86868b; margin-bottom:30px;">PARTNERS</p>
+        <p class="partner-title">Trusted by Innovative Companies</p>
         <div class="logo-grid">
-            <div style="font-weight: 900; font-size: 24px; opacity: 0.6;">GJMST</div>
-            <div style="font-weight: 900; font-size: 20px; opacity: 0.4;">AWS</div>
-            <div style="font-weight: 900; font-size: 20px; opacity: 0.4;">NVIDIA</div>
-            <div style="font-weight: 900; font-size: 20px; opacity: 0.4;">TOSS</div>
+            <img src="images/gjmst.svg" alt="Gjmst" class="partner-logo main-logo">
+            <img src="images/aws.png" alt="Amazon" class="partner-logo">
+            <img src="images/nvidia.svg" alt="Nvidia" class="partner-logo" style="height: 22px;">
+            <img src="images/toss.png" alt="Toss" class="partner-logo">
+            <img src="images/spacex.svg" alt="spacex" class="partner-logo" style="height: 22px;">
         </div>
     </section>
 
+    <footer class="footer">
+        <div class="footer-content">
+            <p><b>(주)공마고의 도둑들</b> | 대표이사: 윤수원</p>
+            <p>충청남도 공주시 유구읍 중앙1길 27-12 1학년 1반 | contact@gjmst-thives.com</p>
+            <p style="margin-top: 20px;">Copyright © 2025 The Gjmst Thieves. All rights reserved.</p>
+        </div>
+    </footer>
+
     <script>
+        // --- [통계 자동 계산 설정] ---
+        const totalRespondents = 342;   
+        const experiencedCount = 266;   
+
+        window.addEventListener('load', function() {
+            // 1. 퍼센트 계산
+            const percentage = Math.round((experiencedCount / totalRespondents) * 100);
+            const peopleRatio = Math.round(percentage / 10);
+
+            // 2. HTML에 값 넣기
+            const displayTotal = document.getElementById('display-total');
+            if(displayTotal) displayTotal.innerText = totalRespondents.toLocaleString();
+            
+            // 3. 숫자 애니메이션
+            let currentNum = 0;
+            const numElement = document.getElementById('display-percent');
+            if(numElement) {
+                const interval = setInterval(() => {
+                    if (currentNum >= percentage) {
+                        clearInterval(interval);
+                        numElement.innerText = percentage + "%";
+                    } else {
+                        currentNum++;
+                        numElement.innerText = currentNum + "%";
+                    }
+                }, 40); 
+            }
+
+            // 4. 그래프 애니메이션
+            setTimeout(() => {
+                const bar = document.getElementById('poll-bar');
+                if(bar) bar.style.width = percentage + "%";
+            }, 300);
+
+            // 5. 텍스트 문구 업데이트
+            const ratioText = document.getElementById('display-people-ratio');
+            if(ratioText) ratioText.innerText = peopleRatio;
+        });
+
+        // --- [기존 로직 유지] ---
+        let orderInfo = {};
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             window.scrollTo(0, 0);
         }
-
-        // 타이핑 효과
+        function goToPayment(e) {
+            e.preventDefault();
+            orderInfo.name = document.getElementById('buyer_name').value;
+            orderInfo.addr = document.getElementById('buyer_addr').value;
+            showPage('payment');
+        }
+        function completeOrder(method) {
+            if(confirm(method + "(으)로 결제하시겠습니까?")) {
+                const orderNo = "ORD-" + Math.floor(Math.random() * 900000 + 100000);
+                document.getElementById('rec_no').innerText = orderNo;
+                document.getElementById('rec_name').innerText = orderInfo.name;
+                document.getElementById('rec_addr').innerText = orderInfo.addr;
+                document.getElementById('rec_method').innerText = method;
+                showPage('receipt');
+            }
+        }
         const textElement = document.getElementById('typewriter');
         const sentences = ["기숙사 냉장고의 평화,", "오피스 냉장고의 신뢰,", "기술로 완성합니다."];
-        let sentenceIdx = 0, charIdx = 0, isDeleting = false;
-
+        let sentenceIdx = 0; let charIdx = 0; let isDeleting = false;
         function type() {
             const currentSentence = sentences[sentenceIdx];
-            textElement.innerText = isDeleting ? currentSentence.substring(0, charIdx--) : currentSentence.substring(0, charIdx++);
-            let speed = isDeleting ? 50 : 150;
-            if (!isDeleting && charIdx === currentSentence.length + 1) { speed = 2000; isDeleting = true; }
-            else if (isDeleting && charIdx === 0) { isDeleting = false; sentenceIdx = (sentenceIdx + 1) % sentences.length; speed = 500; }
-            setTimeout(type, speed);
+            if (isDeleting) textElement.innerText = currentSentence.substring(0, charIdx - 1), charIdx--;
+            else textElement.innerText = currentSentence.substring(0, charIdx + 1), charIdx++;
+            let typeSpeed = isDeleting ? 40 : 120;
+            if (!isDeleting && charIdx === currentSentence.length) typeSpeed = 2000, isDeleting = true;
+            else if (isDeleting && charIdx === 0) isDeleting = false, sentenceIdx = (sentenceIdx + 1) % sentences.length, typeSpeed = 500;
+            setTimeout(type, typeSpeed);
         }
 
-        // 알림 업데이트 (아래에서 위로 밀어내기)
+        // --- [추가된 로직] 알림 업데이트 로직 (아래에서 추가, 위로 밀어내기) ---
         function updateNotifications() {
             const list = document.getElementById('notification-list');
+            if(!list) return; // 페이지에 해당 요소가 없을 경우 방지
+
             const now = new Date();
-            const timeStr = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+            const timeStr = `오늘 ${now.getHours() > 12 ? '오후' : '오전'} ${now.getHours() % 12 || 12}:${String(now.getMinutes()).padStart(2, '0')}`;
             
+            // 1. 맨 위 알림 삭제 처리 (3개 이상일 때)
             if (list.children.length >= 3) {
                 const firstItem = list.firstElementChild;
-                firstItem.classList.add('fade-out');
-                setTimeout(() => { if(firstItem.parentNode === list) list.removeChild(firstItem); }, 500);
+                firstItem.classList.add('fade-out'); // 위로 사라지는 효과
+                setTimeout(() => {
+                    if(firstItem.parentNode === list) list.removeChild(firstItem);
+                }, 500);
             }
 
+            // 2. 새 알림 생성 (맨 아래에 추가)
             const item = document.createElement('div');
             item.className = 'notification-item';
             item.innerHTML = `
-                <div style="margin-right:12px; font-size:20px;">🚨</div>
-                <div>
-                    <div style="font-size:14px; font-weight:bold;">새로운 동작 감지</div>
-                    <div style="font-size:12px; color:#888;">감지 시간: ${timeStr}</div>
+                <div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">📸</div>
+                <div style="text-align:left;">
+                    <div style="font-size:14px; font-weight:bold; color:#333;">동작 감지됨</div>
+                    <div style="font-size:12px; color:#888;">${timeStr}</div>
                 </div>
             `;
+            
             list.appendChild(item);
         }
 
-        window.onload = () => {
+        window.onload = function() {
             type();
+            
+            // 초기 알림 생성 (2개 미리 보여줌)
             updateNotifications();
             setTimeout(updateNotifications, 1000);
+            
+            // 20초마다 새로운 알림 추가
             setInterval(updateNotifications, 20000);
         };
     </script>
