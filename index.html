@@ -6,8 +6,8 @@
     <title>공마고의 도둑들</title>
     <style>
         :root {
-            /* [라이트 모드] 기존 유지 */
-            --primary-color: #5856d6; 
+            /* [라이트 모드] */
+            --primary-color: #5856d6; /* 딥 퍼플 */
             --text-main: #1d1d1f;
             --text-sub: #86868b;
             
@@ -28,33 +28,26 @@
             --theme-speed: 0.5s;
         }
 
-        /* [다크 모드: Monokai Pro Theme 적용] */
+        /* [다크 모드: 원래 쓰던 색상(#bf5af2) 및 배경으로 복구] */
         body.dark-mode {
-            /* 요청하신 포인트 컬러 (Purple) */
-            --primary-color: #AB9DF2; 
+            --primary-color: #bf5af2; /* 네온 바이올렛 (복구됨) */
             
-            /* Monokai Pro 텍스트 컬러 (Soft White) */
-            --text-main: #fcfcfa;
-            /* Monokai Pro 주석 컬러 (Grey) */
-            --text-sub: #939293;
+            --text-main: #f5f5f7;
+            --text-sub: #a1a1a6;
             
-            /* 요청하신 메인 배경 컬러 */
-            --white: #221F22; 
-            --hero-bg: #221F22;
-            --header-bg: #221F22; 
-            --header-text: #fcfcfa;
+            /* 배경색도 기존 애플 스타일 다크모드로 복구 */
+            --bg-light: #000000;
+            --white: #1c1c1e;
+            --hero-bg: #1c1c1e;
             
-            /* 섹션 배경: 메인보다 살짝 밝거나 어두운 톤 (#19181a or #2d2a2e) */
-            /* 여기서는 깊이감을 위해 메인보다 살짝 어두운 톤 사용 */
-            --bg-light: #19181a; 
+            --header-bg: #1c1c1e; 
+            --header-text: #ffffff;
             
-            --nav-bg: rgba(34, 31, 34, 0.9);
+            --nav-bg: rgba(20, 20, 22, 0.9);
+            --card-bg: #2c2c2e;
+            --card-border: rgba(255, 255, 255, 0.1);
             
-            /* 카드 배경: Monokai Pro의 패널 색상 (#2D2A2E) 사용 */
-            --card-bg: #2D2A2E;
-            --card-border: rgba(255, 255, 255, 0.05);
-            
-            --btn-bg: #fcfcfa;
+            --btn-bg: #ffffff;
         }
 
         /* [색상 전환 효과] */
@@ -123,12 +116,11 @@
         .section-header h2 { font-size: 42px; font-weight: 700; margin: 0 0 15px 0; letter-spacing: -1px; }
         .section-header p { font-size: 18px; opacity: 0.8; margin: 0; }
 
-        /* [수정됨] 페이지 전환 애니메이션 속도 조절 (0.5s -> 1.2s) */
+        /* [페이지 전환: 단순 페이드인] */
         .page { display: none; padding-top: 90px; }
         .page.active { 
             display: block; 
-            /* 천천히 부드럽게 등장 */
-            animation: simpleFadeIn 1.2s ease-out forwards;
+            animation: simpleFadeIn 0.5s ease-out forwards;
         }
 
         @keyframes simpleFadeIn { 
@@ -241,10 +233,11 @@
 
         .product-img-box { width: 100%; height: 320px; background: var(--bg-light); border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
 
+        /* [진동 효과: 1px] */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-1px); }
-            40%, 80% { transform: translateX(1px); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-1px); }
+            20%, 40%, 60%, 80% { transform: translateX(1px); }
         }
         .shake-animation {
             animation: shake 0.3s ease-in-out;
@@ -275,23 +268,22 @@
         }
         
         /* [수정됨] 다크모드 로고 호버 스타일 */
-        /* 기본: 살짝 어두운 흑백 (brightness 0.9) */
+        /* GJMST 제외: 기본은 어두운 회색(0.8), 호버하면 쨍한 흰색(1) */
         body.dark-mode .partner-logo:not(.gjmst-logo) {
             filter: brightness(0) invert(0.8); 
             opacity: 0.8;
         }
-        /* 호버: 쨍한 하얀색 */
         body.dark-mode .partner-logo:not(.gjmst-logo):hover {
             filter: brightness(0) invert(1); 
             opacity: 1; 
             transform: scale(1.1);
         }
 
-        /* GJMST: 다크모드에서 흑백톤(100%) + 약간 어두움(0.8) */
+        /* GJMST 로고: 다크모드에서 흑백톤(100%) + 약간 어두움(0.8) */
         body.dark-mode .gjmst-logo {
             filter: grayscale(100%) opacity(0.8);
         }
-        /* GJMST 호버: 원본 색상(0%) + 약간 어두운 밝기 유지(0.9) */
+        /* GJMST 호버: 흑백 풀고(0%) + 약간 밝게(0.9) - 너무 쨍하지 않게 */
         body.dark-mode .gjmst-logo:hover {
             filter: grayscale(0%) brightness(0.9);
             opacity: 1;
@@ -331,10 +323,10 @@
         }
         body.dark-mode .theme-toggle-btn img { filter: invert(0); }
 
-        /* --- [SCROLL TOP BTN] --- */
+        /* --- [SCROLL TOP BTN (수정됨: 1.5초 천천히 등장)] --- */
         .scroll-top-btn {
             position: fixed;
-            bottom: 90px; /* theme button(30) + height(50) + gap(10) */
+            bottom: 90px;
             right: 30px;
             width: 50px; height: 50px;
             border-radius: 50%;
@@ -345,6 +337,9 @@
             display: flex; align-items: center; justify-content: center;
             opacity: 0; visibility: hidden;
             transform: translateY(20px);
+            
+            /* [수정] 등장 애니메이션 속도 1.5초로 느리게 설정 */
+            transition: opacity 1.5s ease, transform 1.5s ease, background-color 0.3s ease;
         }
         .scroll-top-btn.show { opacity: 1; visibility: visible; transform: translateY(0); }
         .scroll-top-btn:hover { transform: scale(1.1); }
