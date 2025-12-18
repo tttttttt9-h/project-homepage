@@ -276,13 +276,13 @@
         }
 
         /* [수정됨] GJMST 로고: 다크모드에서 흑백톤(grayscale 100%) + 살짝 어둡게(opacity 0.8) */
-        /* 호버시: 흑백 풀고(grayscale 0%) + 원래 밝기 + 살짝 어두운 밝기(brightness 0.9) */
+        /* 호버시: 흑백 풀고(grayscale 0%) + 밝게(brightness 1.5) */
         body.dark-mode .gjmst-logo {
             filter: grayscale(100%) opacity(0.8); 
         }
         body.dark-mode .gjmst-logo:hover {
-            filter: grayscale(0%) brightness(0.9);
-            opacity: 1;
+            /* 흑백 느낌은 옅어지고(0%), 밝아짐 */
+            filter: grayscale(0%) brightness(1.2) opacity(1);
             transform: scale(1.1); 
         }
         
