@@ -62,7 +62,8 @@
             transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
                         box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
                         background-color 0.3s ease,
-                        opacity 0.3s ease;
+                        opacity 0.3s ease,
+                        filter 0.3s ease;
         }
 
         body {
@@ -111,7 +112,7 @@
         .section-header h2 { font-size: 42px; font-weight: 700; margin: 0 0 15px 0; letter-spacing: -1px; }
         .section-header p { font-size: 18px; opacity: 0.8; margin: 0; }
 
-        /* [수정 1] 페이지 전환: 심플한 페이드인으로 복구 */
+        /* [페이지 전환: 단순 페이드인] */
         .page { display: none; padding-top: 90px; }
         .page.active { 
             display: block; 
@@ -204,11 +205,13 @@
         .team-container { max-width: 1100px; margin: 80px auto; padding: 0 24px; }
         .ceo-card { background: var(--card-bg); padding: 60px 24px; border-radius: 40px; text-align: center; border: 1px solid var(--card-border); margin-bottom: 60px; }
         
-        /* [수정 3] CEO 아이콘 색상을 멤버들과 동일하게 var(--bg-light)로 변경 */
+        /* [수정 3] CEO 글씨 색상 통일 (var(--text-sub) 적용) */
         .profile-initial { 
             width: 160px; height: 160px; 
-            background: var(--bg-light); /* 여기 수정됨 */
-            border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; font-size: 64px; font-weight: 800; color: #1d1d1f; 
+            background: var(--bg-light);
+            border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; 
+            font-size: 64px; font-weight: 800; 
+            color: var(--text-sub); /* 수정됨 */
         }
         
         .executive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
@@ -227,14 +230,14 @@
 
         .product-img-box { width: 100%; height: 320px; background: var(--bg-light); border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
 
-        /* [수정 4] 진동 효과 수정 (제대로 작동하도록 keyframes 조정 및 class 적용) */
+        /* [수정 4] 진동 효과: 1px로 미세하게 설정 */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-4px); }
-            40%, 80% { transform: translateX(4px); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-1px); }
+            20%, 40%, 60%, 80% { transform: translateX(1px); }
         }
         .shake-animation {
-            animation: shake 0.3s ease-in-out;
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
         }
 
         /* --- [BUY & RECEIPT] --- */
@@ -261,16 +264,24 @@
             cursor: pointer; 
         }
         
-        /* [수정 2] GJMST 로고는 다크모드 호버 시 하얗게 변하지 않음 (커지기만 함) */
+        /* [수정 2] 다크모드 로고 로직 */
+        /* GJMST 제외: 기본은 약간 희끄무레(0.6), 호버하면 쨍한 흰색(1) */
+        body.dark-mode .partner-logo:not(.gjmst-logo) {
+            filter: brightness(0) invert(0.6); 
+            opacity: 0.7;
+        }
         body.dark-mode .partner-logo:not(.gjmst-logo):hover {
             filter: brightness(0) invert(1); 
             opacity: 1; 
             transform: scale(1.1);
         }
-        /* GJMST 로고 전용 호버 (색반전 X) */
-        body.dark-mode .gjmst-logo:hover {
-            filter: grayscale(100%) invert(1); /* 원래 다크모드 상태 유지 */
+
+        /* GJMST 로고: 다크모드에서도 원본 유지 */
+        body.dark-mode .gjmst-logo {
+            filter: none !important; 
             opacity: 1; 
+        }
+        body.dark-mode .gjmst-logo:hover {
             transform: scale(1.1);
         }
         
@@ -678,7 +689,7 @@
             btn.classList.add('shake-animation');
             setTimeout(() => {
                 btn.classList.remove('shake-animation');
-            }, 300); 
+            }, 400); 
         }
 
         window.onload = function() {
