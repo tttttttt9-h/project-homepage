@@ -230,11 +230,11 @@
 
         .product-img-box { width: 100%; height: 320px; background: var(--bg-light); border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
 
-        /* [진동 효과: 1px로 미세하게 설정] */
+        /* [진동 효과: 1px] */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-1px); }
-            20%, 40%, 60%, 80% { transform: translateX(1px); }
+            20%, 60% { transform: translateX(-1px); }
+            40%, 80% { transform: translateX(1px); }
         }
         .shake-animation {
             animation: shake 0.3s ease-in-out;
@@ -264,25 +264,24 @@
             cursor: pointer; 
         }
         
-        /* [수정됨] 다크모드 로고 로직 */
-        /* GJMST 제외: 기본은 80% 밝기(약간 어둡), 호버하면 100% 흰색 */
+        /* [수정됨] GJMST 제외 로고: 다크모드에서 흑백+회색조(80%) -> 호버시 완전 쨍한 흰색(100%) */
         body.dark-mode .partner-logo:not(.gjmst-logo) {
             filter: brightness(0) invert(0.8); 
             opacity: 0.8;
         }
         body.dark-mode .partner-logo:not(.gjmst-logo):hover {
-            filter: brightness(0) invert(1); 
+            filter: brightness(0) invert(1); /* 쨍한 흰색 */
             opacity: 1; 
             transform: scale(1.1);
         }
 
-        /* [수정됨] GJMST 로고: 다크모드에서 살짝 어둡게 -> 호버시 원본 밝기 */
+        /* [수정됨] GJMST 로고: 다크모드에서 흑백톤(grayscale 100%) + 살짝 어둡게(opacity 0.8) */
+        /* 호버시: 흑백 풀고(grayscale 0%) + 원래 밝기 + 살짝 어두운 밝기(brightness 0.9) */
         body.dark-mode .gjmst-logo {
-            filter: brightness(0.8); 
-            opacity: 0.9;
+            filter: grayscale(100%) opacity(0.8); 
         }
         body.dark-mode .gjmst-logo:hover {
-            filter: brightness(1); /* 호버 시 원본 밝기로 */
+            filter: grayscale(0%) brightness(0.9);
             opacity: 1;
             transform: scale(1.1); 
         }
