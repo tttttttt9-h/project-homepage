@@ -57,7 +57,7 @@
         }
 
         /* [호버 효과 별도 속도] */
-        .live-view-btn, .cta-button, .partner-logo, .theme-toggle-btn, 
+        .live-view-btn, .cta-button, .partner-logo, .theme-toggle-btn, .scroll-top-btn,
         .info-card, .member-card, .product-card:not(.disabled-card) {
             transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
                         box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
@@ -264,29 +264,27 @@
             cursor: pointer; 
         }
         
-        /* [수정됨] GJMST 제외 로고: 다크모드에서 흑백+회색조(80%) -> 호버시 완전 쨍한 흰색(100%) */
+        /* [수정됨] 다크모드 로고 호버 스타일 */
         body.dark-mode .partner-logo:not(.gjmst-logo) {
-            filter: brightness(0) invert(0.8); 
+            filter: brightness(0) invert(0.8); /* 기본: 약간 흐릿한 회색빛 */
             opacity: 0.8;
         }
         body.dark-mode .partner-logo:not(.gjmst-logo):hover {
-            filter: brightness(0) invert(1); /* 쨍한 흰색 */
+            filter: brightness(0) invert(1); /* 호버: 쨍한 하얀색 */
             opacity: 1; 
             transform: scale(1.1);
         }
 
-        /* [수정됨] GJMST 로고: 다크모드에서 흑백톤(grayscale 100%) + 살짝 어둡게(opacity 0.8) */
-        /* 호버시: 흑백 풀고(grayscale 0%) + 밝게(brightness 1.5) */
         body.dark-mode .gjmst-logo {
-            filter: grayscale(100%) opacity(0.8); 
+            filter: brightness(0.8); /* 다크모드 기본: 약간 어둡게 */
+            opacity: 0.9;
         }
         body.dark-mode .gjmst-logo:hover {
-            /* 흑백 느낌은 옅어지고(0%), 밝아짐 */
-            filter: grayscale(0%) brightness(1.2) opacity(1);
+            filter: brightness(1); /* 호버: 원본 밝기 */
+            opacity: 1;
             transform: scale(1.1); 
         }
         
-        /* 라이트 모드 호버 */
         body:not(.dark-mode) .partner-logo:hover {
             filter: grayscale(0%); opacity: 1; transform: scale(1.1);
         }
@@ -318,6 +316,31 @@
             filter: invert(1); 
         }
         body.dark-mode .theme-toggle-btn img { filter: invert(0); }
+
+        /* --- [SCROLL TOP BTN] --- */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 90px; /* theme button(30) + height(50) + gap(10) */
+            right: 30px;
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            background-color: var(--btn-bg);
+            border: 1px solid rgba(128,128,128,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            cursor: pointer; z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden;
+            transform: translateY(20px);
+        }
+        .scroll-top-btn.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        .scroll-top-btn:hover { transform: scale(1.1); }
+        
+        .scroll-top-btn img { 
+            width: 20px; height: 20px; 
+            transition: all var(--theme-speed);
+            filter: invert(1); 
+        }
+        body.dark-mode .scroll-top-btn img { filter: invert(0); }
     </style>
 </head>
 <body>
@@ -336,6 +359,10 @@
             </div>
         </div>
     </nav>
+
+    <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to Top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+        <img src="images/arrow.svg" alt="Top">
+    </button>
 
     <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Dark Mode">
         </button>
@@ -683,6 +710,16 @@
             body.classList.toggle('dark-mode');
             const isDark = body.classList.contains('dark-mode');
             themeBtn.innerHTML = isDark ? iconSun : iconMoon;
+        });
+
+        // --- [스크롤 탑 버튼 로직] ---
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
         });
 
         // --- [진동 애니메이션 함수] ---
