@@ -1,315 +1,302 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>공마고의 도둑들</title>
 
 <style>
-:root {
-    --primary-color:#0071e3;
-    --text-main:#1d1d1f;
-    --text-sub:#86868b;
-    --bg-light:#f5f5f7;
-    --white:#ffffff;
-    --header-bg:#1d1d1f;
-    --header-text:#ffffff;
+/* =====================
+   RESET & BASE
+===================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-*{box-sizing:border-box}
-body{
-    margin:0;
-    font-family:"SF Pro KR","Apple SD Gothic Neo",sans-serif;
-    background:#fff;
-    color:var(--text-main);
-    overflow-x:hidden;
-    user-select:none;
+html {
+    scroll-behavior: smooth;
 }
 
-/* NAV */
-.navbar{
-    position:fixed;top:0;width:100%;
-    background:rgba(255,255,255,.8);
-    backdrop-filter:blur(20px);
-    border-bottom:1px solid rgba(0,0,0,.1);
-    z-index:1000;
-}
-.nav-container{
-    max-width:1200px;margin:auto;
-    height:90px;
-    display:flex;align-items:center;justify-content:space-between;
-    padding:0 16px;
-}
-.logo-area{display:flex;align-items:center;cursor:pointer}
-.logo-img{height:50px;margin-right:10px}
-.logo-text{font-size:24px;font-weight:800}
-.nav-menu a{
-    margin-left:20px;
-    font-weight:600;
-    cursor:pointer;
-    text-decoration:none;
-    color:var(--text-main);
-    opacity:.8;
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #1d1d1f;
+    background: #ffffff;
+    line-height: 1.6;
 }
 
-/* PAGE */
-.page{display:none;padding-top:90px;animation:fade .4s}
-.page.active{display:block}
-@keyframes fade{from{opacity:0}to{opacity:1}}
+section {
+    padding: 120px 24px;
+}
 
-/* HERO (정리 완료) */
-.hero{
-    padding:160px 24px;
-    text-align:center;
-    position:relative;
-    overflow:hidden;
+/* =====================
+   NAV
+===================== */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 64px;
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
 
-    background:linear-gradient(
-        120deg,
-        #ffffff 0%,
-        #f1f5ff 35%,
-        #dbe7ff 50%,
-        #f5f5f7 65%,
-        #ffffff 100%
+nav ul {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+}
+
+nav a {
+    text-decoration: none;
+    color: #1d1d1f;
+    font-weight: 500;
+}
+
+/* =====================
+   HERO
+===================== */
+.hero {
+    min-height: 100vh;
+    padding: 160px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+
+    --mx: 50%;
+    --my: 50%;
+
+    background: radial-gradient(
+        circle at var(--mx) var(--my),
+        #e8f0ff 0%,
+        #f4f6ff 25%,
+        #f5f5f7 45%,
+        #ffffff 70%
     );
-    background-size:300% 300%;
-    animation:heroMove 20s ease-in-out infinite;
-}
-@keyframes heroMove{
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+
+    background-size: 200% 200%;
+    animation: heroDrift 20s ease-in-out infinite;
 }
 
-.typing-container{
-    font-size:clamp(36px,6vw,68px);
-    font-weight:800;
-    letter-spacing:-2px;
-}
-.typing-text::after{content:"|";animation:blink .7s infinite}
-@keyframes blink{50%{opacity:0}}
-
-.hero p{
-    font-size:20px;
-    color:var(--text-sub);
-    margin:20px auto 40px;
-    max-width:800px;
+@keyframes heroDrift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-.cta-button{
-    display:inline-block;
-    padding:18px 40px;
-    border-radius:40px;
-    background:var(--primary-color);
-    color:#fff;
-    font-weight:700;
-    text-decoration:none;
-    cursor:pointer;
+.hero h1 {
+    font-size: 56px;
+    font-weight: 700;
+    margin-bottom: 16px;
 }
 
-/* SECTION HEADER */
-.section-header{
-    padding:100px 24px 60px;
-    background:var(--header-bg);
-    color:var(--header-text);
-    text-align:center;
-}
-.section-header h2{font-size:42px;margin:0}
-.section-header p{opacity:.8}
-
-/* TEAM */
-.team-container{max-width:1100px;margin:80px auto;padding:0 24px}
-.ceo-card{
-    background:#fbfbfd;
-    padding:60px 24px;
-    border-radius:40px;
-    text-align:center;
-    margin-bottom:60px;
-}
-.profile-initial{
-    width:160px;height:160px;
-    border-radius:50%;
-    background:#e8e8ed;
-    margin:auto;
-    display:flex;align-items:center;justify-content:center;
-    font-size:64px;font-weight:800;
+.hero p {
+    font-size: 20px;
+    color: #6e6e73;
 }
 
-/* PRODUCT */
-.product-grid{
-    max-width:1100px;
-    margin:80px auto;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
-    gap:40px;
-    padding:0 24px;
-}
-.product-card{
-    background:#fff;
-    border:1px solid #eee;
-    border-radius:30px;
-    padding:50px;
+/* =====================
+   COMMON
+===================== */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
-/* BUY */
-.buy-container{
-    max-width:1100px;
-    margin:60px auto;
-    display:flex;
-    gap:40px;
-    padding:0 24px;
+.fade {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 0.8s ease;
 }
 
-/* PAYMENT */
-.pay-method-grid{display:grid;gap:12px}
-.pay-btn{
-    padding:18px;
-    border-radius:12px;
-    border:1px solid #ddd;
-    background:#fff;
-    font-weight:600;
-    cursor:pointer;
+.fade.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-/* RECEIPT */
-.receipt-card{
-    max-width:500px;
-    margin:60px auto;
-    background:#fff;
-    padding:40px;
-    border-radius:24px;
+/* =====================
+   STATS
+===================== */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap: 32px;
 }
 
-/* FOOTER */
-.footer{
-    background:#f5f5f7;
-    padding:80px 24px;
-    border-top:1px solid #e5e5e5;
+.stat {
+    padding: 24px;
+    border-radius: 16px;
+    background: #f5f5f7;
 }
-.footer-content{max-width:1100px;margin:auto;font-size:13px;color:var(--text-sub)}
+
+.bar {
+    height: 8px;
+    background: #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.bar span {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: #0071e3;
+    transition: width 1.2s ease;
+}
+
+/* =====================
+   CARDS
+===================== */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+    gap: 32px;
+}
+
+.card {
+    padding: 32px;
+    border-radius: 20px;
+    background: #f5f5f7;
+    transition: transform .3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+}
+
+/* =====================
+   FORM
+===================== */
+form {
+    max-width: 480px;
+    margin: auto;
+    display: grid;
+    gap: 16px;
+}
+
+input, textarea, button {
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+button {
+    background: #0071e3;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
 </style>
 </head>
 
 <body>
 
-<nav class="navbar">
-<div class="nav-container">
-    <div class="logo-area" onclick="showPage('home')">
-        <span class="logo-text">공마고의 도둑들</span>
-    </div>
-    <div class="nav-menu">
-        <a onclick="showPage('home')">홈</a>
-        <a onclick="showPage('team')">임원진</a>
-        <a onclick="showPage('product')">구매하기</a>
-        <a onclick="showPage('contact')">문의</a>
-    </div>
-</div>
+<nav>
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#stats">Stats</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
 </nav>
 
-<main id="home" class="page active">
-<header class="hero">
-    <div class="typing-container">
-        <span id="typewriter" class="typing-text"></span>
-    </div>
-    <p>공용 냉장고 무단 취식, 이제 기술로 해결합니다.</p>
-    <a class="cta-button" onclick="showPage('product')">지금 시작하기</a>
-</header>
-</main>
+<!-- HERO -->
+<section id="home" class="hero">
+    <h1 id="typing"></h1>
+    <p>공용 공간의 문화를 설계합니다</p>
+</section>
 
-<main id="team" class="page">
-<header class="section-header">
-    <h2>Leading the Future</h2>
-    <p>공용 공간의 신뢰를 설계합니다.</p>
-</header>
-<div class="team-container">
-    <div class="ceo-card">
-        <div class="profile-initial">윤</div>
-        <h3>윤수원</h3>
-        <p>"작은 불편이 문화를 바꾼다"</p>
-    </div>
-</div>
-</main>
-
-<main id="product" class="page">
-<header class="section-header">
-    <h2>Choose Your Plan</h2>
-    <p>필요한 만큼 선택하세요</p>
-</header>
-<section class="product-grid">
-    <div class="product-card">
-        <h3>SRC-04</h3>
-        <p>냉장고 보안 솔루션</p>
-        <button class="cta-button" onclick="showPage('buy')">구매하기</button>
+<!-- STATS -->
+<section id="stats">
+    <div class="container stats fade">
+        <div class="stat">
+            감지 정확도
+            <div class="bar"><span data-percent="92"></span></div>
+        </div>
+        <div class="stat">
+            사용자 만족도
+            <div class="bar"><span data-percent="97"></span></div>
+        </div>
+        <div class="stat">
+            재사용률
+            <div class="bar"><span data-percent="88"></span></div>
+        </div>
     </div>
 </section>
-</main>
 
-<main id="buy" class="page">
-<div class="buy-container">
-    <div>
-        <h2>배송 정보</h2>
-        <input id="buyer_name" placeholder="이름"><br><br>
-        <input id="buyer_addr" placeholder="주소"><br><br>
-        <button class="cta-button" onclick="showPage('payment')">결제하기</button>
+<!-- FEATURES -->
+<section id="features">
+    <div class="container cards fade">
+        <div class="card">실시간 알림</div>
+        <div class="card">정확한 동작 감지</div>
+        <div class="card">간편한 설치</div>
     </div>
-</div>
-</main>
+</section>
 
-<main id="payment" class="page">
-<div style="max-width:400px;margin:60px auto;text-align:center">
-    <h2>결제 수단</h2>
-    <div class="pay-method-grid">
-        <button class="pay-btn" onclick="completeOrder('카카오페이')">카카오페이</button>
-        <button class="pay-btn" onclick="completeOrder('네이버페이')">네이버페이</button>
-    </div>
-</div>
-</main>
-
-<main id="receipt" class="page">
-<div class="receipt-card">
-    <h2>주문 완료</h2>
-    <p id="rec_method"></p>
-    <button class="cta-button" onclick="showPage('home')">메인으로</button>
-</div>
-</main>
-
-<main id="contact" class="page">
-<div style="max-width:800px;margin:80px auto;text-align:center">
-    <h2>Talk to Us</h2>
-    <p>business@gjmst-thives.com</p>
-</div>
-</main>
-
-<footer class="footer">
-<div class="footer-content">
-    <p>(주)공마고의 도둑들</p>
-    <p>© 2025 Gjmst Thieves</p>
-</div>
-</footer>
+<!-- CONTACT -->
+<section id="contact">
+    <form class="fade">
+        <input type="text" placeholder="이름" />
+        <input type="email" placeholder="이메일" />
+        <textarea rows="4" placeholder="문의 내용"></textarea>
+        <button type="submit">보내기</button>
+    </form>
+</section>
 
 <script>
-function showPage(id){
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    window.scrollTo(0,0);
-}
+/* =====================
+   HERO MOUSE WATER
+===================== */
+const hero = document.querySelector('.hero');
+hero.addEventListener('mousemove', e => {
+    const r = hero.getBoundingClientRect();
+    hero.style.setProperty('--mx', ((e.clientX - r.left) / r.width) * 100 + '%');
+    hero.style.setProperty('--my', ((e.clientY - r.top) / r.height) * 100 + '%');
+});
+hero.addEventListener('mouseleave', () => {
+    hero.style.setProperty('--mx', '50%');
+    hero.style.setProperty('--my', '50%');
+});
 
-function completeOrder(method){
-    document.getElementById('rec_method').innerText="결제 수단: "+method;
-    showPage('receipt');
-}
+/* =====================
+   SCROLL FADE
+===================== */
+const fades = document.querySelectorAll('.fade');
+const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('show');
+    });
+}, { threshold: 0.2 });
+fades.forEach(f => io.observe(f));
 
-const texts=["기숙사 냉장고의 평화,","오피스 냉장고의 신뢰,","기술로 완성합니다."];
-let t=0,c=0,d=false;
-const el=document.getElementById("typewriter");
-function type(){
-    const s=texts[t];
-    el.innerText=d?s.slice(0,--c):s.slice(0,++c);
-    if(!d&&c===s.length)setTimeout(()=>d=true,1500);
-    else if(d&&c===0){d=false;t=(t+1)%texts.length}
-    setTimeout(type,d?40:120);
-}
-type();
+/* =====================
+   STATS BAR
+===================== */
+document.querySelectorAll('.bar span').forEach(bar => {
+    const p = bar.dataset.percent;
+    setTimeout(() => bar.style.width = p + '%', 400);
+});
+
+/* =====================
+   TYPING EFFECT
+===================== */
+const text = "범인은 이 안에 있습니다.";
+let i = 0;
+const typing = document.getElementById('typing');
+
+(function type() {
+    if (i < text.length) {
+        typing.textContent += text[i++];
+        setTimeout(type, 80);
+    }
+})();
 </script>
 
 </body>
