@@ -169,7 +169,6 @@
             display: flex; flex-direction: column; gap: 10px;
         }
 
-        /* 새로운 알림이 올라오는 애니메이션 */
         .notification-item {
             background: #f5f5f7; padding: 15px; border-radius: 12px;
             display: flex; align-items: center;
@@ -179,6 +178,26 @@
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* [추가] 실시간 보기 버튼 스타일 */
+        .live-view-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .live-view-btn:hover {
+            background-color: #005bb7;
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
         }
 
         /* --- [TEAM] --- */
@@ -233,7 +252,7 @@
             gap: 20px 40px;
             max-width: 1000px; 
             margin: 0 auto; 
-            padding-left: 50px; /* 오른쪽으로 이동 유지 */
+            padding-left: 50px; 
         }
         .partner-logo { 
             height: 30px; 
@@ -340,10 +359,8 @@
                             <div id="notification-list">
                                 </div>
                             <div style="margin-bottom:20px; text-align:center;">
-                                <a href="http://project.whanci.xyz" target="_blank" style="text-decoration:none;">
-                                    <div style="background:var(--primary-color); color:white; padding:10px 20px; border-radius:20px; display:inline-block; font-size:14px; cursor:pointer; box-shadow:0 4px 6px rgba(0,0,0,0.1); transition: 0.2s;">
-                                        실시간 보기
-                                    </div>
+                                <a href="http://project.whanci.xyz" target="_blank" class="live-view-btn">
+                                    실시간 보기
                                 </a>
                             </div>
                         </div>
@@ -570,7 +587,7 @@
             setTimeout(type, typeSpeed);
         }
 
-        // --- [알림 업데이트 로직 수정됨] ---
+        // --- [알림 업데이트 로직] ---
         function updateNotifications() {
             const list = document.getElementById('notification-list');
             if(!list) return;
@@ -578,13 +595,12 @@
             const now = new Date();
             const timeStr = `오늘 ${now.getHours() > 12 ? '오후' : '오전'} ${now.getHours() % 12 || 12}:${String(now.getMinutes()).padStart(2, '0')}`;
             
-            // [수정] 3개 이상일 때 하나를 지우고(delete), 그 다음(then) 생성
+            // 3개 이상일 경우 맨 위 삭제
             if (list.children.length >= 3) {
-                // 맨 위 요소를 즉시 삭제하여 공간 확보
                 list.removeChild(list.firstElementChild);
             }
 
-            // 새로운 알림 생성 (맨 아래에 추가)
+            // 새로운 알림 생성 (맨 아래)
             const item = document.createElement('div');
             item.className = 'notification-item';
             item.innerHTML = `
