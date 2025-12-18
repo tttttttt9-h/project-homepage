@@ -6,340 +6,246 @@
     <title>공마고의 도둑들</title>
     <style>
         :root {
-            --primary-color: #0071e3;
-            --text-main: #1d1d1f;
-            --text-sub: #86868b;
-            --bg-light: #f5f5f7;
-            --white: #ffffff;
-            --header-bg: #1d1d1f;
-            --header-text: #fff;
-        }
+    --primary-color: #0071e3;
+    --text-main: #1d1d1f;
+    --text-sub: #86868b;
+    --bg-light: #f5f5f7;
+    --white: #ffffff;
+    --header-bg: #1d1d1f;
+    --header-text: #fff;
+}
 
-        body {
-            font-family: "SF Pro KR", "SF Pro Display", "Apple SD Gothic Neo", sans-serif;
-            margin: 0; padding: 0;
-            background-color: var(--white);
-            color: var(--text-main);
-            line-height: 1.6;
-            word-break: keep-all;
-            overflow-x: hidden;
-            /* --- 드래그 방지 --- */
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-use-select: none;
-            user-select: none;
-        }
+body {
+    font-family: "SF Pro KR", "SF Pro Display", "Apple SD Gothic Neo", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--white);
+    color: var(--text-main);
+    line-height: 1.6;
+    word-break: keep-all;
+    overflow-x: hidden;
 
-        /* --- 네비게이션 --- */
-        .navbar {
-            position: fixed; top: 0; width: 100%;
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px); z-index: 1000;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-        }
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
 
-        .nav-container {
-            max-width: 1200px; margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: center;
-            height: 90px; padding: 0 15px;
-        }
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
 
-        .logo-area { display: flex; align-items: center; text-decoration: none; color: var(--text-main); cursor: pointer; flex-shrink: 0; }
-        .logo-img { height: 50px; margin-right: 10px; transition: all 0.3s; }
-        .logo-text { font-weight: 800; font-size: 24px; letter-spacing: -1px; transition: all 0.3s; }
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 90px;
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .nav-menu { display: flex; align-items: center; }
-        .nav-menu a {
-            font-size: 15px; color: var(--text-main); text-decoration: none;
-            margin-left: 20px; opacity: 0.8; transition: 0.2s; cursor: pointer; font-weight: 600;
-            white-space: nowrap;
-        }
+.logo-area {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
 
-        /* --- 공통 섹션 헤더 스타일 --- */
-        .section-header {
-            padding: 100px 24px 60px;
-            text-align: center;
-            background-color: var(--header-bg);
-            color: var(--header-text);
-        }
-        .section-header h2 {
-            font-size: 42px;
-            font-weight: 700;
-            margin: 0 0 15px 0;
-            letter-spacing: -1px;
-        }
-        .section-header p {
-            font-size: 18px;
-            opacity: 0.8;
-            margin: 0;
-        }
+.logo-img {
+    height: 50px;
+    margin-right: 10px;
+}
 
-        /* 모바일 대응 */
-        @media (max-width: 768px) {
-            .nav-container { height: 60px; padding: 0 10px; }
-            .logo-img { height: 28px; margin-right: 5px; }
-            .logo-text { font-size: 15px; letter-spacing: -0.5px; }
-            .nav-menu a { margin-left: 8px; font-size: 12px; letter-spacing: -0.5px; }
-            .hero { padding: 80px 20px; }
-            .typing-container { margin-top: 20px; }
-            .flex-container, .buy-container { flex-direction: column; }
-            .executive-grid, .product-grid, .info-grid, .app-container { grid-template-columns: 1fr; flex-direction: column; }
-            .section-header { padding: 50px 20px 30px; }
-            .section-header h2 { font-size: 28px; }
-            .app-text { text-align: center; margin-bottom: 40px; }
-            .logo-grid { padding-left: 0 !important; gap: 20px 30px; }
-        }
+.logo-text {
+    font-weight: 800;
+    font-size: 24px;
+    letter-spacing: -1px;
+}
 
-        .page { display: none; padding-top: 90px; animation: fadeIn 0.4s ease-out; }
-        .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.nav-menu a {
+    font-size: 15px;
+    font-weight: 600;
+    margin-left: 20px;
+    cursor: pointer;
+    opacity: 0.8;
+    text-decoration: none;
+    color: var(--text-main);
+}
 
-        /* --- [HOME HERO] --- */
-        .hero {
+/* =========================
+   PAGE
+========================= */
+.page {
+    display: none;
+    padding-top: 90px;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* =========================
+   HERO (물결 효과 핵심)
+========================= */
+.hero {
+    position: relative;
+    overflow: hidden;
     padding: 160px 24px;
     text-align: center;
 
-    /* 기본 화이트 계열 그라데이션 */
+    /* 기본 화이트 그라데이션 */
     background: linear-gradient(
         120deg,
         #ffffff 0%,
         #f4f6ff 30%,
-        #dde8ff 50%,
+        #eaf1ff 50%,
         #f5f5f7 70%,
         #ffffff 100%
     );
 
-    /* 그라데이션을 크게 만들어 이동 여유 확보 */
-    background-size: 300% 300%;
-
-    /* 진한 영역이 흐르듯 이동 */
-    animation: heroGradientMove 18s ease-in-out infinite;
-}
-        .typing-container {
-            font-size: clamp(36px, 6vw, 68px); 
-            font-weight: 800; margin-bottom: 24px;
-            letter-spacing: -2px; line-height: 1.2; min-height: 1.2em;
-        }
-        .typing-text::after { content: '|'; animation: blink 0.7s infinite; }
-        @keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; } }
-        .hero p { font-size: clamp(18px, 3vw, 24px); color: var(--text-sub); max-width: 800px; margin: 0 auto 50px; }
-
-        /* --- [STATISTICS / POLL SECTION] --- */
-        .poll-section {
-            padding: 100px 24px;
-            background-color: #f5f5f7;
-            text-align: center;
-        }
-        .poll-container {
-            max-width: 700px; margin: 0 auto; background: #fff; padding: 50px 40px;
-            border-radius: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); border: 1px solid #efefef;
-        }
-        .stat-title { font-size: 24px; font-weight: 700; margin-bottom: 10px; color: #1d1d1f; }
-        .stat-desc { font-size: 16px; color: #86868b; margin-bottom: 40px; }
-        .bar-bg { height: 24px; background: #f5f5f7; border-radius: 12px; margin: 20px 0; overflow: hidden; position: relative; }
-        .bar-fill {
-            height: 100%; background: var(--primary-color); border-radius: 12px; width: 0;
-            transition: width 2.5s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .stat-number { font-size: 64px; font-weight: 800; color: var(--primary-color); display: block; line-height: 1; margin-bottom: 10px; }
-
-        /* --- [INFO CARDS SECTION] --- */
-        .info-section {
-            background: #f5f5f7; padding-bottom: 80px;
-        }
-        .info-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            max-width: 1100px; margin: 0 auto; gap: 30px;
-        }
-        .info-card {
-            padding: 50px 40px; border-radius: 30px; display: flex; flex-direction: column; justify-content: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
-            border: 1px solid #efefef; 
-            background: #ffffff;
-        }
-        .info-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
-        .card-dorm h3, .card-office h3 { color: #1d1d1f !important; }
-        .card-dorm p, .card-office p { color: var(--text-main) !important; }
-
-
-        /* --- [APP PREVIEW SECTION] --- */
-        .app-section {
-            padding: 100px 24px;
-            background: #f5f5f7;
-            overflow: hidden;
-        }
-        .app-container {
-            max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 50px;
-        }
-        .app-text { flex: 1; text-align: left; }
-        .app-image { flex: 1; display: flex; justify-content: center; }
-
-        .phone-mockup {
-            width: 280px; height: 560px; background: #000; border-radius: 40px; border: 12px solid #1d1d1f;
-            position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2); overflow: hidden; background: #fff;
-        }
-        .notch {
-            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 120px; height: 25px; background: #1d1d1f; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; z-index: 10;
-        }
-        .phone-screen { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        
-        #notification-list {
-            width: 100%; padding: 20px; box-sizing: border-box;
-            display: flex; flex-direction: column; gap: 10px;
-        }
-
-        .notification-item {
-            background: #f5f5f7; padding: 15px; border-radius: 12px;
-            display: flex; align-items: center;
-            animation: slideUp 0.5s ease-out forwards;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* [추가] 실시간 보기 버튼 스타일 */
-        .live-view-btn {
-            background: var(--primary-color);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            display: inline-block;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-        .live-view-btn:hover {
-            background-color: #005bb7;
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-        }
-
-        /* --- [TEAM] --- */
-        .team-container { max-width: 1100px; margin: 80px auto; padding: 0 24px; }
-        .ceo-card { background: #fbfbfd; padding: 60px 24px; border-radius: 40px; text-align: center; border: 1px solid #eee; margin-bottom: 60px; }
-        .profile-initial { width: 160px; height: 160px; background: #e8e8ed; border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; font-size: 64px; font-weight: 800; color: #1d1d1f; }
-        .executive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .member-card { background: #fff; border: 1px solid #efefef; padding: 40px; border-radius: 30px; text-align: center; transition: 0.3s; }
-        .member-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .member-initial { width: 100px; height: 100px; background: #f5f5f7; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 700; color: #86868b; }
-
-        /* --- [PRODUCT] --- */
-        .product-grid { max-width: 1100px; margin: 80px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; padding: 0 24px; }
-        .product-card { background: #fff; border-radius: 30px; padding: 50px; border: 1px solid #efefef; transition: 0.3s; display: flex; flex-direction: column; }
-        .product-img-box { width: 100%; height: 320px; background: #f5f5f7; border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
-
-        /* --- [BUY & PAYMENT] --- */
-        .buy-container { max-width: 1100px; margin: 60px auto; display: flex; flex-wrap: wrap; gap: 50px; padding: 0 24px; }
-        .buy-form { background: #fbfbfd; padding: 40px; border-radius: 24px; border: 1px solid #e5e5e5; flex: 1; min-width: 320px; }
-        .pay-method-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
-        .pay-btn { padding: 18px; border-radius: 12px; border: 1px solid #d2d2d7; background: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; color: #1d1d1f; }
-        .pay-btn img { height: 20px; margin-right: 8px; }
-        .pay-btn:hover { filter: brightness(0.85); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-
-        /* --- [RECEIPT] --- */
-        .receipt-card { max-width: 500px; margin: 60px auto; background: #fff; padding: 40px; border-radius: 24px; border: 1px solid #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .receipt-line { display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed #eee; padding-bottom: 4px; }
-
-        .cta-button { display: inline-block; background-color: var(--primary-color); color: white; padding: 18px 40px; border-radius: 35px; text-decoration: none; font-weight: 700; font-size: 18px; cursor: pointer; transition: 0.3s; text-align: center; border: none; }
-        .cta-button:hover { background-color: #005bb7; transform: scale(1.02); }
-
-        /* --- [PARTNER SECTION] --- */
-        .partner-section { 
-            padding: 80px 24px; 
-            background-color: #ffffff; 
-            text-align: center; 
-            border-top: 1px solid #f5f5f7; 
-        }
-        .partner-title { 
-            font-size: 14px; 
-            font-weight: 600; 
-            color: #86868b; 
-            letter-spacing: 0.5px; 
-            text-transform: uppercase; 
-            margin-bottom: 40px; 
-        }
-        .logo-grid { 
-            display: flex; 
-            justify-content: center;
-            align-items: center;     
-            flex-wrap: wrap; 
-            gap: 20px 40px;
-            max-width: 1000px; 
-            margin: 0 auto; 
-            padding-left: 50px; 
-        }
-        .partner-logo { 
-            height: 30px; 
-            width: auto; 
-            opacity: 0.4; 
-            filter: grayscale(100%); 
-            transition: all 0.3s ease; 
-            cursor: pointer; 
-        }
-        .partner-logo.main-logo { 
-            height: 50px; 
-            opacity: 0.8; 
-        } 
-        .partner-logo:hover { opacity: 1; filter: grayscale(0%); transform: scale(1.05); }
-
-        /* --- [FOOTER] --- */
-        .footer { background-color: var(--bg-light); padding: 80px 24px; border-top: 1px solid #e5e5e5; }
-        .footer-content { max-width: 1100px; margin: 0 auto; color: var(--text-sub); font-size: 13px; }
-
-        /* --- HERO 그라데이션 배경 --- */
-.hero {
-    position: relative;
-    overflow: hidden;
-    background: #ffffff; /* 기존 흰 배경 유지 */
+    /* 마우스 좌표 변수 */
+    --mx: 50%;
+    --my: 50%;
 }
 
-/* 움직이는 그라데이션 레이어 */
+/* 물결 레이어 */
 .hero::before {
     content: "";
     position: absolute;
-    inset: 0;
-    z-index: 0;
+    inset: -30%;
 
-    background: linear-gradient(
-        120deg,
-        #ffffff,
-        #f2f7ff,
-        #e8f0ff,
-        #ffffff
-    );
-    background-size: 400% 400%;
-    animation: heroGradient 18s ease infinite;
+    background:
+        radial-gradient(
+            circle at var(--mx) var(--my),
+            rgba(180, 210, 255, 0.45),
+            rgba(220, 235, 255, 0.25) 30%,
+            rgba(255, 255, 255, 0.15) 50%,
+            transparent 65%
+        );
+
+    filter: blur(25px);
+    transition:
+        background-position 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.3s ease;
+
+    pointer-events: none;
+    z-index: 0;
 }
 
-/* 내용이 그라데이션 위로 오도록 */
+/* 히어로 콘텐츠를 위로 */
 .hero > * {
     position: relative;
     z-index: 1;
 }
 
-/* 그라데이션 애니메이션 */
-@keyframes heroGradient {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+/* =========================
+   HERO TEXT
+========================= */
+.typing-container {
+    font-size: clamp(36px, 6vw, 68px);
+    font-weight: 800;
+    margin-bottom: 24px;
+    letter-spacing: -2px;
+    line-height: 1.2;
 }
 
-        @keyframes heroGradientMove {
-    0% {
-        background-position: 0% 50%;
+.hero p {
+    font-size: clamp(18px, 3vw, 24px);
+    color: var(--text-sub);
+    max-width: 800px;
+    margin: 0 auto 50px;
+}
+
+/* =========================
+   BUTTON
+========================= */
+.cta-button {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 18px 40px;
+    border-radius: 35px;
+    font-weight: 700;
+    font-size: 18px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #005bb7;
+    transform: scale(1.02);
+}
+
+/* =========================
+   SECTION HEADER
+========================= */
+.section-header {
+    padding: 100px 24px 60px;
+    text-align: center;
+    background-color: var(--header-bg);
+    color: var(--header-text);
+}
+
+.section-header h2 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.section-header p {
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+/* =========================
+   FOOTER
+========================= */
+.footer {
+    background-color: var(--bg-light);
+    padding: 80px 24px;
+    border-top: 1px solid #e5e5e5;
+}
+
+.footer-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    font-size: 13px;
+    color: var(--text-sub);
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+    .nav-container {
+        height: 60px;
     }
-    50% {
-        background-position: 100% 50%;
+
+    .logo-text {
+        font-size: 15px;
     }
-    100% {
-        background-position: 0% 50%;
+
+    .hero {
+        padding: 120px 20px;
+    }
+
+    .typing-container {
+        font-size: 32px;
     }
 }
     </style>
@@ -591,110 +497,175 @@
     </footer>
 
     <script>
-        // --- [통계 자동 계산 설정] ---
-        const totalRespondents = 342;   
-        const experiencedCount = 266;   
+/* =========================
+   HERO 물결 인터랙션
+========================= */
+const hero = document.querySelector('.hero');
 
-        window.addEventListener('load', function() {
-            const percentage = Math.round((experiencedCount / totalRespondents) * 100);
-            const peopleRatio = Math.round(percentage / 10);
-            const displayTotal = document.getElementById('display-total');
-            if(displayTotal) displayTotal.innerText = totalRespondents.toLocaleString();
-            
-            let currentNum = 0;
-            const numElement = document.getElementById('display-percent');
-            if(numElement) {
-                const interval = setInterval(() => {
-                    if (currentNum >= percentage) {
-                        clearInterval(interval);
-                        numElement.innerText = percentage + "%";
-                    } else {
-                        currentNum++;
-                        numElement.innerText = currentNum + "%";
-                    }
-                }, 40); 
-            }
-            setTimeout(() => {
-                const bar = document.getElementById('poll-bar');
-                if(bar) bar.style.width = percentage + "%";
-            }, 300);
-            const ratioText = document.getElementById('display-people-ratio');
-            if(ratioText) ratioText.innerText = peopleRatio;
-        });
+if (hero) {
+    hero.addEventListener('mousemove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
 
-        // --- [페이지 및 주문 로직] ---
-        let orderInfo = {};
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            window.scrollTo(0, 0);
-        }
-        function goToPayment(e) {
-            e.preventDefault();
-            orderInfo.name = document.getElementById('buyer_name').value;
-            orderInfo.addr = document.getElementById('buyer_addr').value;
-            showPage('payment');
-        }
-        function completeOrder(method) {
-            if(confirm(method + "(으)로 결제하시겠습니까?")) {
-                const orderNo = "ORD-" + Math.floor(Math.random() * 900000 + 100000);
-                document.getElementById('rec_no').innerText = orderNo;
-                document.getElementById('rec_name').innerText = orderInfo.name;
-                document.getElementById('rec_addr').innerText = orderInfo.addr;
-                document.getElementById('rec_method').innerText = method;
-                showPage('receipt');
-            }
-        }
-        const textElement = document.getElementById('typewriter');
-        const sentences = ["기숙사 냉장고의 평화,", "오피스 냉장고의 신뢰,", "기술로 완성합니다."];
-        let sentenceIdx = 0; let charIdx = 0; let isDeleting = false;
-        function type() {
-            const currentSentence = sentences[sentenceIdx];
-            if (isDeleting) textElement.innerText = currentSentence.substring(0, charIdx - 1), charIdx--;
-            else textElement.innerText = currentSentence.substring(0, charIdx + 1), charIdx++;
-            let typeSpeed = isDeleting ? 40 : 120;
-            if (!isDeleting && charIdx === currentSentence.length) typeSpeed = 2000, isDeleting = true;
-            else if (isDeleting && charIdx === 0) isDeleting = false, sentenceIdx = (sentenceIdx + 1) % sentences.length, typeSpeed = 500;
-            setTimeout(type, typeSpeed);
-        }
+        hero.style.setProperty('--mx', `${x}%`);
+        hero.style.setProperty('--my', `${y}%`);
+    });
 
-        // --- [알림 업데이트 로직] ---
-        function updateNotifications() {
-            const list = document.getElementById('notification-list');
-            if(!list) return;
+    // 마우스 나가면 천천히 중앙으로 복귀
+    hero.addEventListener('mouseleave', () => {
+        hero.style.setProperty('--mx', `50%`);
+        hero.style.setProperty('--my', `50%`);
+    });
+}
 
-            const now = new Date();
-            const timeStr = `오늘 ${now.getHours() > 12 ? '오후' : '오전'} ${now.getHours() % 12 || 12}:${String(now.getMinutes()).padStart(2, '0')}`;
-            
-            // 3개 이상일 경우 맨 위 삭제
-            if (list.children.length >= 3) {
-                list.removeChild(list.firstElementChild);
-            }
+/* =========================
+   통계 자동 계산
+========================= */
+const totalRespondents = 342;
+const experiencedCount = 266;
 
-            // 새로운 알림 생성 (맨 아래)
-            const item = document.createElement('div');
-            item.className = 'notification-item';
-            item.innerHTML = `
-                <div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">📸</div>
-                <div style="text-align:left;">
-                    <div style="font-size:14px; font-weight:bold; color:#333;">동작 감지됨</div>
-                    <div style="font-size:12px; color:#888;">${timeStr}</div>
-                </div>
-            `;
-            
-            list.appendChild(item);
-        }
+window.addEventListener('load', () => {
+    const percentage = Math.round((experiencedCount / totalRespondents) * 100);
+    const peopleRatio = Math.round(percentage / 10);
 
-        window.onload = function() {
-            type();
-            
-            // 초기 알림 생성
-            updateNotifications();
-            setTimeout(updateNotifications, 1000);
-            
-            // 20초마다 새로운 알림 추가
-            setInterval(updateNotifications, 20000);
-        };
-    </script>
+    const displayTotal = document.getElementById('display-total');
+    const numElement = document.getElementById('display-percent');
+    const bar = document.getElementById('poll-bar');
+    const ratioText = document.getElementById('display-people-ratio');
+
+    if (displayTotal) displayTotal.innerText = totalRespondents.toLocaleString();
+    if (ratioText) ratioText.innerText = peopleRatio;
+
+    if (numElement) {
+        let current = 0;
+        const interval = setInterval(() => {
+            current++;
+            numElement.innerText = current + "%";
+            if (current >= percentage) clearInterval(interval);
+        }, 40);
+    }
+
+    if (bar) {
+        setTimeout(() => {
+            bar.style.width = percentage + "%";
+        }, 300);
+    }
+});
+
+/* =========================
+   페이지 전환
+========================= */
+function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById(pageId);
+    if (target) {
+        target.classList.add('active');
+        window.scrollTo(0, 0);
+    }
+}
+
+/* =========================
+   주문 / 결제
+========================= */
+let orderInfo = {};
+
+function goToPayment(e) {
+    e.preventDefault();
+    orderInfo.name = document.getElementById('buyer_name').value;
+    orderInfo.addr = document.getElementById('buyer_addr').value;
+    showPage('payment');
+}
+
+function completeOrder(method) {
+    if (!confirm(method + "(으)로 결제하시겠습니까?")) return;
+
+    const orderNo = "ORD-" + Math.floor(Math.random() * 900000 + 100000);
+
+    document.getElementById('rec_no').innerText = orderNo;
+    document.getElementById('rec_name').innerText = orderInfo.name;
+    document.getElementById('rec_addr').innerText = orderInfo.addr;
+    document.getElementById('rec_method').innerText = method;
+
+    showPage('receipt');
+}
+
+/* =========================
+   타이핑 효과
+========================= */
+const textElement = document.getElementById('typewriter');
+const sentences = [
+    "기숙사 냉장고의 평화,",
+    "오피스 냉장고의 신뢰,",
+    "기술로 완성합니다."
+];
+
+let sentenceIdx = 0;
+let charIdx = 0;
+let isDeleting = false;
+
+function typeWriter() {
+    if (!textElement) return;
+
+    const current = sentences[sentenceIdx];
+
+    if (isDeleting) {
+        textElement.innerText = current.substring(0, charIdx--);
+    } else {
+        textElement.innerText = current.substring(0, charIdx++);
+    }
+
+    let speed = isDeleting ? 40 : 120;
+
+    if (!isDeleting && charIdx === current.length) {
+        speed = 2000;
+        isDeleting = true;
+    } else if (isDeleting && charIdx === 0) {
+        isDeleting = false;
+        sentenceIdx = (sentenceIdx + 1) % sentences.length;
+        speed = 500;
+    }
+
+    setTimeout(typeWriter, speed);
+}
+
+/* =========================
+   알림 카드 시뮬레이션
+========================= */
+function updateNotifications() {
+    const list = document.getElementById('notification-list');
+    if (!list) return;
+
+    const now = new Date();
+    const timeStr = `오늘 ${now.getHours() > 12 ? '오후' : '오전'} ${now.getHours() % 12 || 12}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+    if (list.children.length >= 3) {
+        list.removeChild(list.firstElementChild);
+    }
+
+    const item = document.createElement('div');
+    item.className = 'notification-item';
+    item.innerHTML = `
+        <div style="width:40px;height:40px;background:#ddd;border-radius:8px;margin-right:10px;display:flex;align-items:center;justify-content:center;">📸</div>
+        <div style="text-align:left;">
+            <div style="font-size:14px;font-weight:bold;color:#333;">동작 감지됨</div>
+            <div style="font-size:12px;color:#888;">${timeStr}</div>
+        </div>
+    `;
+
+    list.appendChild(item);
+}
+
+/* =========================
+   초기 실행
+========================= */
+window.onload = () => {
+    typeWriter();
+
+    updateNotifications();
+    setTimeout(updateNotifications, 1000);
+    setInterval(updateNotifications, 20000);
+};
+</script>
 </body>
 </html>
