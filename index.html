@@ -304,6 +304,13 @@
             50%  { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
+        /* --- 드래그 방지 예외 --- */
+        .allow-select, .allow-select * {
+        -webkit-user-select: text !important;
+        -moz-user-select: text !important;
+        -ms-user-select: text !important;
+        user-select: text !important;
+}
     </style>
 </head>
 <body>
@@ -523,11 +530,11 @@
             <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
                 <div style="background: #fff; padding: 30px; border-radius: 20px; flex: 1; min-width: 250px; border: 1px solid #eee;">
                     <p style="font-weight: bold; color: var(--primary-color);">사업 문의</p>
-                    <p style="font-size: 18px; font-weight: 600;">business@gjmst-thives.com</p>
+                    <p class="allow-select" style="font-size: 18px; font-weight: 600;">business@gjmst-thives.com</p>
                 </div>
                 <div style="background: #fff; padding: 30px; border-radius: 20px; flex: 1; min-width: 250px; border: 1px solid #eee;">
                     <p style="font-weight: bold; color: var(--primary-color);">고객 센터</p>
-                    <p style="font-size: 18px; font-weight: 600;">201-704-04</p>
+                    <p class="allow-select" style="font-sizee:18pxx;font-weightt:600;">201-704-04</p>
                 </div>
             </div>
         </div>
@@ -547,7 +554,7 @@
     <footer class="footer">
         <div class="footer-content">
             <p><b>(주)공마고의 도둑들</b> | 대표이사: 윤수원</p>
-            <p>충청남도 공주시 유구읍 중앙1길 27-12 1학년 1반 | contact@gjmst-thives.com</p>
+            <p>충청남도 공주시 유구읍 중앙1길 27-12 1학년 1반 | </p> <p class="allow-select">contact@gjmst-thives.com</p>
             <p style="margin-top: 20px;">Copyright © 2025 The Gjmst Thieves. All rights reserved.</p>
         </div>
     </footer>
