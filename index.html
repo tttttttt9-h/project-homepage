@@ -210,14 +210,26 @@ body {
 }
 .logo-grid { 
     display: flex; 
-    justify-content: center; /* 수평 가운데 정렬 */
-    align-items: center;     /* 수직 가운데 정렬 */
+    justify-content: center; 
+    align-items: center;     
     flex-wrap: wrap; 
-    gap: 20px 40px;          /* 간격을 대폭 줄임 (상하 20px, 좌우 40px) */
+    gap: 20px 40px;          
     max-width: 1000px; 
     margin: 0 auto; 
-    padding: 0; 
+    
+    /* 이 부분을 추가했습니다: 시각적 보정을 위해 오른쪽으로 40px 이동 */
+    padding-left: 40px; 
+    padding-right: 0;
 }
+
+/* 모바일에서는 화면이 좁으므로 다시 정중앙으로 복원 */
+@media (max-width: 768px) {
+    .logo-grid {
+        padding-left: 0;
+        gap: 15px 30px;
+    }
+}
+
 .partner-logo { 
     height: 30px; 
     width: auto; 
@@ -226,10 +238,11 @@ body {
     transition: all 0.3s ease; 
     cursor: pointer; 
 }
+
 .partner-logo.main-logo { 
     height: 50px; 
     opacity: 0.8; 
-} 
+}
 .partner-logo:hover { opacity: 1; filter: grayscale(0%); transform: scale(1.05); }
 
 /* --- [FOOTER] --- */
