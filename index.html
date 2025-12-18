@@ -121,11 +121,10 @@
         }
         .stat-number { font-size: 64px; font-weight: 800; color: var(--primary-color); display: block; line-height: 1; margin-bottom: 10px; }
 
-        /* --- [INFO CARDS SECTION - 수정된 부분] --- */
+        /* --- [INFO CARDS SECTION] --- */
         .info-section {
-    /* 배경을 회색으로 변경 */
-    background: #f5f5f7; 
-}
+            background: #f5f5f7; 
+        }
         .info-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             max-width: 1100px; margin: 0 auto; gap: 30px;
@@ -134,13 +133,13 @@
             padding: 50px 40px; border-radius: 30px; display: flex; flex-direction: column; justify-content: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
-            border: 1px solid #efefef; /* 테두리 추가로 구분감 부여 */
+            border: 1px solid #efefef; 
             background: #ffffff;
-		}
+        }
         .info-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
         
-		.card-dorm h3, .card-office h3 { color: #1d1d1f !important; }
-		.card-dorm p, .card-office p { color: var(--text-main) !important; }
+        .card-dorm h3, .card-office h3 { color: #1d1d1f !important; }
+        .card-dorm p, .card-office p { color: var(--text-main) !important; }
 
 
         /* --- [APP PREVIEW SECTION] --- */
@@ -449,9 +448,9 @@
         <div class="logo-grid">
             <img src="images/gjmst.svg" alt="Gjmst" class="partner-logo main-logo">
             <img src="images/aws.png" alt="Amazon" class="partner-logo">
-            <img src="images/nvidia.svg" alt="Nvidia" class="partner-logo">
+            <img src="images/nvidia.svg" alt="Nvidia" class="partner-logo" style="height: 22px;">
             <img src="images/toss.png" alt="Toss" class="partner-logo">
-            <img src="images/spacex.svg" alt="spacex" class="partner-logo">
+            <img src="images/spacex.svg" alt="spacex" class="partner-logo" style="height: 22px;">
         </div>
     </section>
 
