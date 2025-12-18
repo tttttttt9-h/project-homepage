@@ -14,11 +14,12 @@
             --white: #ffffff;
             --header-bg: #1d1d1f;
             --header-text: #fff;
-            --nav-bg: rgba(255, 255, 255, 0.8); /* 네비게이션 배경 */
-            --card-bg: #ffffff; /* 카드 배경 */
+            --nav-bg: rgba(255, 255, 255, 0.8);
+            --card-bg: #ffffff;
             --hero-grad-1: #ffffff;
             --hero-grad-2: #f2f7ff;
             --hero-grad-3: #e8f0ff;
+            --btn-bg: #1d1d1f; /* 토글 버튼 배경 */
         }
 
         /* [다크 모드 변수 재정의] */
@@ -26,14 +27,18 @@
             --text-main: #f5f5f7;
             --text-sub: #a1a1a6;
             --bg-light: #000000;
-            --white: #1c1c1e; /* 전체 배경 */
-            --header-bg: #f5f5f7;
-            --header-text: #1d1d1f;
+            --white: #1c1c1e;
+            
+            /* [수정됨] 헤더 배경을 어두운 톤으로 변경하여 눈부심 방지 + 구분감 부여 */
+            --header-bg: #121212; 
+            --header-text: #ffffff;
+            
             --nav-bg: rgba(28, 28, 30, 0.8);
             --card-bg: #2c2c2e;
             --hero-grad-1: #1c1c1e;
             --hero-grad-2: #2c2c2e;
             --hero-grad-3: #000000;
+            --btn-bg: #ffffff; /* 다크모드일 때 버튼 배경은 밝게 */
         }
 
         body {
@@ -44,7 +49,7 @@
             line-height: 1.6;
             word-break: keep-all;
             overflow-x: hidden;
-            transition: background-color 0.3s, color 0.3s; /* 부드러운 전환 */
+            transition: background-color 0.3s, color 0.3s;
             
             /* --- 드래그 방지 --- */
             -webkit-user-select: none;
@@ -56,7 +61,7 @@
         /* --- 네비게이션 --- */
         .navbar {
             position: fixed; top: 0; width: 100%;
-            background-color: var(--nav-bg); /* 변수 사용 */
+            background-color: var(--nav-bg);
             backdrop-filter: blur(20px); z-index: 1000;
             border-bottom: 1px solid rgba(128,128,128,0.1);
             transition: background-color 0.3s;
@@ -88,16 +93,9 @@
             transition: background-color 0.3s, color 0.3s;
         }
         .section-header h2 {
-            font-size: 42px;
-            font-weight: 700;
-            margin: 0 0 15px 0;
-            letter-spacing: -1px;
+            font-size: 42px; font-weight: 700; margin: 0 0 15px 0; letter-spacing: -1px;
         }
-        .section-header p {
-            font-size: 18px;
-            opacity: 0.8;
-            margin: 0;
-        }
+        .section-header p { font-size: 18px; opacity: 0.8; margin: 0; }
 
         /* 모바일 대응 */
         @media (max-width: 768px) {
@@ -121,44 +119,24 @@
 
         /* --- [HOME HERO] --- */
         .hero {
-            padding: 160px 24px;
-            text-align: center;
-            /* 배경색은 body 설정을 따름, 그라데이션은 ::before에서 처리 */
-            position: relative;
-            overflow: hidden;
+            padding: 160px 24px; text-align: center;
+            position: relative; overflow: hidden;
             background: var(--white);
             transition: background 0.3s;
         }
-
         .hero::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            /* CSS 변수를 활용한 그라데이션 */
-            background: linear-gradient(
-                120deg,
-                var(--hero-grad-1),
-                var(--hero-grad-2),
-                var(--hero-grad-3),
-                var(--hero-grad-1)
-            );
+            content: ""; position: absolute; inset: 0; z-index: 0;
+            background: linear-gradient(120deg, var(--hero-grad-1), var(--hero-grad-2), var(--hero-grad-3), var(--hero-grad-1));
             background-size: 400% 400%;
             animation: heroGradient 18s ease infinite;
-            transition: background 0.3s; /* 다크모드 전환 시 부드럽게 */
+            transition: background 0.3s;
         }
-
         .hero > * { position: relative; z-index: 1; }
-
         @keyframes heroGradient {
-            0%   { background-position: 0% 50%; }
-            50%  { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; }
         }
-
         .typing-container {
-            font-size: clamp(36px, 6vw, 68px); 
-            font-weight: 800; margin-bottom: 24px;
+            font-size: clamp(36px, 6vw, 68px); font-weight: 800; margin-bottom: 24px;
             letter-spacing: -2px; line-height: 1.2; min-height: 1.2em;
         }
         .typing-text::after { content: '|'; animation: blink 0.7s infinite; }
@@ -167,17 +145,11 @@
 
         /* --- [STATISTICS / POLL SECTION] --- */
         .poll-section {
-            padding: 100px 24px;
-            background-color: var(--bg-light); /* 변수 사용 */
-            text-align: center;
-            transition: background-color 0.3s;
+            padding: 100px 24px; background-color: var(--bg-light); text-align: center; transition: background-color 0.3s;
         }
         .poll-container {
-            max-width: 700px; margin: 0 auto; 
-            background: var(--card-bg); /* 변수 사용 */
-            padding: 50px 40px;
-            border-radius: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); 
-            border: 1px solid rgba(128,128,128,0.1);
+            max-width: 700px; margin: 0 auto; background: var(--card-bg); padding: 50px 40px;
+            border-radius: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); border: 1px solid rgba(128,128,128,0.1);
             transition: background-color 0.3s;
         }
         .stat-title { font-size: 24px; font-weight: 700; margin-bottom: 10px; color: var(--text-main); }
@@ -190,10 +162,7 @@
         .stat-number { font-size: 64px; font-weight: 800; color: var(--primary-color); display: block; line-height: 1; margin-bottom: 10px; }
 
         /* --- [INFO CARDS SECTION] --- */
-        .info-section {
-            background: var(--bg-light); padding-bottom: 80px;
-            transition: background-color 0.3s;
-        }
+        .info-section { background: var(--bg-light); padding-bottom: 80px; transition: background-color 0.3s; }
         .info-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             max-width: 1100px; margin: 0 auto; gap: 30px;
@@ -201,25 +170,16 @@
         .info-card {
             padding: 50px 40px; border-radius: 30px; display: flex; flex-direction: column; justify-content: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
-            border: 1px solid rgba(128,128,128,0.1); 
-            background: var(--card-bg); /* 변수 사용 */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid rgba(128,128,128,0.1); 
+            background: var(--card-bg);
         }
         .info-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
         .card-dorm h3, .card-office h3 { color: var(--text-main) !important; }
         .card-dorm p, .card-office p { color: var(--text-main) !important; }
 
-
         /* --- [APP PREVIEW SECTION] --- */
-        .app-section {
-            padding: 100px 24px;
-            background: var(--bg-light);
-            overflow: hidden;
-            transition: background-color 0.3s;
-        }
-        .app-container {
-            max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 50px;
-        }
+        .app-section { padding: 100px 24px; background: var(--bg-light); overflow: hidden; transition: background-color 0.3s; }
+        .app-container { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 50px; }
         .app-text { flex: 1; text-align: left; }
         .app-image { flex: 1; display: flex; justify-content: center; }
 
@@ -233,53 +193,24 @@
         }
         .phone-screen { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         
-        #notification-list {
-            width: 100%; padding: 20px; box-sizing: border-box;
-            display: flex; flex-direction: column; gap: 10px;
-        }
-
-        .notification-item {
-            background: #f5f5f7; padding: 15px; border-radius: 12px;
-            display: flex; align-items: center;
-            animation: slideUp 0.5s ease-out forwards;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        #notification-list { width: 100%; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; }
+        .notification-item { background: #f5f5f7; padding: 15px; border-radius: 12px; display: flex; align-items: center; animation: slideUp 0.5s ease-out forwards; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         .live-view-btn {
-            background: var(--primary-color);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            display: inline-block;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            background: var(--primary-color); color: white; padding: 10px 20px; border-radius: 20px; display: inline-block; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease;
         }
-        .live-view-btn:hover {
-            background-color: #005bb7;
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-        }
+        .live-view-btn:hover { background-color: #005bb7; transform: scale(1.05) translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.2); }
 
         /* --- [TEAM] --- */
         .team-container { max-width: 1100px; margin: 80px auto; padding: 0 24px; }
         .ceo-card { 
-            background: var(--card-bg); /* 변수 사용 */
-            padding: 60px 24px; border-radius: 40px; text-align: center; border: 1px solid rgba(128,128,128,0.1); margin-bottom: 60px; 
-            transition: background-color 0.3s;
+            background: var(--card-bg); padding: 60px 24px; border-radius: 40px; text-align: center; border: 1px solid rgba(128,128,128,0.1); margin-bottom: 60px; transition: background-color 0.3s;
         }
         .profile-initial { width: 160px; height: 160px; background: #e8e8ed; border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; font-size: 64px; font-weight: 800; color: #1d1d1f; }
         .executive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .member-card { 
-            background: var(--card-bg); /* 변수 사용 */
-            border: 1px solid rgba(128,128,128,0.1); padding: 40px; border-radius: 30px; text-align: center; transition: 0.3s; 
+            background: var(--card-bg); border: 1px solid rgba(128,128,128,0.1); padding: 40px; border-radius: 30px; text-align: center; transition: 0.3s; 
         }
         .member-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
         .member-initial { width: 100px; height: 100px; background: var(--bg-light); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 700; color: var(--text-sub); }
@@ -287,17 +218,13 @@
         /* --- [PRODUCT] --- */
         .product-grid { max-width: 1100px; margin: 80px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; padding: 0 24px; }
         .product-card { 
-            background: var(--card-bg); /* 변수 사용 */
-            border-radius: 30px; padding: 50px; border: 1px solid rgba(128,128,128,0.1); transition: 0.3s; display: flex; flex-direction: column; 
+            background: var(--card-bg); border-radius: 30px; padding: 50px; border: 1px solid rgba(128,128,128,0.1); transition: 0.3s; display: flex; flex-direction: column; 
         }
         .product-img-box { width: 100%; height: 320px; background: var(--bg-light); border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
 
         /* --- [BUY & PAYMENT] --- */
         .buy-container { max-width: 1100px; margin: 60px auto; display: flex; flex-wrap: wrap; gap: 50px; padding: 0 24px; }
-        .buy-form { 
-            background: var(--bg-light); /* 변수 사용 */
-            padding: 40px; border-radius: 24px; border: 1px solid rgba(128,128,128,0.1); flex: 1; min-width: 320px; 
-        }
+        .buy-form { background: var(--bg-light); padding: 40px; border-radius: 24px; border: 1px solid rgba(128,128,128,0.1); flex: 1; min-width: 320px; }
         .pay-method-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
         .pay-btn { padding: 18px; border-radius: 12px; border: 1px solid #d2d2d7; background: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; color: #1d1d1f; }
         .pay-btn img { height: 20px; margin-right: 8px; }
@@ -312,87 +239,41 @@
 
         /* --- [PARTNER SECTION] --- */
         .partner-section { 
-            padding: 80px 24px; 
-            background-color: var(--card-bg); /* 변수 사용 */
-            text-align: center; 
-            border-top: 1px solid rgba(128,128,128,0.1); 
-            transition: background-color 0.3s;
+            padding: 80px 24px; background-color: var(--card-bg); text-align: center; border-top: 1px solid rgba(128,128,128,0.1); transition: background-color 0.3s;
         }
         .partner-title { 
-            font-size: 14px; 
-            font-weight: 600; 
-            color: var(--text-sub); 
-            letter-spacing: 0.5px; 
-            text-transform: uppercase; 
-            margin-bottom: 40px; 
+            font-size: 14px; font-weight: 600; color: var(--text-sub); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 40px; 
         }
         .logo-grid { 
-            display: flex; 
-            justify-content: center;
-            align-items: center;     
-            flex-wrap: wrap; 
-            gap: 20px 20px;
-            max-width: 1000px; 
-            margin: 0 auto; 
-            padding-left: 50px; 
+            display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px 20px; max-width: 1000px; margin: 0 auto; padding-left: 50px; 
         }
-        .partner-logo { 
-            height: 30px; 
-            width: auto; 
-            opacity: 0.4; 
-            filter: grayscale(100%); 
-            transition: all 0.3s ease; 
-            cursor: pointer; 
-        }
-        /* 다크모드 시 로고 잘 보이게 반전 필터 추가 */
-        body.dark-mode .partner-logo {
-            filter: grayscale(100%) invert(1);
-        }
-        body.dark-mode .partner-logo:hover {
-            filter: grayscale(0%) invert(0); /* 호버 시 원본 */
-        }
-
-        .partner-logo.main-logo { 
-            height: 50px; 
-            opacity: 0.8; 
-        } 
+        .partner-logo { height: 30px; width: auto; opacity: 0.4; filter: grayscale(100%); transition: all 0.3s ease; cursor: pointer; }
+        body.dark-mode .partner-logo { filter: grayscale(100%) invert(1); } /* 다크모드 시 로고 반전 */
+        body.dark-mode .partner-logo:hover { filter: grayscale(0%) invert(0); }
+        .partner-logo.main-logo { height: 50px; opacity: 0.8; } 
         .partner-logo:hover { opacity: 1; filter: grayscale(0%); transform: scale(1.05); }
 
         /* --- [FOOTER] --- */
         .footer { background-color: var(--bg-light); padding: 80px 24px; border-top: 1px solid rgba(128,128,128,0.1); }
         .footer-content { max-width: 1100px; margin: 0 auto; color: var(--text-sub); font-size: 13px; }
 
-        /* --- 드래그 방지 예외 --- */
-        .allow-select, .allow-select * {
-            -webkit-user-select: text !important;
-            -moz-user-select: text !important;
-            -ms-user-select: text !important;
-            user-select: text !important;
-        }
+        /* --- [드래그 방지 예외] --- */
+        .allow-select, .allow-select * { -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important; }
 
         /* --- [NEW] 다크모드 토글 버튼 --- */
         .theme-toggle-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
+            position: fixed; bottom: 30px; right: 30px;
+            width: 50px; height: 50px;
             border-radius: 50%;
-            background-color: var(--text-main);
-            color: var(--white);
-            border: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            cursor: pointer;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
+            background-color: var(--btn-bg); /* 변수 사용 */
+            border: 1px solid rgba(128,128,128,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            cursor: pointer; z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .theme-toggle-btn:hover {
-            transform: scale(1.1);
-        }
+        .theme-toggle-btn:hover { transform: scale(1.1); }
+        .theme-toggle-btn img { width: 24px; height: 24px; }
     </style>
 </head>
 <body>
@@ -413,8 +294,7 @@
     </nav>
 
     <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Dark Mode">
-        🌙
-    </button>
+        </button>
 
     <main id="home" class="page active">
         <header class="hero">
@@ -482,8 +362,7 @@
                         <div class="notch"></div>
                         <div class="phone-screen">
                             <div style="width:100%; padding:20px 20px 10px; box-sizing:border-box; font-weight:bold; font-size:18px; color:#333;">최근 감지 기록</div>
-                            <div id="notification-list">
-                                </div>
+                            <div id="notification-list"></div>
                             <div style="margin-bottom:20px; text-align:center;">
                                 <a href="https://project.whanci.xyz" target="_blank" class="live-view-btn">
                                     체험 해보기
@@ -740,23 +619,29 @@
             list.appendChild(item);
         }
 
-        // --- [다크 모드 로직] ---
+        // --- [다크 모드 & 토글 버튼 로직 수정됨] ---
         const themeBtn = document.getElementById('themeToggle');
         const body = document.body;
 
-        // 시스템 설정 확인 및 초기화
+        // 아이콘 SVG 태그 (alt 속성으로 구분)
+        const iconMoon = '<img src="images/dark.svg" alt="Dark Mode">'; // 라이트모드일 때 보임 -> 누르면 다크로
+        const iconSun = '<img src="images/light.svg" alt="Light Mode">'; // 다크모드일 때 보임 -> 누르면 라이트로
+
+        // 초기 설정
         const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         
         if (userPrefersDark) {
             body.classList.add('dark-mode');
-            themeBtn.innerText = '☀️'; // 다크모드일 때 해 아이콘 보여줌
+            themeBtn.innerHTML = iconSun;
+        } else {
+            themeBtn.innerHTML = iconMoon;
         }
 
         // 버튼 클릭 이벤트
         themeBtn.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
             const isDark = body.classList.contains('dark-mode');
-            themeBtn.innerText = isDark ? '☀️' : '🌙';
+            themeBtn.innerHTML = isDark ? iconSun : iconMoon;
         });
 
         window.onload = function() {
