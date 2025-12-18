@@ -6,45 +6,54 @@
     <title>공마고의 도둑들</title>
     <style>
         :root {
-            /* [라이트 모드] 기본 파란색 유지 */
+            /* [라이트 모드] 배경톤 정리: 완전 흰색 대신 부드러운 오프화이트 사용 */
             --primary-color: #0071e3;
             --text-main: #1d1d1f;
             --text-sub: #86868b;
-            --bg-light: #f5f5f7;
-            --white: #ffffff;
+            
+            --bg-light: #f2f2f7; /* 섹션 배경 (조금 더 진한 회색) */
+            --white: #ffffff;    /* 전체 바디 배경 */
+            
             --header-bg: #1d1d1f;
             --header-text: #fff;
+            
             --nav-bg: rgba(255, 255, 255, 0.8);
-            --card-bg: #ffffff;
+            
+            /* [핵심] 카드 배경을 완전 흰색이 아닌 '아주 연한 회색'으로 설정해 부드러움 강조 */
+            --card-bg: #fbfbfd; 
+            --card-border: rgba(0, 0, 0, 0.08); /* 테두리도 연하게 */
+            
             --hero-grad-1: #ffffff;
             --hero-grad-2: #f2f7ff;
             --hero-grad-3: #e8f0ff;
             --btn-bg: #1d1d1f;
             
-            /* 테마 전환 속도 (배경색 등) */
             --theme-speed: 0.5s;
         }
 
-        /* [다크 모드] 파란톤 제외 -> 세련된 '바이올렛(보라)' 컬러 적용 */
+        /* [다크 모드] 바이올렛 포인트 + 어두운 회색 톤 유지 */
         body.dark-mode {
-            --primary-color: #bf5af2; /* 네온 바이올렛 */
+            --primary-color: #bf5af2;
             
             --text-main: #f5f5f7;
             --text-sub: #a1a1a6;
             --bg-light: #000000;
             --white: #1c1c1e;
+            
             --header-bg: #1c1c1e; 
             --header-text: #ffffff;
+            
             --nav-bg: rgba(28, 28, 30, 0.8);
             --card-bg: #2c2c2e;
+            --card-border: rgba(255, 255, 255, 0.1); /* 다크모드 테두리 */
+            
             --hero-grad-1: #1c1c1e;
-            --hero-grad-2: #242426; /* 약간의 보라빛이 도는 다크 그레이 */
+            --hero-grad-2: #242426;
             --hero-grad-3: #000000;
             --btn-bg: #ffffff;
         }
 
-        /* [전환 효과 최적화] */
-        /* 1. 테마 색상 변경은 천천히 부드럽게 (모든 요소 아님, 필요한 요소만) */
+        /* [전환 효과] 배경색 등은 천천히 */
         body, .navbar, .section-header, .poll-section, .poll-container, 
         .info-section, .info-card, .app-section, .ceo-card, .member-card, 
         .product-card, .buy-form, .receipt-card, .partner-section, .footer {
@@ -55,11 +64,10 @@
                         box-shadow var(--theme-speed) ease;
         }
 
-        /* 2. 상호작용(호버) 요소는 빠르고 쫀득하게 별도 설정 */
-        .live-view-btn, .cta-button, .partner-logo, .theme-toggle-btn, .info-card, .member-card {
-            /* transform 등 움직임은 별도의 속도 적용 */
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                        box-shadow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+        /* [호버 효과] 부드럽고 쫀득하게 (Cubic Bezier) */
+        .live-view-btn, .cta-button, .partner-logo, .theme-toggle-btn, .info-card, .member-card, .product-card {
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                        box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
                         background-color 0.3s ease,
                         filter 0.3s ease,
                         opacity 0.3s ease;
@@ -81,7 +89,7 @@
             position: fixed; top: 0; width: 100%;
             background-color: var(--nav-bg);
             backdrop-filter: blur(20px); z-index: 1000;
-            border-bottom: 1px solid rgba(128,128,128,0.1);
+            border-bottom: 1px solid var(--card-border);
         }
 
         .nav-container {
@@ -159,7 +167,7 @@
         .poll-section { padding: 100px 24px; background-color: var(--bg-light); text-align: center; }
         .poll-container {
             max-width: 700px; margin: 0 auto; background: var(--card-bg); padding: 50px 40px;
-            border-radius: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); border: 1px solid rgba(128,128,128,0.1);
+            border-radius: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); border: 1px solid var(--card-border);
         }
         .stat-title { font-size: 24px; font-weight: 700; margin-bottom: 10px; color: var(--text-main); }
         .stat-desc { font-size: 16px; color: var(--text-sub); margin-bottom: 40px; }
@@ -175,7 +183,7 @@
         .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); max-width: 1100px; margin: 0 auto; gap: 30px; }
         .info-card {
             padding: 50px 40px; border-radius: 30px; display: flex; flex-direction: column; justify-content: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid rgba(128,128,128,0.1); background: var(--card-bg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid var(--card-border); background: var(--card-bg);
         }
         .info-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
         .card-dorm h3, .card-office h3 { color: var(--text-main) !important; }
@@ -196,46 +204,44 @@
         .notification-item { background: #f5f5f7; padding: 15px; border-radius: 12px; display: flex; align-items: center; animation: slideUp 0.5s ease-out forwards; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* [수정됨] 실시간 보기 버튼: 부드러운 확대 효과 */
         .live-view-btn {
             background: var(--primary-color); color: white; padding: 10px 20px; border-radius: 20px; display: inline-block; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         .live-view-btn:hover {
-            filter: brightness(1.1); /* 약간 밝아짐 */
-            transform: scale(1.05) translateY(-2px); /* 부드럽게 확대 및 상승 */
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            filter: brightness(1.1); transform: scale(1.05) translateY(-2px); box-shadow: 0 8px 15px rgba(0,0,0,0.2);
         }
 
         /* --- [TEAM] --- */
         .team-container { max-width: 1100px; margin: 80px auto; padding: 0 24px; }
-        .ceo-card { background: var(--card-bg); padding: 60px 24px; border-radius: 40px; text-align: center; border: 1px solid rgba(128,128,128,0.1); margin-bottom: 60px; }
+        .ceo-card { background: var(--card-bg); padding: 60px 24px; border-radius: 40px; text-align: center; border: 1px solid var(--card-border); margin-bottom: 60px; }
         .profile-initial { width: 160px; height: 160px; background: #e8e8ed; border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; font-size: 64px; font-weight: 800; color: #1d1d1f; }
         .executive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .member-card { background: var(--card-bg); border: 1px solid rgba(128,128,128,0.1); padding: 40px; border-radius: 30px; text-align: center; }
+        .member-card { background: var(--card-bg); border: 1px solid var(--card-border); padding: 40px; border-radius: 30px; text-align: center; }
         .member-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
         .member-initial { width: 100px; height: 100px; background: var(--bg-light); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 700; color: var(--text-sub); }
 
         /* --- [PRODUCT] --- */
         .product-grid { max-width: 1100px; margin: 80px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; padding: 0 24px; }
-        .product-card { background: var(--card-bg); border-radius: 30px; padding: 50px; border: 1px solid rgba(128,128,128,0.1); display: flex; flex-direction: column; }
+        .product-card { background: var(--card-bg); border-radius: 30px; padding: 50px; border: 1px solid var(--card-border); display: flex; flex-direction: column; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); } /* 호버 추가 */
         .product-img-box { width: 100%; height: 320px; background: var(--bg-light); border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
 
         /* --- [BUY & RECEIPT] --- */
         .buy-container { max-width: 1100px; margin: 60px auto; display: flex; flex-wrap: wrap; gap: 50px; padding: 0 24px; }
-        .buy-form { background: var(--bg-light); padding: 40px; border-radius: 24px; border: 1px solid rgba(128,128,128,0.1); flex: 1; min-width: 320px; }
+        /* [수정] buy-form 배경을 카드 배경과 일치시킴 */
+        .buy-form { background: var(--card-bg); padding: 40px; border-radius: 24px; border: 1px solid var(--card-border); flex: 1; min-width: 320px; }
         .pay-method-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
         .pay-btn { padding: 18px; border-radius: 12px; border: 1px solid #d2d2d7; background: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; color: #1d1d1f; }
         .pay-btn img { height: 20px; margin-right: 8px; }
         .pay-btn:hover { filter: brightness(0.85); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .receipt-card { max-width: 500px; margin: 60px auto; background: var(--card-bg); padding: 40px; border-radius: 24px; border: 1px solid rgba(128,128,128,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .receipt-card { max-width: 500px; margin: 60px auto; background: var(--card-bg); padding: 40px; border-radius: 24px; border: 1px solid var(--card-border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .receipt-line { display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed #eee; padding-bottom: 4px; }
 
-        /* [수정됨] CTA 버튼도 부드러운 호버 */
         .cta-button { display: inline-block; background-color: var(--primary-color); color: white; padding: 18px 40px; border-radius: 35px; text-decoration: none; font-weight: 700; font-size: 18px; cursor: pointer; text-align: center; border: none; }
         .cta-button:hover { filter: brightness(1.1); transform: scale(1.03); }
 
         /* --- [PARTNER SECTION] --- */
-        .partner-section { padding: 80px 24px; background-color: var(--card-bg); text-align: center; border-top: 1px solid rgba(128,128,128,0.1); }
+        .partner-section { padding: 80px 24px; background-color: var(--card-bg); text-align: center; border-top: 1px solid var(--card-border); }
         .partner-title { font-size: 14px; font-weight: 600; color: var(--text-sub); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 40px; }
         .logo-grid { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px 20px; max-width: 1000px; margin: 0 auto; padding-left: 50px; }
         
@@ -245,26 +251,19 @@
             cursor: pointer; 
         }
         
-        /* [수정됨] 로고 호버 효과 */
-        /* 라이트모드: 원래 색상 복구 */
+        /* 로고 호버 효과 */
         body:not(.dark-mode) .partner-logo:hover {
-            filter: grayscale(0%);
-            opacity: 1;
-            transform: scale(1.1); /* 부드러운 확대 */
+            filter: grayscale(0%); opacity: 1; transform: scale(1.1);
         }
-        /* 다크모드: 흰색으로 빛나게 (가독성 UP) */
         body.dark-mode .partner-logo:hover {
-            filter: brightness(0) invert(1); /* 완전 흰색 */
-            opacity: 1;
-            transform: scale(1.1);
+            filter: brightness(0) invert(1); opacity: 1; transform: scale(1.1);
         }
 
         .partner-logo.main-logo { height: 50px; opacity: 0.8; }
-        /* Nvidia 로고(3번째) 위치 미세 조정 */
         .logo-grid img:nth-child(3) { margin-right: -10px; }
 
         /* --- [FOOTER] --- */
-        .footer { background-color: var(--bg-light); padding: 80px 24px; border-top: 1px solid rgba(128,128,128,0.1); }
+        .footer { background-color: var(--bg-light); padding: 80px 24px; border-top: 1px solid var(--card-border); }
         .footer-content { max-width: 1100px; margin: 0 auto; color: var(--text-sub); font-size: 13px; }
 
         .allow-select, .allow-select * { -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important; }
@@ -284,11 +283,9 @@
         .theme-toggle-btn img { 
             width: 24px; height: 24px; 
             transition: all var(--theme-speed);
-            filter: invert(1); /* 기본(라이트)에서 아이콘 흰색 */
+            filter: invert(1); 
         }
-        body.dark-mode .theme-toggle-btn img {
-            filter: invert(0); /* 다크에서 아이콘 검정 */
-        }
+        body.dark-mode .theme-toggle-btn img { filter: invert(0); }
     </style>
 </head>
 <body>
@@ -452,7 +449,7 @@
         <div class="buy-container">
             <div style="flex: 1; min-width: 320px;">
                 <h2>주문서 작성</h2>
-                <div style="background: var(--card-bg); padding: 25px; border-radius: 12px; border: 1px solid rgba(128,128,128,0.1); margin-top: 20px;">
+                <div style="background: var(--card-bg); padding: 25px; border-radius: 12px; border: 1px solid var(--card-border); margin-top: 20px;">
                     <p style="font-weight:700;">SRC-04</p>
                     <p style="font-size: 16px; color: var(--text-sub); margin: 0 0 5px 0; text-decoration: line-through;">149,900원</p>
                     <p style="font-size: 28px; font-weight: 800; color: var(--primary-color); margin: 0;">89,000원</p>
@@ -508,11 +505,11 @@
             <h2 style="font-size: 38px;">Talk to Us</h2>
             <p style="font-size: 18px; margin-bottom: 40px; color: var(--text-sub);">"공마고의 도둑들은 공용 공간의 문화를 설계합니다."</p>
             <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                <div style="background: var(--card-bg); padding: 30px; border-radius: 20px; flex: 1; min-width: 250px; border: 1px solid rgba(128,128,128,0.1);">
+                <div style="background: var(--card-bg); padding: 30px; border-radius: 20px; flex: 1; min-width: 250px; border: 1px solid var(--card-border);">
                     <p style="font-weight: bold; color: var(--primary-color);">사업 문의</p>
                     <p class="allow-select" style="font-size: 18px; font-weight: 600;">business@gjmst-thives.com</p>
                 </div>
-                <div style="background: var(--card-bg); padding: 30px; border-radius: 20px; flex: 1; min-width: 250px; border: 1px solid rgba(128,128,128,0.1);">
+                <div style="background: var(--card-bg); padding: 30px; border-radius: 20px; flex: 1; min-width: 250px; border: 1px solid var(--card-border);">
                     <p style="font-weight: bold; color: var(--primary-color);">고객 센터</p>
                     <p class="allow-select" style="font-size: 18px; font-weight: 600;">201-704-04</p>
                 </div>
@@ -638,9 +635,8 @@
         const themeBtn = document.getElementById('themeToggle');
         const body = document.body;
 
-        // 아이콘 SVG 태그 (alt 속성으로 구분)
-        const iconMoon = '<img src="images/dark.svg" alt="Dark Mode">'; // 라이트모드일 때 보임 -> 누르면 다크로
-        const iconSun = '<img src="images/light.svg" alt="Light Mode">'; // 다크모드일 때 보임 -> 누르면 라이트로
+        const iconMoon = '<img src="images/dark.svg" alt="Dark Mode">'; 
+        const iconSun = '<img src="images/light.svg" alt="Light Mode">'; 
 
         // 초기 설정
         const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -661,12 +657,8 @@
 
         window.onload = function() {
             type();
-            
-            // 초기 알림 생성
             updateNotifications();
             setTimeout(updateNotifications, 1000);
-            
-            // 20초마다 새로운 알림 추가
             setInterval(updateNotifications, 20000);
         };
     </script>
