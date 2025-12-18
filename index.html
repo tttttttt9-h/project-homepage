@@ -223,18 +223,16 @@
         .product-grid { max-width: 1100px; margin: 80px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; padding: 0 24px; }
         .product-card { background: var(--card-bg); border-radius: 30px; padding: 50px; border: 1px solid var(--card-border); display: flex; flex-direction: column; }
         
-        /* [수정됨] Office도 호버 적용되게 변경 */
+        /* Office도 호버 되게 */
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
         
         .disabled-card { opacity: 0.7; cursor: default; }
-        .disabled-card:hover { /* 호버 효과는 적용되지만 커서는 그대로 */ }
+        .disabled-card:hover { }
 
         .product-img-box { width: 100%; height: 320px; background: var(--bg-light); border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
 
         /* ==========================
-           [진동 효과] (쫀득 + 더 강하게)
-           - 기존 느낌(좌우 흔들) 유지
-           - 감쇠/탄성 느낌 추가
+           [진동 효과] (세기 조금 줄임)
         ========================== */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
@@ -244,23 +242,21 @@
             80% { transform: translateX(1px); }
         }
 
-        @keyframes shake-jelly-strong {
+        @keyframes shake-jelly {
             0%   { transform: translateX(0) rotate(0deg); }
-            12%  { transform: translateX(-8px) rotate(-1.5deg); }
-            24%  { transform: translateX(8px) rotate(1.5deg); }
-            36%  { transform: translateX(-6px) rotate(-1.1deg); }
-            48%  { transform: translateX(6px) rotate(1.1deg); }
-            60%  { transform: translateX(-4px) rotate(-0.8deg); }
-            72%  { transform: translateX(4px) rotate(0.8deg); }
-            84%  { transform: translateX(-2px) rotate(-0.4deg); }
+            14%  { transform: translateX(-5px) rotate(-0.9deg); }
+            28%  { transform: translateX(5px) rotate(0.9deg); }
+            42%  { transform: translateX(-4px) rotate(-0.7deg); }
+            56%  { transform: translateX(4px) rotate(0.7deg); }
+            70%  { transform: translateX(-3px) rotate(-0.45deg); }
+            84%  { transform: translateX(3px) rotate(0.45deg); }
             100% { transform: translateX(0) rotate(0deg); }
         }
 
         .shake-animation {
-            /* 기존 진동 + 더 강한 쫀득 진동을 연속으로 */
             animation:
                 shake 0.25s ease-in-out,
-                shake-jelly-strong 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+                shake-jelly 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         /* --- [BUY & RECEIPT] --- */
@@ -288,7 +284,6 @@
         }
         
         /* [수정됨] 다크모드 로고 로직 */
-        /* GJMST 제외: 기본은 어두운 회색(0.8), 호버하면 쨍한 흰색(1) */
         body.dark-mode .partner-logo:not(.gjmst-logo) {
             filter: brightness(0) invert(0.8); 
             opacity: 0.8;
@@ -299,19 +294,15 @@
             transform: scale(1.1);
         }
 
-        /* [수정됨] GJMST 로고: 다크모드에서 흑백톤(100%) + 약간 어두움(0.8) */
-        /* 호버시: 흑백 풀고(0%) + 약간 밝게(0.9) - 너무 쨍하지 않게 */
         body.dark-mode .gjmst-logo {
             filter: grayscale(100%) opacity(0.8);
         }
-        /* GJMST 호버: 흑백 풀고(0%) + 약간 밝게(0.9) - 너무 쨍하지 않게 */
         body.dark-mode .gjmst-logo:hover {
             filter: grayscale(0%) brightness(0.9);
             opacity: 1;
             transform: scale(1.1); 
         }
         
-        /* 라이트 모드 호버 */
         body:not(.dark-mode) .partner-logo:hover {
             filter: grayscale(0%); opacity: 1; transform: scale(1.1);
         }
@@ -344,7 +335,7 @@
         }
         body.dark-mode .theme-toggle-btn img { filter: invert(0); }
 
-        /* --- [SCROLL TOP BTN (수정됨: 등장속도 1.2초, disappear도 적용)] --- */
+        /* --- [SCROLL TOP BTN] --- */
         .scroll-top-btn {
             position: fixed;
             bottom: 90px;
@@ -357,10 +348,8 @@
             cursor: pointer; z-index: 9999;
             display: flex; align-items: center; justify-content: center;
             opacity: 0; 
-            pointer-events: none; /* 사라질 때 클릭 방지 */
+            pointer-events: none;
             transform: translateY(20px);
-            
-            /* [수정] 등장/퇴장 애니메이션 1.2초로 통일 */
             transition: opacity 1.2s ease, transform 1.2s ease, background-color 0.3s ease;
         }
         .scroll-top-btn.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
@@ -374,7 +363,9 @@
         body.dark-mode .scroll-top-btn img { filter: invert(0); }
 
         /* ==========================
-           [추가됨] 제품 상세 모달(오버레이)
+           제품 상세 모달 (사이즈 키우기 + 버튼 위치 조정)
+           - 디자인은 기존 유지
+           - 크기/레이아웃만 수정
         ========================== */
         .modal-overlay {
             position: fixed;
@@ -391,11 +382,13 @@
             display: flex;
             animation: simpleFadeIn 0.25s ease-out forwards;
         }
+
+        /* [수정] 모달 폭/높이감 키움 */
         .modal-content {
-            width: min(920px, 100%);
+            width: min(1120px, 100%);
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 28px;
+            border-radius: 34px;
             box-shadow: 0 30px 80px rgba(0,0,0,0.25);
             overflow: hidden;
             transform: translateY(8px);
@@ -409,50 +402,54 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 22px 22px 0;
+            padding: 22px 26px 0;
         }
         .modal-title {
-            font-size: 22px;
-            font-weight: 800;
+            font-size: 28px;
+            font-weight: 900;
             letter-spacing: -0.5px;
             margin: 0;
             color: var(--text-main);
         }
         .modal-close {
-            width: 42px;
-            height: 42px;
+            width: 46px;
+            height: 46px;
             border-radius: 50%;
             border: 1px solid var(--card-border);
             background: var(--bg-light);
             color: var(--text-main);
             cursor: pointer;
-            font-size: 18px;
-            font-weight: 800;
+            font-size: 20px;
+            font-weight: 900;
         }
         .modal-close:hover { transform: scale(1.05); }
+
+        /* [수정] 레이아웃 크게 + 좌측 이미지 더 큼 */
         .modal-body {
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 22px;
-            padding: 22px;
+            grid-template-columns: 1.35fr 1fr;
+            gap: 26px;
+            padding: 26px;
+            align-items: stretch;
         }
         .modal-image {
             width: 100%;
-            min-height: 320px;
+            min-height: 380px;
             background: var(--bg-light);
-            border-radius: 18px;
+            border-radius: 22px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
             color: #bbb;
         }
+
         .modal-desc {
             color: var(--text-sub);
-            font-size: 15px;
-            line-height: 1.7;
+            font-size: 16px;
+            line-height: 1.8;
             margin: 0 0 18px;
-            white-space: pre-line; /* \n 줄바꿈 반영 */
+            white-space: pre-line;
         }
         .modal-badge {
             display: inline-block;
@@ -463,18 +460,36 @@
             font-size: 12px;
             font-weight: 700;
             color: var(--text-main);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
+
+        /* [추가] 우측 컬럼을 flex로 만들어 버튼을 아래로 밀어내기 */
+        .modal-right {
+            display: flex;
+            flex-direction: column;
+            min-height: 380px; /* 이미지 박스와 대략 맞추기 */
+        }
+
+        /* [수정] 버튼을 오른쪽 아래로 */
         .modal-actions {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
-            margin-top: 8px;
+            margin-top: auto;        /* 아래로 붙이기 */
+            justify-content: flex-end; /* 오른쪽 정렬 */
+            padding-top: 14px;
         }
-        .modal-actions .cta-button { padding: 14px 20px; border-radius: 18px; font-size: 15px; }
+        .modal-actions .cta-button {
+            padding: 16px 26px;
+            border-radius: 999px;
+            font-size: 16px;
+        }
 
         @media (max-width: 768px) {
             .modal-body { grid-template-columns: 1fr; }
+            .modal-right { min-height: auto; }
+            .modal-actions { justify-content: center; }
+            .modal-image { min-height: 260px; }
         }
     </style>
 </head>
@@ -623,23 +638,19 @@
         </header>
 
         <section class="product-grid">
-            <!-- [수정됨] 카드 클릭 -> 모달 오픈 -->
             <div class="product-card" onclick="openProductModal('src04')">
                 <h4 style="color:var(--primary-color); margin-bottom: 5px;">Dormitory Edition</h4>
                 <h3 style="font-size: 28px; margin-top: 0;">SRC-04</h3>
                 <p>냉장고에 설치하는 초소형 카메라 모듈.</br>촬영된 사진은 즉시 클라우드에 저장되며, 언제 어디서나 확인 가능합니다.</p>
                 <div class="product-img-box">[ 제품 이미지 ]</div>
-                <!-- [수정됨] 버튼 클릭은 페이지 이동, 카드 클릭 전파 방지 -->
                 <button onclick="event.stopPropagation(); showPage('buy')" class="cta-button">제품 구매하기</button>
             </div>
 
-            <!-- [수정됨] Office 카드도 클릭 -> 모달 오픈 -->
             <div class="product-card disabled-card" style="border-style: dashed;" onclick="openProductModal('office')">
                 <h4 style="color:var(--text-sub); margin-bottom: 5px;">Office Edition</h4>
                 <h3 style="font-size: 28px; margin-top: 0; color: #86868b;">SRC-04 For Office</h3>
                 <p>사원증 및 얼굴 인식 기능이 추가된 제품.</br>더 많은 기능의 관리자 페이지와 우수한 보안의 로그 서버를 제공합니다.</p>
                 <div class="product-img-box" style="opacity: 1;">[ 개발 중 ]</div>
-                <!-- [수정됨] 버튼 클릭 전파 방지 + 기존 진동 유지 -->
                 <button class="cta-button" style="background-color: #ccc; cursor: default;" onclick="event.stopPropagation(); shakeButton(this)">준비 중</button>
             </div>
         </section>
@@ -736,10 +747,7 @@
         </div>
     </footer>
 
-    <!-- ==========================
-         [추가됨] 제품 상세 모달(오버레이) HTML
-         - 배경 클릭/닫기 버튼/ESC로 닫기
-    ========================== -->
+    <!-- 제품 상세 모달 -->
     <div id="productModal" class="modal-overlay" onclick="closeProductModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-header">
@@ -748,7 +756,9 @@
             </div>
             <div class="modal-body">
                 <div id="pm_image" class="modal-image">[ 이미지 ]</div>
-                <div>
+
+                <!-- [수정] 우측 영역 wrapper 추가 (버튼 아래로 보내기용) -->
+                <div class="modal-right">
                     <div id="pm_badge" class="modal-badge">Edition</div>
                     <p id="pm_desc" class="modal-desc"></p>
                     <div class="modal-actions" id="pm_actions"></div>
@@ -812,6 +822,7 @@
                 showPage('receipt');
             }
         }
+
         const textElement = document.getElementById('typewriter');
         const sentences = ["기숙사 냉장고의 평화,", "오피스 냉장고의 신뢰,", "기술로 완성합니다."];
         let sentenceIdx = 0; let charIdx = 0; let isDeleting = false;
@@ -833,12 +844,10 @@
             const now = new Date();
             const timeStr = `오늘 ${now.getHours() > 12 ? '오후' : '오전'} ${now.getHours() % 12 || 12}:${String(now.getMinutes()).padStart(2, '0')}`;
             
-            // 3개 이상일 경우 맨 위 삭제
             if (list.children.length >= 3) {
                 list.removeChild(list.firstElementChild);
             }
 
-            // 새로운 알림 생성 (맨 아래)
             const item = document.createElement('div');
             item.className = 'notification-item';
             item.innerHTML = `
@@ -889,12 +898,10 @@
             btn.classList.add('shake-animation');
             setTimeout(() => {
                 btn.classList.remove('shake-animation');
-            }, 900); // [수정됨] 강한 쫀득 진동 끝까지 유지
+            }, 650); // [수정] 과하지 않게
         }
 
-        // ==========================
-        // [추가됨] 제품 상세 모달 로직
-        // ==========================
+        // --- 제품 상세 모달 로직 ---
         const productData = {
             src04: {
                 title: "SRC-04",
@@ -961,7 +968,7 @@
 
             const modal = document.getElementById('productModal');
             modal.classList.add('show');
-            document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
+            document.body.style.overflow = 'hidden';
         }
 
         function closeProductModal() {
