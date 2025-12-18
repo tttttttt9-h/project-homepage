@@ -6,7 +6,6 @@
     <title>공마고의 도둑들</title>
     <style>
         :root {
-            /* [라이트 모드] */
             --primary-color: #5856d6; /* 딥 퍼플 */
             --text-main: #1d1d1f;
             --text-sub: #86868b;
@@ -28,14 +27,11 @@
             --theme-speed: 0.5s;
         }
 
-        /* [다크 모드: 원래 쓰던 색상(#bf5af2) 및 배경으로 복구] */
         body.dark-mode {
-            --primary-color: #bf5af2; /* 네온 바이올렛 (복구됨) */
+            --primary-color: #bf5af2;
             
             --text-main: #f5f5f7;
             --text-sub: #a1a1a6;
-            
-            /* 배경색도 기존 애플 스타일 다크모드로 복구 */
             --bg-light: #000000;
             --white: #1c1c1e;
             --hero-bg: #1c1c1e;
@@ -209,6 +205,7 @@
         .team-container { max-width: 1100px; margin: 80px auto; padding: 0 24px; }
         .ceo-card { background: var(--card-bg); padding: 60px 24px; border-radius: 40px; text-align: center; border: 1px solid var(--card-border); margin-bottom: 60px; }
         
+        /* CEO 아이콘 색상 통일 */
         .profile-initial { 
             width: 160px; height: 160px; 
             background: var(--bg-light);
@@ -233,11 +230,11 @@
 
         .product-img-box { width: 100%; height: 320px; background: var(--bg-light); border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
 
-        /* [진동 효과: 1px] */
+        /* [진동 효과] */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-1px); }
-            20%, 40%, 60%, 80% { transform: translateX(1px); }
+            20%, 60% { transform: translateX(-1px); }
+            40%, 80% { transform: translateX(1px); }
         }
         .shake-animation {
             animation: shake 0.3s ease-in-out;
@@ -267,7 +264,7 @@
             cursor: pointer; 
         }
         
-        /* [수정됨] 다크모드 로고 호버 스타일 */
+        /* [수정됨] 다크모드 로고 로직 */
         /* GJMST 제외: 기본은 어두운 회색(0.8), 호버하면 쨍한 흰색(1) */
         body.dark-mode .partner-logo:not(.gjmst-logo) {
             filter: brightness(0) invert(0.8); 
@@ -279,7 +276,8 @@
             transform: scale(1.1);
         }
 
-        /* GJMST 로고: 다크모드에서 흑백톤(100%) + 약간 어두움(0.8) */
+        /* [수정됨] GJMST 로고: 다크모드에서 흑백톤(100%) + 약간 어두움(0.8) */
+        /* 호버시: 흑백 풀고(0%) + 약간 밝게(0.9) - 너무 쨍하지 않게 */
         body.dark-mode .gjmst-logo {
             filter: grayscale(100%) opacity(0.8);
         }
@@ -323,7 +321,7 @@
         }
         body.dark-mode .theme-toggle-btn img { filter: invert(0); }
 
-        /* --- [SCROLL TOP BTN (수정됨: 1.5초 천천히 등장)] --- */
+        /* --- [SCROLL TOP BTN (수정됨: 등장속도 1.2초, disappear도 적용)] --- */
         .scroll-top-btn {
             position: fixed;
             bottom: 90px;
@@ -335,13 +333,14 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             cursor: pointer; z-index: 9999;
             display: flex; align-items: center; justify-content: center;
-            opacity: 0; visibility: hidden;
+            opacity: 0; 
+            pointer-events: none; /* 사라질 때 클릭 방지 */
             transform: translateY(20px);
             
-            /* [수정] 등장 애니메이션 속도 1.2초로 느리게 설정 */
+            /* [수정] 등장/퇴장 애니메이션 1.2초로 통일 */
             transition: opacity 1.2s ease, transform 1.2s ease, background-color 0.3s ease;
         }
-        .scroll-top-btn.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        .scroll-top-btn.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
         .scroll-top-btn:hover { transform: scale(1.1); }
         
         .scroll-top-btn img { 
