@@ -196,7 +196,24 @@
         /* --- [PARTNER & FOOTER] --- */
         .partner-section { padding: 60px 24px 80px; background-color: #ffffff; text-align: center; border-top: 1px solid #f5f5f7; }
         .partner-title { font-size: 14px; font-weight: 600; color: #86868b; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 40px; }
-        .logo-grid { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 40px 60px; max-width: 1000px; margin: 0 auto; }
+        .logo-grid {
+    display: flex;
+    justify-content: center; /* 기본 중앙 정렬 */
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 40px 80px;         /* 로고 사이 간격을 넓혀 더 고르게 분포시킴 */
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-left: 50px;     /* 이 값을 조절하여 로고들을 오른쪽으로 밀 수 있습니다 */
+}
+
+/* 모바일에서는 다시 중앙으로 오도록 설정 (권장) */
+@media (max-width: 768px) {
+    .logo-grid {
+        padding-left: 0;
+        gap: 30px 40px;
+    }
+}
         .partner-logo { height: 35px; width: auto; opacity: 0.4; filter: grayscale(100%); transition: all 0.3s ease; cursor: pointer; }
         .partner-logo.main-logo { height: 55px; opacity: 0.8; } /* GJMST 로고 강조 */
         .partner-logo:hover { opacity: 1; filter: grayscale(0%); transform: scale(1.05); }
