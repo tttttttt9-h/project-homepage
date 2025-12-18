@@ -9,40 +9,40 @@
             --primary-color: #5856d6; /* 딥 퍼플 */
             --text-main: #1d1d1f;
             --text-sub: #86868b;
-            
-            --bg-light: #f5f5f7; 
+
+            --bg-light: #f5f5f7;
             --white: #ffffff;
             --hero-bg: #ffffff;
-            
-            --header-bg: #ffffff; 
+
+            --header-bg: #ffffff;
             --header-text: #1d1d1f;
-            
+
             --nav-bg: rgba(242, 242, 247, 0.9);
-            
-            --card-bg: #fbfbfd; 
+
+            --card-bg: #fbfbfd;
             --card-border: rgba(0, 0, 0, 0.08);
-            
+
             --btn-bg: #1d1d1f;
-            
+
             --theme-speed: 0.5s;
         }
 
         body.dark-mode {
             --primary-color: #bf5af2;
-            
+
             --text-main: #f5f5f7;
             --text-sub: #a1a1a6;
             --bg-light: #000000;
             --white: #1c1c1e;
             --hero-bg: #1c1c1e;
-            
-            --header-bg: #1c1c1e; 
+
+            --header-bg: #1c1c1e;
             --header-text: #ffffff;
-            
+
             --nav-bg: rgba(20, 20, 22, 0.9);
             --card-bg: #2c2c2e;
             --card-border: rgba(255, 255, 255, 0.1);
-            
+
             --btn-bg: #ffffff;
         }
 
@@ -57,9 +57,9 @@
         }
 
         /* [호버 효과 별도 속도] */
-        .live-view-btn, .cta-button, .partner-logo, .theme-toggle-btn, 
-        .info-card, .member-card, .product-card:not(.disabled-card) {
-            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
+        .live-view-btn, .cta-button, .partner-logo, .theme-toggle-btn,
+        .info-card, .member-card, .product-card {
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
                         box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
                         background-color 0.3s ease,
                         opacity 0.3s ease,
@@ -114,13 +114,13 @@
 
         /* [페이지 전환: 단순 페이드인] */
         .page { display: none; padding-top: 90px; }
-        .page.active { 
-            display: block; 
+        .page.active {
+            display: block;
             animation: simpleFadeIn 0.5s ease-out forwards;
         }
 
-        @keyframes simpleFadeIn { 
-            from { opacity: 0; } 
+        @keyframes simpleFadeIn {
+            from { opacity: 0; }
             to { opacity: 1; }
         }
 
@@ -204,16 +204,15 @@
         /* --- [TEAM] --- */
         .team-container { max-width: 1100px; margin: 80px auto; padding: 0 24px; }
         .ceo-card { background: var(--card-bg); padding: 60px 24px; border-radius: 40px; text-align: center; border: 1px solid var(--card-border); margin-bottom: 60px; }
-        
-        /* CEO 아이콘 색상 통일 */
-        .profile-initial { 
-            width: 160px; height: 160px; 
+
+        .profile-initial {
+            width: 160px; height: 160px;
             background: var(--bg-light);
-            border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; 
-            font-size: 64px; font-weight: 800; 
-            color: var(--text-sub); 
+            border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center;
+            font-size: 64px; font-weight: 800;
+            color: var(--text-sub);
         }
-        
+
         .executive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .member-card { background: var(--card-bg); border: 1px solid var(--card-border); padding: 40px; border-radius: 30px; text-align: center; }
         .member-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
@@ -221,15 +220,13 @@
 
         /* --- [PRODUCT] --- */
         .product-grid { max-width: 1100px; margin: 80px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; padding: 0 24px; }
-        .product-card { background: var(--card-bg); border-radius: 30px; padding: 50px; border: 1px solid var(--card-border); display: flex; flex-direction: column; }
-        /* Office도 호버 되게 */
+        .product-card { background: var(--card-bg); border-radius: 30px; padding: 50px; border: 1px solid var(--card-border); display: flex; flex-direction: column; cursor: pointer; }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .disabled-card { opacity: 0.7; cursor: default; }
-        .disabled-card:hover { }
+        .disabled-card { opacity: 0.7; }
         .product-img-box { width: 100%; height: 320px; background: var(--bg-light); border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
 
         /* ==========================
-           [진동 효과] (세기 조금 줄임)
+           [진동 효과]
         ========================== */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
@@ -271,21 +268,20 @@
         .partner-section { padding: 80px 24px; background-color: var(--card-bg); text-align: center; border-top: 1px solid var(--card-border); }
         .partner-title { font-size: 14px; font-weight: 600; color: var(--text-sub); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 40px; }
         .logo-grid { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px 20px; max-width: 1000px; margin: 0 auto; padding-left: 50px; }
-        
-        .partner-logo { 
-            height: 30px; width: auto; opacity: 0.4; 
-            filter: grayscale(100%); 
-            cursor: pointer; 
+
+        .partner-logo {
+            height: 30px; width: auto; opacity: 0.4;
+            filter: grayscale(100%);
+            cursor: pointer;
         }
-        
-        /* [수정됨] 다크모드 로고 로직 */
+
         body.dark-mode .partner-logo:not(.gjmst-logo) {
-            filter: brightness(0) invert(0.8); 
+            filter: brightness(0) invert(0.8);
             opacity: 0.8;
         }
         body.dark-mode .partner-logo:not(.gjmst-logo):hover {
-            filter: brightness(0) invert(1); 
-            opacity: 1; 
+            filter: brightness(0) invert(1);
+            opacity: 1;
             transform: scale(1.1);
         }
         body.dark-mode .gjmst-logo {
@@ -294,11 +290,12 @@
         body.dark-mode .gjmst-logo:hover {
             filter: grayscale(0%) brightness(0.9);
             opacity: 1;
-            transform: scale(1.1); 
+            transform: scale(1.1);
         }
         body:not(.dark-mode) .partner-logo:hover {
             filter: grayscale(0%); opacity: 1; transform: scale(1.1);
         }
+
         .partner-logo.main-logo { height: 50px; opacity: 0.8; }
         .logo-grid img:nth-child(3) { margin-right: -10px; }
 
@@ -319,11 +316,11 @@
             display: flex; align-items: center; justify-content: center;
         }
         .theme-toggle-btn:hover { transform: scale(1.1); }
-        
-        .theme-toggle-btn img { 
-            width: 24px; height: 24px; 
+
+        .theme-toggle-btn img {
+            width: 24px; height: 24px;
             transition: all var(--theme-speed);
-            filter: invert(1); 
+            filter: invert(1);
         }
         body.dark-mode .theme-toggle-btn img { filter: invert(0); }
 
@@ -339,25 +336,23 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             cursor: pointer; z-index: 9999;
             display: flex; align-items: center; justify-content: center;
-            opacity: 0; 
+            opacity: 0;
             pointer-events: none;
             transform: translateY(20px);
             transition: opacity 1.2s ease, transform 1.2s ease, background-color 0.3s ease;
         }
         .scroll-top-btn.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
         .scroll-top-btn:hover { transform: scale(1.1); }
-        
-        .scroll-top-btn img { 
-            width: 20px; height: 20px; 
+
+        .scroll-top-btn img {
+            width: 20px; height: 20px;
             transition: all var(--theme-speed);
-            filter: invert(1); 
+            filter: invert(1);
         }
         body.dark-mode .scroll-top-btn img { filter: invert(0); }
 
         /* ==========================
            제품 상세 모달
-           - 사이즈 더 키움
-           - Edition 배경 제거 + 글색 지정 가능
         ========================== */
         .modal-overlay {
             position: fixed;
@@ -375,7 +370,6 @@
             animation: simpleFadeIn 0.25s ease-out forwards;
         }
 
-        /* [수정] 모달 폭 더 키움 */
         .modal-content {
             width: min(1280px, 100%);
             background: var(--card-bg);
@@ -390,19 +384,38 @@
             from { opacity: 0; transform: translateY(14px) scale(0.99); }
             to   { opacity: 1; transform: translateY(0) scale(1); }
         }
+
         .modal-header {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
             padding: 22px 26px 0;
+            gap: 16px;
+        }
+
+        /* [수정] Edition을 제목 위로 */
+        .modal-title-wrap { display: flex; flex-direction: column; gap: 8px; }
+        .modal-badge {
+            display: inline-block;
+            padding: 0;
+            border-radius: 0;
+            background: transparent;
+            border: none;
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 0.4px;
+            color: var(--primary-color);
+            margin: 0;
         }
         .modal-title {
-            font-size: 28px;
+            font-size: 30px;
             font-weight: 900;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.6px;
             margin: 0;
             color: var(--text-main);
+            line-height: 1.15;
         }
+
         .modal-close {
             width: 46px;
             height: 46px;
@@ -413,6 +426,7 @@
             cursor: pointer;
             font-size: 20px;
             font-weight: 900;
+            flex-shrink: 0;
         }
         .modal-close:hover { transform: scale(1.05); }
 
@@ -424,7 +438,6 @@
             align-items: stretch;
         }
 
-        /* [수정] 이미지/우측 높이 더 키움 */
         .modal-image {
             width: 100%;
             min-height: 460px;
@@ -435,20 +448,6 @@
             justify-content: center;
             font-weight: 800;
             color: #bbb;
-        }
-
-        /* [수정] Edition: 배경 제거 + 글색은 JS에서 주입 가능 */
-        .modal-badge {
-            display: inline-block;
-            padding: 0;
-            border-radius: 0;
-            background: transparent;
-            border: none;
-            font-size: 13px;
-            font-weight: 800;
-            letter-spacing: 0.4px;
-            color: var(--primary-color);
-            margin-bottom: 12px;
         }
 
         .modal-desc {
@@ -467,16 +466,19 @@
 
         .modal-actions {
             display: flex;
-            gap: 12px;
+            gap: 14px;
             flex-wrap: wrap;
             margin-top: auto;
             justify-content: flex-end;
-            padding-top: 14px;
+            padding-top: 16px;
         }
+
+        /* [수정] 버튼 더 길게 */
         .modal-actions .cta-button {
-            padding: 16px 26px;
+            padding: 18px 34px;
             border-radius: 999px;
-            font-size: 16px;
+            font-size: 17px;
+            min-width: 260px;
         }
 
         @media (max-width: 768px) {
@@ -484,6 +486,7 @@
             .modal-right { min-height: auto; }
             .modal-actions { justify-content: center; }
             .modal-image { min-height: 260px; }
+            .modal-actions .cta-button { width: 100%; min-width: 0; }
         }
     </style>
 </head>
@@ -508,8 +511,7 @@
         <img src="images/arrow.svg" alt="Top">
     </button>
 
-    <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Dark Mode">
-        </button>
+    <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Dark Mode"></button>
 
     <main id="home" class="page active">
         <header class="hero">
@@ -579,9 +581,7 @@
                             <div style="width:100%; padding:20px 20px 10px; box-sizing:border-box; font-weight:bold; font-size:18px; color:#333;">최근 감지 기록</div>
                             <div id="notification-list"></div>
                             <div style="margin-bottom:20px; text-align:center;">
-                                <a href="https://project.whanci.xyz" target="_blank" class="live-view-btn">
-                                    체험 해보기
-                                </a>
+                                <a href="https://project.whanci.xyz" target="_blank" class="live-view-btn">체험 해보기</a>
                             </div>
                         </div>
                     </div>
@@ -658,7 +658,7 @@
                     <p style="font-weight:700;">SRC-04</p>
                     <p style="font-size: 16px; color: var(--text-sub); margin: 0 0 5px 0; text-decoration: line-through;">149,900원</p>
                     <p style="font-size: 28px; font-weight: 800; color: var(--primary-color); margin: 0;">89,000원</p>
-                    </div>
+                </div>
             </div>
             <div class="buy-form">
                 <h3 style="margin-top:0;">배송 정보</h3>
@@ -745,13 +745,15 @@
     <div id="productModal" class="modal-overlay" onclick="closeProductModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-header">
-                <h3 id="pm_title" class="modal-title">제품 상세</h3>
+                <div class="modal-title-wrap">
+                    <div id="pm_badge" class="modal-badge">Edition</div>
+                    <h3 id="pm_title" class="modal-title">제품 상세</h3>
+                </div>
                 <button class="modal-close" aria-label="Close" onclick="closeProductModal()">×</button>
             </div>
             <div class="modal-body">
                 <div id="pm_image" class="modal-image">[ 이미지 ]</div>
                 <div class="modal-right">
-                    <div id="pm_badge" class="modal-badge">Edition</div>
                     <p id="pm_desc" class="modal-desc"></p>
                     <div class="modal-actions" id="pm_actions"></div>
                 </div>
@@ -761,15 +763,15 @@
 
     <script>
         // --- [통계 자동 계산 설정] ---
-        const totalRespondents = 342;   
-        const experiencedCount = 266;   
+        const totalRespondents = 342;
+        const experiencedCount = 266;
 
         window.addEventListener('load', function() {
             const percentage = Math.round((experiencedCount / totalRespondents) * 100);
             const peopleRatio = Math.round(percentage / 10);
             const displayTotal = document.getElementById('display-total');
             if(displayTotal) displayTotal.innerText = totalRespondents.toLocaleString();
-            
+
             let currentNum = 0;
             const numElement = document.getElementById('display-percent');
             if(numElement) {
@@ -781,7 +783,7 @@
                         currentNum++;
                         numElement.innerText = currentNum + "%";
                     }
-                }, 40); 
+                }, 40);
             }
             setTimeout(() => {
                 const bar = document.getElementById('poll-bar');
@@ -835,7 +837,7 @@
 
             const now = new Date();
             const timeStr = `오늘 ${now.getHours() > 12 ? '오후' : '오전'} ${now.getHours() % 12 || 12}:${String(now.getMinutes()).padStart(2, '0')}`;
-            
+
             if (list.children.length >= 3) {
                 list.removeChild(list.firstElementChild);
             }
@@ -849,7 +851,7 @@
                     <div style="font-size:12px; color:#888;">${timeStr}</div>
                 </div>
             `;
-            
+
             list.appendChild(item);
         }
 
@@ -857,11 +859,11 @@
         const themeBtn = document.getElementById('themeToggle');
         const body = document.body;
 
-        const iconMoon = '<img src="images/dark.svg" alt="Dark Mode">'; 
-        const iconSun = '<img src="images/light.svg" alt="Light Mode">'; 
+        const iconMoon = '<img src="images/dark.svg" alt="Dark Mode">';
+        const iconSun = '<img src="images/light.svg" alt="Light Mode">';
 
         const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
+
         if (userPrefersDark) {
             body.classList.add('dark-mode');
             themeBtn.innerHTML = iconSun;
@@ -909,7 +911,7 @@
             },
             office: {
                 title: "SRC-04 For Office",
-                badge: "Office Edition (개발 중)",
+                badge: "Office Edition",
                 badgeColor: "#a1a1a6",
                 desc:
 `사원증 및 얼굴 인식 기능이 추가된 제품.
