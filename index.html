@@ -96,25 +96,12 @@
 
         /* --- [HOME HERO] --- */
         .hero {
-    padding: 160px 24px;
-    text-align: center;
-
-    /* 기본 화이트 계열 그라데이션 */
-    background: linear-gradient(
-        120deg,
-        #ffffff 0%,
-        #f4f6ff 30%,
-        #eaf1ff 50%,
-        #f5f5f7 70%,
-        #ffffff 100%
-    );
-
-    /* 그라데이션을 크게 만들어 이동 여유 확보 */
-    background-size: 300% 300%;
-
-    /* 진한 영역이 흐르듯 이동 */
-    animation: heroGradientMove 18s ease-in-out infinite;
-}
+            padding: 160px 24px;
+            text-align: center;
+            background: linear-gradient(120deg, #ffffff 0%, #f4f6ff 30%, #eaf1ff 50%, #f5f5f7 70%, #ffffff 100%);
+            background-size: 300% 300%;
+            animation: heroGradientMove 18s ease-in-out infinite;
+        }
         .typing-container {
             font-size: clamp(36px, 6vw, 68px); 
             font-weight: 800; margin-bottom: 24px;
@@ -201,7 +188,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* [추가] 실시간 보기 버튼 스타일 */
         .live-view-btn {
             background: var(--primary-color);
             color: white;
@@ -270,7 +256,8 @@
             justify-content: center;
             align-items: center;     
             flex-wrap: wrap; 
-            gap: 20px 40px;
+            /* [수정됨] Toss 로고 양옆 간격을 포함해 전체 간격을 줄임 (40px -> 20px) */
+            gap: 20px 20px;
             max-width: 1000px; 
             margin: 0 auto; 
             padding-left: 50px; 
@@ -294,42 +281,29 @@
         .footer-content { max-width: 1100px; margin: 0 auto; color: var(--text-sub); font-size: 13px; }
 
         /* --- HERO 그라데이션 배경 --- */
-.hero {
-    position: relative;
-    overflow: hidden;
-    background: #ffffff; /* 기존 흰 배경 유지 */
-}
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
+        }
 
-/* 움직이는 그라데이션 레이어 */
-.hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 0;
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background: linear-gradient(120deg, #ffffff, #f2f7ff, #e8f0ff, #ffffff);
+            background-size: 400% 400%;
+            animation: heroGradient 18s ease infinite;
+        }
 
-    background: linear-gradient(
-        120deg,
-        #ffffff,
-        #f2f7ff,
-        #e8f0ff,
-        #ffffff
-    );
-    background-size: 400% 400%;
-    animation: heroGradient 18s ease infinite;
-}
+        .hero > * { position: relative; z-index: 1; }
 
-/* 내용이 그라데이션 위로 오도록 */
-.hero > * {
-    position: relative;
-    z-index: 1;
-}
-
-/* 그라데이션 애니메이션 */
-@keyframes heroGradient {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+        @keyframes heroGradient {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
     </style>
 </head>
 <body>
