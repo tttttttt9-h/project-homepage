@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공마고의 도둑들</title>
-    <style>
-        :root {
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공마고의 도둑들</title>
+
+<style>
+:root {
     --primary-color: #0071e3;
     --text-main: #1d1d1f;
     --text-sub: #86868b;
@@ -18,16 +19,10 @@
 body {
     font-family: "SF Pro KR", "SF Pro Display", "Apple SD Gothic Neo", sans-serif;
     margin: 0;
-    padding: 0;
-    background-color: var(--white);
+    background: #fff;
     color: var(--text-main);
     line-height: 1.6;
-    word-break: keep-all;
     overflow-x: hidden;
-
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
 }
 
 /* =========================
@@ -37,45 +32,32 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
+    background: rgba(255,255,255,0.85);
     backdrop-filter: blur(20px);
     z-index: 1000;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
     height: 90px;
-    padding: 0 15px;
+    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.logo-area {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-.logo-img {
-    height: 50px;
-    margin-right: 10px;
-}
-
 .logo-text {
     font-weight: 800;
     font-size: 24px;
-    letter-spacing: -1px;
 }
 
 .nav-menu a {
+    margin-left: 22px;
     font-size: 15px;
     font-weight: 600;
-    margin-left: 20px;
     cursor: pointer;
-    opacity: 0.8;
     text-decoration: none;
     color: var(--text-main);
 }
@@ -86,87 +68,35 @@ body {
 .page {
     display: none;
     padding-top: 90px;
-    animation: fadeIn 0.4s ease-out;
 }
 
 .page.active {
     display: block;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
 /* =========================
-   HERO (물결 효과 핵심)
+   HERO (정적 고급 그라데이션)
 ========================= */
 .hero {
-    position: relative;
-    overflow: hidden;
-    padding: 160px 24px;
+    padding: 170px 24px 160px;
     text-align: center;
-
-    /* 기본 화이트 그라데이션 */
-    background: linear-gradient(
-        120deg,
-        #ffffff 0%,
-        #f4f6ff 30%,
-        #eaf1ff 50%,
-        #f5f5f7 70%,
-        #ffffff 100%
-    );
-
-    /* 마우스 좌표 변수 */
-    --mx: 50%;
-    --my: 50%;
-}
-
-/* 물결 레이어 */
-.hero::before {
-    content: "";
-    position: absolute;
-    inset: -30%;
-
     background:
-        radial-gradient(
-            circle at var(--mx) var(--my),
-            rgba(180, 210, 255, 0.45),
-            rgba(220, 235, 255, 0.25) 30%,
-            rgba(255, 255, 255, 0.15) 50%,
-            transparent 65%
-        );
-
-    filter: blur(25px);
-    transition:
-        background-position 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-        filter 0.3s ease;
-
-    pointer-events: none;
-    z-index: 0;
+        radial-gradient(1200px 600px at 80% -20%, #e6f0ff 0%, transparent 60%),
+        radial-gradient(1000px 500px at 0% 0%, #f1f6ff 0%, transparent 55%),
+        linear-gradient(180deg, #ffffff 0%, #f5f7ff 55%, #ffffff 100%);
 }
 
-/* 히어로 콘텐츠를 위로 */
-.hero > * {
-    position: relative;
-    z-index: 1;
-}
-
-/* =========================
-   HERO TEXT
-========================= */
 .typing-container {
-    font-size: clamp(36px, 6vw, 68px);
+    font-size: clamp(40px, 6vw, 72px);
     font-weight: 800;
-    margin-bottom: 24px;
     letter-spacing: -2px;
-    line-height: 1.2;
+    margin-bottom: 24px;
 }
 
 .hero p {
-    font-size: clamp(18px, 3vw, 24px);
+    font-size: 20px;
     color: var(--text-sub);
-    max-width: 800px;
+    max-width: 820px;
     margin: 0 auto 50px;
 }
 
@@ -175,40 +105,38 @@ body {
 ========================= */
 .cta-button {
     display: inline-block;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 18px 40px;
-    border-radius: 35px;
-    font-weight: 700;
+    background: var(--primary-color);
+    color: #fff;
+    padding: 18px 44px;
+    border-radius: 40px;
     font-size: 18px;
+    font-weight: 700;
     cursor: pointer;
     text-decoration: none;
-    transition: 0.3s;
+    transition: 0.25s ease;
 }
 
 .cta-button:hover {
-    background-color: #005bb7;
-    transform: scale(1.02);
+    background: #005bb7;
+    transform: translateY(-2px);
 }
 
 /* =========================
    SECTION HEADER
 ========================= */
 .section-header {
-    padding: 100px 24px 60px;
-    text-align: center;
-    background-color: var(--header-bg);
+    padding: 110px 24px 70px;
+    background: var(--header-bg);
     color: var(--header-text);
+    text-align: center;
 }
 
 .section-header h2 {
-    font-size: 42px;
-    font-weight: 700;
-    margin-bottom: 15px;
+    font-size: 44px;
+    margin-bottom: 14px;
 }
 
 .section-header p {
-    font-size: 18px;
     opacity: 0.8;
 }
 
@@ -216,7 +144,7 @@ body {
    FOOTER
 ========================= */
 .footer {
-    background-color: var(--bg-light);
+    background: var(--bg-light);
     padding: 80px 24px;
     border-top: 1px solid #e5e5e5;
 }
@@ -226,6 +154,7 @@ body {
     margin: 0 auto;
     font-size: 13px;
     color: var(--text-sub);
+    line-height: 1.7;
 }
 
 /* =========================
@@ -237,328 +166,64 @@ body {
     }
 
     .logo-text {
-        font-size: 15px;
+        font-size: 16px;
     }
 
     .hero {
-        padding: 120px 20px;
+        padding: 130px 20px 120px;
     }
 
     .typing-container {
-        font-size: 32px;
+        font-size: 34px;
     }
 }
-    </style>
+</style>
 </head>
+
 <body>
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <div onclick="showPage('home')" class="logo-area">
-                <img src="images/icon.png" alt="Logo" class="logo-img" onerror="this.style.backgroundColor='#0071e3'; this.style.width='50px'; this.style.borderRadius='10px';">
-                <span class="logo-text">공마고의 도둑들</span>
-            </div>
-            <div class="nav-menu">
-                <a onclick="showPage('home')">홈</a>
-                <a onclick="showPage('team')">임원진</a>
-                <a onclick="showPage('product')">구매하기</a>
-                <a onclick="showPage('contact')">문의</a>
-            </div>
+<nav class="navbar">
+    <div class="nav-container">
+        <div onclick="showPage('home')" style="cursor:pointer">
+            <span class="logo-text">공마고의 도둑들</span>
         </div>
-    </nav>
-
-    <main id="home" class="page active">
-        <header class="hero">
-            <div class="typing-container"><span class="typing-text" id="typewriter"></span></div>
-            <p>공용 냉장고 무단 취식, 더 이상 감정에 호소하지 마세요.<br><b>공마고의 도둑들</b>이 완벽한 보안을 제공합니다.</p>
-            <a onclick="showPage('product')" class="cta-button">지금 시작하기</a>
-        </header>
-
-        <section class="poll-section">
-            <div class="poll-container">
-                <h2 class="stat-title">"기숙사 냉장고 도난, 경험해보셨나요?"</h2>
-                <p class="stat-desc">자체 설문조사 결과 (응답자 <span id="display-total">0</span>명)</p>
-
-                <span class="stat-number" id="display-percent">0%</span>
-                <p style="font-weight: 600; font-size: 18px; margin-bottom: 5px;">"네, 경험했습니다."</p>
-
-                <div class="bar-bg">
-                    <div class="bar-fill" id="poll-bar" style="width: 0%;"></div>
-                </div>
-
-                <p style="font-size: 15px; line-height: 1.6; margin-top: 30px; color: #424245;">
-                    기숙사생 10명 중 <span id="display-people-ratio">0</span>명이 겪는 스트레스.<br>
-                    더 이상 참지 마세요. <b>공마고의 도둑들</b>이 해결해 드립니다.
-                </p>
-            </div>
-        </section>
-
-        <section class="info-section">
-            <div class="info-grid">
-                <div class="info-card card-dorm">
-                    <h3 style="font-size: 28px; margin-top: 0; margin-bottom: 10px;">Dormitory Edition</h3>
-                    <p style="font-size: 17px; line-height: 1.5; font-weight: 500;">
-                        기숙사생들의 스트레스 1위 '냉장고 절도'.<br>
-                        설치 즉시 완벽하게 분쟁을 해결합니다.
-                    </p>
-                </div>
-
-                <div class="info-card card-office">
-                    <h3 style="font-size: 28px; margin-top: 0; margin-bottom: 10px;">Office Edition</h3>
-                    <p style="font-size: 17px; line-height: 1.5; font-weight: 500;">
-                        탕비실 냉장고 에티켓 관리 솔루션.<br>
-                        기술로 건강하고 신뢰 있는 사내 문화를 만듭니다.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section class="app-section">
-            <div class="app-container">
-                <div class="app-text">
-                    <span style="color: var(--primary-color); font-weight: 700; font-size: 14px; letter-spacing: 1px;">Access Anywhere</span>
-                    <h2 style="font-size: 42px; font-weight: 700; margin: 15px 0 20px; line-height: 1.1;">범인은 이 안에.<br>어디서나 확인하세요.</h2>
-                    <p style="font-size: 18px; color: #86868b; line-height: 1.6;">
-                        누가 내 음료수를 가져갔을까요?<br>
-                        SRC-04 전용 앱이 동작 감지 순간을 포착하여<br>
-                        스마트폰으로 즉시 알림을 보내드립니다.<br><br>
-                        최근 감지 기록과 지난 기록까지,<br>
-                        터치 한 번으로 확인하세요.
-                    </p>
-                    <a onclick="showPage('product')" style="display:inline-block; margin-top:30px; color:var(--primary-color); font-weight:600; cursor:pointer; text-decoration:underline;">제품 자세히 보기 ></a>
-                </div>
-
-                <div class="app-image">
-                    <div class="phone-mockup">
-                        <div class="notch"></div>
-                        <div class="phone-screen">
-                            <div style="width:100%; padding:20px 20px 10px; box-sizing:border-box; font-weight:bold; font-size:18px; color:#333;">최근 감지 기록</div>
-                            <div id="notification-list">
-                                </div>
-                            <div style="margin-bottom:20px; text-align:center;">
-                                <a href="https://project.whanci.xyz" target="_blank" class="live-view-btn">
-                                    체험 해보기
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <main id="team" class="page">
-        <header class="section-header">
-            <h2>Leading the Future</h2>
-            <p>공용 공간의 신뢰를 기술로 새롭게 정의하는 팀입니다.</p>
-        </header>
-        <section class="team-container">
-            <div class="ceo-card">
-                <div class="profile-initial">윤</div>
-                <span style="color:var(--primary-color); font-weight:700;">CEO & Founder</span>
-                <h3 style="font-size: 32px; margin: 10px 0;">윤수원</h3>
-                <p style="color:var(--text-main); font-size: 18px; font-weight: 600; margin-bottom: 20px;">"작은 불편을 해결하는 것이 더 나은 문화를 만든다고 믿습니다."</p>
-            </div>
-            <div class="executive-grid">
-                <div class="member-card">
-                    <div class="member-initial">배</div>
-                    <div class="member-name">배충만</div>
-                    <div class="member-role" style="color:var(--primary-color); font-weight:600; font-size:14px;">CTO & CPO</div>
-                    <p style="font-size: 14px; color: var(--text-sub); margin-top: 15px;">하드웨어 설계 및 소프트웨어 설계 총괄</p>
-                </div>
-                <div class="member-card">
-                    <div class="member-initial">이</div>
-                    <div class="member-name">이시환</div>
-                    <div class="member-role" style="color:var(--primary-color); font-weight:600; font-size:14px;">CIO & DevOps</div>
-                    <p style="font-size: 14px; color: var(--text-sub); margin-top: 15px;">소프트웨어 개발 및 클라우드 개발 총괄</p>
-                </div>
-                <div class="member-card">
-                    <div class="member-initial">이</div>
-                    <div class="member-name">이지후</div>
-                    <div class="member-role" style="color:var(--primary-color); font-weight:600; font-size:14px;">CFO & CMO</div>
-                    <p style="font-size: 14px; color: var(--text-sub); margin-top: 15px;">재무 회계 및 하드웨어 제작 총괄</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <main id="product" class="page">
-        <header class="section-header">
-            <h2>Choose Your Plan</h2>
-            <p>필요한 만큼, 확실한 보호를 선택하세요.</p>
-        </header>
-        <section class="product-grid">
-            <div class="product-card">
-                <h4 style="color:var(--primary-color); margin-bottom: 5px;">Dormitory Edition</h4>
-                <h3 style="font-size: 28px; margin-top: 0;">SRC-04</h3>
-                <p>냉장고에 설치하는 초소형 카메라 모듈.</br>촬영된 사진은 즉시 클라우드에 저장되며, 언제 어디서나 확인 가능합니다.</p>
-                <div class="product-img-box">[ 제품 이미지 ]</div>
-                <button onclick="showPage('buy')" class="cta-button">제품 구매하기</button>
-            </div>
-            <div class="product-card" style="background-color: #fafafa; border-style: dashed; opacity: 0.6;">
-                <h4 style="color:var(--text-sub); margin-bottom: 5px;">Office Edition</h4>
-                <h3 style="font-size: 28px; margin-top: 0; color: #86868b;">SRC-04 For Office</h3>
-                <p>사원증 및 얼굴 인식 기능이 추가된 제품.</br>더 많은 기능의 관리자 페이지와 우수한 보안의 로그 서버를 제공합니다.</p>
-                <div class="product-img-box" style="opacity: 1;">[ 개발 중 ]</div>
-                <button class="cta-button" style="background-color: #ccc; cursor: default;">준비 중</button>
-            </div>
-        </section>
-    </main>
-
-    <main id="buy" class="page">
-        <div class="buy-container">
-            <div style="flex: 1; min-width: 320px;">
-                <h2>주문서 작성</h2>
-                <div style="background: #fff; padding: 25px; border-radius: 12px; border: 1px solid #eee; margin-top: 20px;">
-                    <p style="font-weight:700;">SRC-04</p>
-                    <p style="font-size: 16px; color: var(--text-sub); margin: 0 0 5px 0; text-decoration: line-through;">149,900원</p>
-                    <p style="font-size: 28px; font-weight: 800; color: var(--primary-color); margin: 0;">89,000원</p>
-                    </div>
-            </div>
-            <div class="buy-form">
-                <h3 style="margin-top:0;">배송 정보</h3>
-                <form onsubmit="goToPayment(event)">
-                    <input type="text" id="buyer_name" placeholder="수령인" style="width:100%; padding:14px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;" required>
-                    <input type="text" id="buyer_tel" placeholder="연락처 ( - 를 제외하고 입력 )" style="width:100%; padding:14px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;" required>
-                    <input type="text" id="buyer_addr" placeholder="배송지" style="width:100%; padding:14px; margin-bottom:20px; border:1px solid #ddd; border-radius:8px; box-sizing: border-box;" required>
-                    <button type="submit" class="cta-button" style="width: 100%;">결제하기</button>
-                </form>
-            </div>
+        <div class="nav-menu">
+            <a onclick="showPage('home')">홈</a>
+            <a onclick="showPage('team')">임원진</a>
+            <a onclick="showPage('product')">구매하기</a>
+            <a onclick="showPage('contact')">문의</a>
         </div>
-    </main>
+    </div>
+</nav>
 
-    <main id="payment" class="page">
-        <div style="max-width: 500px; margin: 60px auto; padding: 0 20px; text-align: center;">
-            <h2 style="font-size: 32px;">결제 수단을 선택하세요.</h2>
-            <div class="pay-method-grid">
-                <button class="pay-btn naver-pay" style="background: #000000; border-color: #000000; color: #00d25a;" onclick="completeOrder('네이버페이')">
-                    <img src="images/npay.jpg" alt="네이버페이"> 네이버페이
-                </button>
-                <button class="pay-btn" style="background: #ffe000; border-color: #ffe000;" onclick="completeOrder('카카오페이')">
-                    <img src="images/kpay.svg" alt="카카오페이"> 카카오페이
-                </button>
-                <button class="pay-btn" style="border-color: #d2d2d7;" onclick="completeOrder('토스페이')">
-                    <img src="images/toss.png" alt="토스페이" onerror="this.style.display='none'"> 토스페이
-                </button>
-                <button class="pay-btn" onclick="completeOrder('신용/체크카드')">💳 신용/체크카드</button>
-                <button class="pay-btn" onclick="completeOrder('무통장입금')">🏦 무통장 입금</button>
-            </div>
-            <button class="cta-button" style="width:auto; background:none; border:none; color:var(--text-sub); text-decoration:underline; font-size:16px; margin-top:20px;" onclick="showPage('buy')">배송 정보 수정하기</button>
+<main id="home" class="page active">
+    <header class="hero">
+        <div class="typing-container">
+            <span id="typewriter"></span>
         </div>
-    </main>
+        <p>
+            공용 냉장고 무단 취식, 더 이상 감정에 호소하지 마세요.<br>
+            <b>공마고의 도둑들</b>이 완벽한 보안을 제공합니다.
+        </p>
+        <a onclick="showPage('product')" class="cta-button">지금 시작하기</a>
+    </header>
+</main>
 
-    <main id="receipt" class="page">
-        <div class="receipt-card">
-            <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 30px;">주문이 완료되었습니다!</h2>
-            <div class="receipt-line"><span>주문 번호</span><b id="rec_no"></b></div>
-            <div class="receipt-line"><span>상품명</span><b>SRC-04</b></div>
-            <div class="receipt-line"><span>수령인</span><span id="rec_name"></span></div>
-            <div class="receipt-line"><span>배송지</span><span id="rec_addr"></span></div>
-            <div class="receipt-line"><span>결제 수단</span><span id="rec_method"></span></div>
-            <div class="receipt-line" style="border: none; margin-top: 20px; font-size: 20px;"><span>결제 금액</span><b style="color: var(--primary-color);">89,000원</b></div>
-            <button class="cta-button" style="width: 100%; margin-top: 30px; background: #1d1d1f;" onclick="showPage('home')">메인으로 돌아가기</button>
-        </div>
-    </main>
+<footer class="footer">
+    <div class="footer-content">
+        <p><b>(주)공마고의 도둑들</b> | 대표이사: 윤수원</p>
+        <p>충청남도 공주시 유구읍 중앙1길 27-12 | contact@gjmst-thives.com</p>
+        <p style="margin-top:20px;">© 2025 GJMST Thieves. All rights reserved.</p>
+    </div>
+</footer>
 
-    <main id="contact" class="page">
-        <div style="max-width: 900px; margin: 80px auto; padding: 60px 24px; text-align: center; border-radius: 40px; background-color: #f5f5f7;">
-            <h2 style="font-size: 38px;">Talk to Us</h2>
-            <p style="font-size: 18px; margin-bottom: 40px; color: var(--text-sub);">"공마고의 도둑들은 공용 공간의 문화를 설계합니다."</p>
-            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                <div style="background: #fff; padding: 30px; border-radius: 20px; flex: 1; min-width: 250px; border: 1px solid #eee;">
-                    <p style="font-weight: bold; color: var(--primary-color);">사업 문의</p>
-                    <p style="font-size: 18px; font-weight: 600;">business@gjmst-thives.com</p>
-                </div>
-                <div style="background: #fff; padding: 30px; border-radius: 20px; flex: 1; min-width: 250px; border: 1px solid #eee;">
-                    <p style="font-weight: bold; color: var(--primary-color);">고객 센터</p>
-                    <p style="font-size: 18px; font-weight: 600;">201-704-04</p>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <section class="partner-section">
-        <p class="partner-title">Trusted by Innovative Companies</p>
-        <div class="logo-grid">
-            <img src="images/gjmst.svg" alt="Gjmst" class="partner-logo main-logo">
-            <img src="images/aws.png" alt="Amazon" class="partner-logo">
-            <img src="images/nvidia.svg" alt="Nvidia" class="partner-logo" style="height: 22px;">
-            <img src="images/toss.png" alt="Toss" class="partner-logo">
-            <img src="images/spacex.svg" alt="spacex" class="partner-logo" style="height: 22px;">
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <p><b>(주)공마고의 도둑들</b> | 대표이사: 윤수원</p>
-            <p>충청남도 공주시 유구읍 중앙1길 27-12 1학년 1반 | contact@gjmst-thives.com</p>
-            <p style="margin-top: 20px;">Copyright © 2025 The Gjmst Thieves. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script>
+<script>
 /* =========================
-   HERO 물결 인터랙션
+   PAGE SWITCH
 ========================= */
-const hero = document.querySelector('.hero');
-
-if (hero) {
-    hero.addEventListener('mousemove', (e) => {
-        const rect = hero.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-
-        hero.style.setProperty('--mx', `${x}%`);
-        hero.style.setProperty('--my', `${y}%`);
-    });
-
-    // 마우스 나가면 천천히 중앙으로 복귀
-    hero.addEventListener('mouseleave', () => {
-        hero.style.setProperty('--mx', `50%`);
-        hero.style.setProperty('--my', `50%`);
-    });
-}
-
-/* =========================
-   통계 자동 계산
-========================= */
-const totalRespondents = 342;
-const experiencedCount = 266;
-
-window.addEventListener('load', () => {
-    const percentage = Math.round((experiencedCount / totalRespondents) * 100);
-    const peopleRatio = Math.round(percentage / 10);
-
-    const displayTotal = document.getElementById('display-total');
-    const numElement = document.getElementById('display-percent');
-    const bar = document.getElementById('poll-bar');
-    const ratioText = document.getElementById('display-people-ratio');
-
-    if (displayTotal) displayTotal.innerText = totalRespondents.toLocaleString();
-    if (ratioText) ratioText.innerText = peopleRatio;
-
-    if (numElement) {
-        let current = 0;
-        const interval = setInterval(() => {
-            current++;
-            numElement.innerText = current + "%";
-            if (current >= percentage) clearInterval(interval);
-        }, 40);
-    }
-
-    if (bar) {
-        setTimeout(() => {
-            bar.style.width = percentage + "%";
-        }, 300);
-    }
-});
-
-/* =========================
-   페이지 전환
-========================= */
-function showPage(pageId) {
+function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    const target = document.getElementById(pageId);
+    const target = document.getElementById(id);
     if (target) {
         target.classList.add('active');
         window.scrollTo(0, 0);
@@ -566,106 +231,39 @@ function showPage(pageId) {
 }
 
 /* =========================
-   주문 / 결제
+   TYPEWRITER
 ========================= */
-let orderInfo = {};
-
-function goToPayment(e) {
-    e.preventDefault();
-    orderInfo.name = document.getElementById('buyer_name').value;
-    orderInfo.addr = document.getElementById('buyer_addr').value;
-    showPage('payment');
-}
-
-function completeOrder(method) {
-    if (!confirm(method + "(으)로 결제하시겠습니까?")) return;
-
-    const orderNo = "ORD-" + Math.floor(Math.random() * 900000 + 100000);
-
-    document.getElementById('rec_no').innerText = orderNo;
-    document.getElementById('rec_name').innerText = orderInfo.name;
-    document.getElementById('rec_addr').innerText = orderInfo.addr;
-    document.getElementById('rec_method').innerText = method;
-
-    showPage('receipt');
-}
-
-/* =========================
-   타이핑 효과
-========================= */
-const textElement = document.getElementById('typewriter');
-const sentences = [
+const textElement = document.getElementById("typewriter");
+const texts = [
     "기숙사 냉장고의 평화,",
     "오피스 냉장고의 신뢰,",
     "기술로 완성합니다."
 ];
 
-let sentenceIdx = 0;
-let charIdx = 0;
-let isDeleting = false;
+let i = 0, j = 0, deleting = false;
 
-function typeWriter() {
-    if (!textElement) return;
+function type() {
+    const text = texts[i];
+    textElement.textContent = deleting
+        ? text.substring(0, j--)
+        : text.substring(0, j++);
 
-    const current = sentences[sentenceIdx];
-
-    if (isDeleting) {
-        textElement.innerText = current.substring(0, charIdx--);
-    } else {
-        textElement.innerText = current.substring(0, charIdx++);
+    if (!deleting && j === text.length) {
+        deleting = true;
+        setTimeout(type, 1600);
+        return;
     }
 
-    let speed = isDeleting ? 40 : 120;
-
-    if (!isDeleting && charIdx === current.length) {
-        speed = 2000;
-        isDeleting = true;
-    } else if (isDeleting && charIdx === 0) {
-        isDeleting = false;
-        sentenceIdx = (sentenceIdx + 1) % sentences.length;
-        speed = 500;
+    if (deleting && j === 0) {
+        deleting = false;
+        i = (i + 1) % texts.length;
     }
 
-    setTimeout(typeWriter, speed);
+    setTimeout(type, deleting ? 40 : 110);
 }
 
-/* =========================
-   알림 카드 시뮬레이션
-========================= */
-function updateNotifications() {
-    const list = document.getElementById('notification-list');
-    if (!list) return;
-
-    const now = new Date();
-    const timeStr = `오늘 ${now.getHours() > 12 ? '오후' : '오전'} ${now.getHours() % 12 || 12}:${String(now.getMinutes()).padStart(2, '0')}`;
-
-    if (list.children.length >= 3) {
-        list.removeChild(list.firstElementChild);
-    }
-
-    const item = document.createElement('div');
-    item.className = 'notification-item';
-    item.innerHTML = `
-        <div style="width:40px;height:40px;background:#ddd;border-radius:8px;margin-right:10px;display:flex;align-items:center;justify-content:center;">📸</div>
-        <div style="text-align:left;">
-            <div style="font-size:14px;font-weight:bold;color:#333;">동작 감지됨</div>
-            <div style="font-size:12px;color:#888;">${timeStr}</div>
-        </div>
-    `;
-
-    list.appendChild(item);
-}
-
-/* =========================
-   초기 실행
-========================= */
-window.onload = () => {
-    typeWriter();
-
-    updateNotifications();
-    setTimeout(updateNotifications, 1000);
-    setInterval(updateNotifications, 20000);
-};
+type();
 </script>
+
 </body>
 </html>
