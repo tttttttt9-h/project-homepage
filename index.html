@@ -25,7 +25,6 @@
             
             --btn-bg: #1d1d1f;
             
-            /* [수정 3] 전환 속도 변수 */
             --theme-speed: 0.5s;
         }
 
@@ -49,7 +48,7 @@
             --btn-bg: #ffffff;
         }
 
-        /* [수정 3] 색상 전환 효과 동기화: 거의 모든 요소에 동일한 transition 적용 */
+        /* [색상 전환 효과 동기화] */
         body, nav, header, section, footer, div, p, h1, h2, h3, h4, span, a, button, img, input {
             transition: background-color var(--theme-speed) ease,
                         color var(--theme-speed) ease,
@@ -59,13 +58,11 @@
                         filter var(--theme-speed) ease;
         }
 
-        /* [예외] 호버 인터랙션은 빠르고 쫀득하게 별도 설정 (색상 전환과 겹치지 않게 transform 위주) */
+        /* [호버 인터랙션 별도 속도] */
         .live-view-btn, .cta-button, .partner-logo, .theme-toggle-btn, 
         .info-card, .member-card, .product-card:not(.disabled-card) {
-            /* 호버 시 움직임은 별도 속도 */
             transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
                         box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-                        /* 색상 변화는 위에서 정의한 theme-speed를 따르되, 호버시엔 덮어씀 */
                         background-color 0.3s ease,
                         opacity 0.3s ease;
         }
@@ -116,22 +113,47 @@
         .section-header h2 { font-size: 42px; font-weight: 700; margin: 0 0 15px 0; letter-spacing: -1px; }
         .section-header p { font-size: 18px; opacity: 0.8; margin: 0; }
 
-        /* [수정 1 & 2] 페이지 전환 애니메이션: 부드럽게 20px만 올라옴 + 글씨 포함 모든 내부 요소 적용 */
+        /* [페이지 및 파도타기 애니메이션 설정] */
         .page { display: none; padding-top: 90px; }
         .page.active { display: block; }
 
-        /* active 페이지 내부의 직계 자식 섹션들에게 애니메이션 적용 */
-        .page.active > header,
-        .page.active > section,
-        .page.active > div {
-            animation: softSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0; /* 시작 전 안보임 */
-        }
-
-        @keyframes softSlideUp { 
-            from { opacity: 0; transform: translateY(20px); } /* 40px -> 20px로 줄임 */
+        /* 1. 애니메이션 정의: 은은하게 15px만 올라옴 */
+        @keyframes subtleWaveUp {
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* 2. 타겟 설정: 배경/블록 제외하고 '내용물'만 선택 */
+        .page.active h1, .page.active h2, .page.active h3, .page.active h4, 
+        .page.active p, .page.active span, .page.active a.cta-button, .page.active a.live-view-btn,
+        .page.active button, .page.active .stat-number, .page.active .bar-bg, 
+        .page.active .phone-mockup, .page.active .profile-initial, .page.active .member-initial, 
+        .page.active .product-img-box, .page.active .pay-btn, .page.active input {
+            opacity: 0; /* 초기 상태 숨김 */
+            animation: subtleWaveUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        /* 3. 파도타기(Wave) 딜레이 설정: 위에서 아래로 순차적 실행 */
+        
+        /* Hero 영역 (가장 먼저) */
+        .page.active .hero * { animation-delay: 0.1s; }
+        
+        /* Poll / Section 2 */
+        .page.active .poll-section * { animation-delay: 0.2s; }
+        
+        /* Info / Section 3 */
+        .page.active .info-section * { animation-delay: 0.3s; }
+        
+        /* App / Section 4 */
+        .page.active .app-section * { animation-delay: 0.4s; }
+
+        /* 팀/제품/구매 페이지 등 하단 요소들 */
+        .page.active .team-container * { animation-delay: 0.15s; }
+        .page.active .product-grid * { animation-delay: 0.15s; }
+        .page.active .buy-container * { animation-delay: 0.15s; }
+        .page.active .receipt-card * { animation-delay: 0.15s; }
+        .page.active .contact-box * { animation-delay: 0.15s; }
+
 
         @media (max-width: 768px) {
             .nav-container { height: 60px; padding: 0 10px; }
@@ -154,7 +176,6 @@
             position: relative; overflow: hidden;
             background: var(--hero-bg);
         }
-        
         .typing-container {
             font-size: clamp(36px, 6vw, 68px); font-weight: 800; margin-bottom: 24px;
             letter-spacing: -2px; line-height: 1.2; min-height: 1.2em;
