@@ -39,80 +39,73 @@
             height: 90px; padding: 0 15px;
         }
 
-        .logo-area { display: flex; align-items: center; text-decoration: none; color: var(--text-main); cursor: pointer; }
+        .logo-area { display: flex; align-items: center; text-decoration: none; color: var(--text-main); cursor: pointer; flex-shrink: 0; }
         .logo-img { height: 50px; margin-right: 10px; }
         .logo-text { font-weight: 800; font-size: 24px; letter-spacing: -1px; }
 
+        .nav-menu { display: flex; align-items: center; }
         .nav-menu a {
             font-size: 15px; color: var(--text-main); text-decoration: none;
             margin-left: 20px; opacity: 0.8; transition: 0.2s; cursor: pointer; font-weight: 600;
+            white-space: nowrap;
         }
+
+        /* --- 공통 섹션 헤더 --- */
+        .section-header {
+            padding: 100px 24px 60px;
+            text-align: center;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+        }
+        .section-header h2 { font-size: 42px; font-weight: 700; margin: 0 0 15px 0; letter-spacing: -1px; }
+        .section-header p { font-size: 18px; opacity: 0.8; margin: 0; }
+
+        .page { display: none; padding-top: 90px; animation: fadeIn 0.4s ease-out; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* --- [HOME HERO] --- */
-        .hero {
-            padding: 160px 24px; text-align: center;
-            background: radial-gradient(circle at center, #ffffff 0%, #f2f2f2 100%);
-        }
-        .typing-container {
-            font-size: clamp(36px, 6vw, 68px); 
-            font-weight: 800; margin-bottom: 24px;
-            letter-spacing: -2px; line-height: 1.2; min-height: 1.2em;
-        }
+        .hero { padding: 160px 24px; text-align: center; background: radial-gradient(circle at center, #ffffff 0%, #f2f2f2 100%); }
+        .typing-container { font-size: clamp(36px, 6vw, 68px); font-weight: 800; margin-bottom: 24px; letter-spacing: -2px; min-height: 1.2em; }
         .typing-text::after { content: '|'; animation: blink 0.7s infinite; }
         @keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; } }
-        .hero p { font-size: clamp(18px, 3vw, 24px); color: var(--text-sub); max-width: 800px; margin: 0 auto 50px; }
 
-        /* --- [APP SECTION 디자인 복원] --- */
+        /* --- [APP SECTION] --- */
         .app-section { padding: 100px 24px; background: #f5f5f7; }
         .app-container { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 50px; }
-        .app-text { flex: 1; }
+        .app-text { flex: 1; text-align: left; }
         .app-image { flex: 1; display: flex; justify-content: center; }
 
         .phone-mockup {
             width: 280px; height: 560px; background: #000; border-radius: 40px; border: 12px solid #1d1d1f;
             position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2); overflow: hidden; background: #fff;
         }
-        .notch {
-            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 120px; height: 25px; background: #1d1d1f; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; z-index: 10;
-        }
+        .notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 25px; background: #1d1d1f; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; z-index: 10; }
+        .phone-screen { width: 100%; height: 100%; display: flex; flex-direction: column; padding-top: 40px; }
+        #notification-list { width: 100%; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; }
         
-        /* 알림 리스트 스타일 */
-        .phone-screen { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        #notification-list {
-            width: 100%; padding: 20px; box-sizing: border-box;
-            display: flex; flex-direction: column; gap: 10px;
-        }
-
         .notification-item {
-            background: #f5f5f7; padding: 15px; border-radius: 12px;
-            display: flex; align-items: center;
-            transition: all 0.5s ease-in-out;
-            animation: slideUp 0.5s ease-out forwards;
+            background: #f5f5f7; padding: 15px; border-radius: 12px; display: flex; align-items: center;
+            transition: all 0.5s ease-in-out; animation: slideUp 0.5s ease-out forwards;
         }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-out { opacity: 0; transform: translateY(-20px); }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* --- [TEAM / PRODUCT / BUY 공통 스타일] --- */
+        .team-container, .product-grid, .buy-container { max-width: 1100px; margin: 80px auto; padding: 0 24px; }
+        .member-card, .product-card { background: #fff; border: 1px solid #efefef; padding: 40px; border-radius: 30px; text-align: center; transition: 0.3s; }
+        .member-card:hover, .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .member-initial, .profile-initial { width: 100px; height: 100px; background: #f5f5f7; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 700; color: #86868b; }
+        .product-img-box { width: 100%; height: 200px; background: #f5f5f7; border-radius: 20px; margin: 20px 0; display: flex; align-items: center; justify-content: center; color: #ccc; }
+        
+        .cta-button { display: inline-block; background-color: var(--primary-color); color: white; padding: 18px 40px; border-radius: 35px; text-decoration: none; font-weight: 700; cursor: pointer; border: none; transition: 0.3s; }
+        .cta-button:hover { background-color: #005bb7; transform: scale(1.02); }
 
-        .fade-out {
-            opacity: 0; transform: translateY(-20px);
-        }
-
-        /* --- [PARTNER SECTION 보정] --- */
+        /* --- [PARTNER SECTION] --- */
         .partner-section { padding: 80px 24px; background-color: #ffffff; text-align: center; border-top: 1px solid #f5f5f7; }
-        .logo-grid { 
-            display: flex; justify-content: center; align-items: center; flex-wrap: wrap; 
-            gap: 20px 40px; max-width: 1000px; margin: 0 auto; 
-            padding-left: 50px; /* 오른쪽으로 살짝 이동 */
-        }
-        .partner-logo { height: 30px; opacity: 0.4; filter: grayscale(100%); }
+        .logo-grid { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px 40px; max-width: 1000px; margin: 0 auto; padding-left: 50px; }
 
-        .page { display: none; padding-top: 90px; }
-        .page.active { display: block; }
-        .cta-button { display: inline-block; background-color: var(--primary-color); color: white; padding: 18px 40px; border-radius: 35px; text-decoration: none; font-weight: 700; cursor: pointer; }
-
+        /* 모바일 대응 */
         @media (max-width: 768px) {
             .app-container { flex-direction: column; text-align: center; }
             .logo-grid { padding-left: 0; }
@@ -130,6 +123,7 @@
                 <a onclick="showPage('home')">홈</a>
                 <a onclick="showPage('team')">임원진</a>
                 <a onclick="showPage('product')">구매하기</a>
+                <a onclick="showPage('contact')">문의</a>
             </div>
         </div>
     </nav>
@@ -137,27 +131,116 @@
     <main id="home" class="page active">
         <header class="hero">
             <div class="typing-container"><span class="typing-text" id="typewriter"></span></div>
-            <p>공용 냉장고 무단 취식, 더 이상 감정에 호소하지 마세요.</p>
+            <p>공용 냉장고 무단 취식, 더 이상 감정에 호소하지 마세요.<br><b>공마고의 도둑들</b>이 완벽한 보안을 제공합니다.</p>
             <a onclick="showPage('product')" class="cta-button">지금 시작하기</a>
         </header>
 
         <section class="app-section">
             <div class="app-container">
                 <div class="app-text">
-                    <h2 style="font-size: 42px;">범인은 이 안에.<br>손안에서 확인하세요.</h2>
-                    <p style="color: var(--text-sub); font-size: 18px;">전용 앱을 통해 실시간 푸시 알림과<br>녹화된 증거 영상을 즉시 확인할 수 있습니다.</p>
+                    <span style="color: var(--primary-color); font-weight: 700; font-size: 14px; letter-spacing: 1px;">SMART APP CONTROL</span>
+                    <h2 style="font-size: 42px; font-weight: 700; margin: 15px 0 20px; line-height: 1.1;">범인은 이 안에.<br>손안에서 확인하세요.</h2>
+                    <p style="font-size: 18px; color: #86868b; line-height: 1.6;">
+                        누가 내 음료수를 가져갔을까요?<br>
+                        SRC-04 전용 앱이 동작 감지 순간을 포착하여<br>
+                        스마트폰으로 즉시 알림을 보내드립니다.<br><br>
+                        실시간 라이브 뷰와 지난 기록까지,<br>
+                        터치 한 번으로 확인하세요.
+                    </p>
+                    <a onclick="showPage('product')" style="display:inline-block; margin-top:30px; color:var(--primary-color); font-weight:600; cursor:pointer; text-decoration:underline;">제품 자세히 보기 ></a>
                 </div>
+
                 <div class="app-image">
                     <div class="phone-mockup">
                         <div class="notch"></div>
                         <div class="phone-screen">
-                            <div id="notification-list">
-                                </div>
+                            <div style="padding: 10px 20px; font-weight:bold; border-bottom:1px solid #eee;">최근 감지 기록</div>
+                            <div id="notification-list"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+    </main>
+
+    <main id="team" class="page">
+        <header class="section-header">
+            <h2>Leading the Future</h2>
+            <p>공용 공간의 신뢰를 기술로 새롭게 정의하는 팀입니다.</p>
+        </header>
+        <section class="team-container">
+            <div class="member-card" style="max-width: 600px; margin: 0 auto 40px;">
+                <div class="profile-initial">윤</div>
+                <h3>윤수원 (CEO)</h3>
+                <p>"작은 불편을 해결하는 것이 더 나은 문화를 만든다고 믿습니다."</p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div class="member-card"><div class="member-initial">배</div><h4>배충만</h4><p>CTO</p></div>
+                <div class="member-card"><div class="member-initial">이</div><h4>이시환</h4><p>CIO</p></div>
+                <div class="member-card"><div class="member-initial">이</div><h4>이지후</h4><p>CFO</p></div>
+            </div>
+        </section>
+    </main>
+
+    <main id="product" class="page">
+        <header class="section-header">
+            <h2>Choose Your Plan</h2>
+            <p>필요한 만큼, 확실한 보호를 선택하세요.</p>
+        </header>
+        <section class="product-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+            <div class="product-card">
+                <h4 style="color:var(--primary-color);">Dormitory Edition</h4>
+                <h3>SRC-04</h3>
+                <div class="product-img-box">SRC-04 이미지</div>
+                <p>89,000원</p>
+                <button onclick="showPage('buy')" class="cta-button">제품 구매하기</button>
+            </div>
+            <div class="product-card" style="opacity: 0.5;">
+                <h4>Office Edition</h4>
+                <h3>Coming Soon</h3>
+                <div class="product-img-box">개발 중</div>
+                <button class="cta-button" style="background: #ccc;">준비 중</button>
+            </div>
+        </section>
+    </main>
+
+    <main id="buy" class="page">
+        <div class="buy-container">
+            <h2>주문서 작성</h2>
+            <form onsubmit="event.preventDefault(); showPage('payment');" style="display: flex; flex-direction: column; gap: 10px; max-width: 500px;">
+                <input type="text" placeholder="수령인" required style="padding:15px; border-radius:10px; border:1px solid #ddd;">
+                <input type="text" placeholder="연락처" required style="padding:15px; border-radius:10px; border:1px solid #ddd;">
+                <input type="text" placeholder="배송지" required style="padding:15px; border-radius:10px; border:1px solid #ddd;">
+                <button type="submit" class="cta-button">결제 단계로 이동</button>
+            </form>
+        </div>
+    </main>
+
+    <main id="payment" class="page">
+        <div style="text-align: center; padding: 100px 24px;">
+            <h2>결제 수단 선택</h2>
+            <button onclick="showPage('receipt')" class="cta-button" style="margin: 10px;">카카오페이</button>
+            <button onclick="showPage('receipt')" class="cta-button" style="margin: 10px; background: #000;">네이버페이</button>
+        </div>
+    </main>
+
+    <main id="receipt" class="page">
+        <div style="text-align: center; padding: 100px 24px;">
+            <h2 style="color: var(--primary-color);">주문이 완료되었습니다!</h2>
+            <p>조금만 기다려주시면 안전하게 배송해 드리겠습니다.</p>
+            <button onclick="showPage('home')" class="cta-button">홈으로 돌아가기</button>
+        </div>
+    </main>
+
+    <main id="contact" class="page">
+        <header class="section-header">
+            <h2>Talk to Us</h2>
+            <p>언제든 문의해 주세요.</p>
+        </header>
+        <div style="text-align: center; padding: 40px;">
+            <p>이메일: contact@gjmst-thives.com</p>
+            <p>고객센터: 201-704-04</p>
+        </div>
     </main>
 
     <section class="partner-section">
@@ -191,42 +274,34 @@
             setTimeout(type, speed);
         }
 
-        // 알림 업데이트 로직 (아래에서 추가, 위로 밀어내기)
+        // 알림 업데이트 (아래에서 위로 밀어내기)
         function updateNotifications() {
             const list = document.getElementById('notification-list');
             const now = new Date();
             const timeStr = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
             
-            // 1. 맨 위 알림 삭제 처리 (있을 경우)
             if (list.children.length >= 3) {
                 const firstItem = list.firstElementChild;
-                firstItem.classList.add('fade-out'); // 위로 사라지는 효과
-                setTimeout(() => {
-                    if(firstItem.parentNode === list) list.removeChild(firstItem);
-                }, 500);
+                firstItem.classList.add('fade-out');
+                setTimeout(() => { if(firstItem.parentNode === list) list.removeChild(firstItem); }, 500);
             }
 
-            // 2. 새 알림 생성 (맨 아래에 추가)
             const item = document.createElement('div');
             item.className = 'notification-item';
             item.innerHTML = `
                 <div style="margin-right:12px; font-size:20px;">🚨</div>
                 <div>
-                    <div style="font-size:14px; font-weight:bold; color:#333;">새로운 동작 감지</div>
+                    <div style="font-size:14px; font-weight:bold;">새로운 동작 감지</div>
                     <div style="font-size:12px; color:#888;">감지 시간: ${timeStr}</div>
                 </div>
             `;
-            
             list.appendChild(item);
         }
 
         window.onload = () => {
             type();
-            // 초기 알림 2개 생성
             updateNotifications();
             setTimeout(updateNotifications, 1000);
-            
-            // 20초마다 실행
             setInterval(updateNotifications, 20000);
         };
     </script>
