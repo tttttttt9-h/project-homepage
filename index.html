@@ -12,7 +12,6 @@
             
             --bg-light: #f5f5f7; 
             --white: #ffffff;
-            
             --hero-bg: #ffffff;
             
             --header-bg: #ffffff; 
@@ -35,7 +34,6 @@
             --text-sub: #a1a1a6;
             --bg-light: #000000;
             --white: #1c1c1e;
-            
             --hero-bg: #1c1c1e;
             
             --header-bg: #1c1c1e; 
@@ -48,7 +46,7 @@
             --btn-bg: #ffffff;
         }
 
-        /* [색상 전환 효과 동기화] */
+        /* [색상 전환 효과] */
         body, nav, header, section, footer, div, p, h1, h2, h3, h4, span, a, button, img, input {
             transition: background-color var(--theme-speed) ease,
                         color var(--theme-speed) ease,
@@ -58,11 +56,11 @@
                         filter var(--theme-speed) ease;
         }
 
-        /* [호버 인터랙션 별도 속도] */
+        /* [호버 효과 별도 속도] */
         .live-view-btn, .cta-button, .partner-logo, .theme-toggle-btn, 
         .info-card, .member-card, .product-card:not(.disabled-card) {
-            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
-                        box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                        box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
                         background-color 0.3s ease,
                         opacity 0.3s ease;
         }
@@ -113,47 +111,17 @@
         .section-header h2 { font-size: 42px; font-weight: 700; margin: 0 0 15px 0; letter-spacing: -1px; }
         .section-header p { font-size: 18px; opacity: 0.8; margin: 0; }
 
-        /* [페이지 및 파도타기 애니메이션 설정] */
+        /* [수정 1] 페이지 전환: 심플한 페이드인으로 복구 */
         .page { display: none; padding-top: 90px; }
-        .page.active { display: block; }
-
-        /* 1. 애니메이션 정의: 은은하게 15px만 올라옴 */
-        @keyframes subtleWaveUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+        .page.active { 
+            display: block; 
+            animation: simpleFadeIn 0.5s ease-out forwards;
         }
 
-        /* 2. 타겟 설정: 배경/블록 제외하고 '내용물'만 선택 */
-        .page.active h1, .page.active h2, .page.active h3, .page.active h4, 
-        .page.active p, .page.active span, .page.active a.cta-button, .page.active a.live-view-btn,
-        .page.active button, .page.active .stat-number, .page.active .bar-bg, 
-        .page.active .phone-mockup, .page.active .profile-initial, .page.active .member-initial, 
-        .page.active .product-img-box, .page.active .pay-btn, .page.active input {
-            opacity: 0; /* 초기 상태 숨김 */
-            animation: subtleWaveUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        @keyframes simpleFadeIn { 
+            from { opacity: 0; } 
+            to { opacity: 1; }
         }
-
-        /* 3. 파도타기(Wave) 딜레이 설정: 위에서 아래로 순차적 실행 */
-        
-        /* Hero 영역 (가장 먼저) */
-        .page.active .hero * { animation-delay: 0.1s; }
-        
-        /* Poll / Section 2 */
-        .page.active .poll-section * { animation-delay: 0.2s; }
-        
-        /* Info / Section 3 */
-        .page.active .info-section * { animation-delay: 0.3s; }
-        
-        /* App / Section 4 */
-        .page.active .app-section * { animation-delay: 0.4s; }
-
-        /* 팀/제품/구매 페이지 등 하단 요소들 */
-        .page.active .team-container * { animation-delay: 0.15s; }
-        .page.active .product-grid * { animation-delay: 0.15s; }
-        .page.active .buy-container * { animation-delay: 0.15s; }
-        .page.active .receipt-card * { animation-delay: 0.15s; }
-        .page.active .contact-box * { animation-delay: 0.15s; }
-
 
         @media (max-width: 768px) {
             .nav-container { height: 60px; padding: 0 10px; }
@@ -235,7 +203,14 @@
         /* --- [TEAM] --- */
         .team-container { max-width: 1100px; margin: 80px auto; padding: 0 24px; }
         .ceo-card { background: var(--card-bg); padding: 60px 24px; border-radius: 40px; text-align: center; border: 1px solid var(--card-border); margin-bottom: 60px; }
-        .profile-initial { width: 160px; height: 160px; background: #e8e8ed; border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; font-size: 64px; font-weight: 800; color: #1d1d1f; }
+        
+        /* [수정 3] CEO 아이콘 색상을 멤버들과 동일하게 var(--bg-light)로 변경 */
+        .profile-initial { 
+            width: 160px; height: 160px; 
+            background: var(--bg-light); /* 여기 수정됨 */
+            border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; font-size: 64px; font-weight: 800; color: #1d1d1f; 
+        }
+        
         .executive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .member-card { background: var(--card-bg); border: 1px solid var(--card-border); padding: 40px; border-radius: 30px; text-align: center; }
         .member-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
@@ -252,13 +227,14 @@
 
         .product-img-box { width: 100%; height: 320px; background: var(--bg-light); border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
 
+        /* [수정 4] 진동 효과 수정 (제대로 작동하도록 keyframes 조정 및 class 적용) */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
-            20%, 40%, 60%, 80% { transform: translateX(2px); }
+            20%, 60% { transform: translateX(-4px); }
+            40%, 80% { transform: translateX(4px); }
         }
         .shake-animation {
-            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+            animation: shake 0.3s ease-in-out;
         }
 
         /* --- [BUY & RECEIPT] --- */
@@ -285,11 +261,22 @@
             cursor: pointer; 
         }
         
+        /* [수정 2] GJMST 로고는 다크모드 호버 시 하얗게 변하지 않음 (커지기만 함) */
+        body.dark-mode .partner-logo:not(.gjmst-logo):hover {
+            filter: brightness(0) invert(1); 
+            opacity: 1; 
+            transform: scale(1.1);
+        }
+        /* GJMST 로고 전용 호버 (색반전 X) */
+        body.dark-mode .gjmst-logo:hover {
+            filter: grayscale(100%) invert(1); /* 원래 다크모드 상태 유지 */
+            opacity: 1; 
+            transform: scale(1.1);
+        }
+        
+        /* 라이트 모드 호버 */
         body:not(.dark-mode) .partner-logo:hover {
             filter: grayscale(0%); opacity: 1; transform: scale(1.1);
-        }
-        body.dark-mode .partner-logo:hover {
-            filter: brightness(0) invert(1); opacity: 1; transform: scale(1.1);
         }
 
         .partner-logo.main-logo { height: 50px; opacity: 0.8; }
@@ -553,7 +540,7 @@
     <section class="partner-section">
         <p class="partner-title">Trusted by Innovative Companies</p>
         <div class="logo-grid">
-            <img src="images/gjmst.svg" alt="Gjmst" class="partner-logo main-logo">
+            <img src="images/gjmst.svg" alt="Gjmst" class="partner-logo main-logo gjmst-logo">
             <img src="images/aws.png" alt="Amazon" class="partner-logo">
             <img src="images/nvidia.svg" alt="Nvidia" class="partner-logo" style="height: 22px;">
             <img src="images/toss.png" alt="Toss" class="partner-logo">
@@ -691,7 +678,7 @@
             btn.classList.add('shake-animation');
             setTimeout(() => {
                 btn.classList.remove('shake-animation');
-            }, 400); 
+            }, 300); 
         }
 
         window.onload = function() {
