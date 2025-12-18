@@ -205,12 +205,13 @@
         .team-container { max-width: 1100px; margin: 80px auto; padding: 0 24px; }
         .ceo-card { background: var(--card-bg); padding: 60px 24px; border-radius: 40px; text-align: center; border: 1px solid var(--card-border); margin-bottom: 60px; }
         
+        /* CEO 아이콘 색상 통일 */
         .profile-initial { 
             width: 160px; height: 160px; 
             background: var(--bg-light);
             border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; 
             font-size: 64px; font-weight: 800; 
-            color: var(--text-sub);
+            color: var(--text-sub); 
         }
         
         .executive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
@@ -229,13 +230,14 @@
 
         .product-img-box { width: 100%; height: 320px; background: var(--bg-light); border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
 
+        /* [진동 효과: 1px] */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-1px); }
-            20%, 40%, 60%, 80% { transform: translateX(1px); }
+            20%, 60% { transform: translateX(-1px); }
+            40%, 80% { transform: translateX(1px); }
         }
         .shake-animation {
-            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+            animation: shake 0.3s ease-in-out;
         }
 
         /* --- [BUY & RECEIPT] --- */
@@ -262,25 +264,25 @@
             cursor: pointer; 
         }
         
-        /* [수정됨] 다크모드 로고 로직 변경 */
-        /* GJMST 제외: 기본은 약간 흑백+어둡게(0.8), 호버하면 흑백제거+원래밝기(1) */
+        /* [수정됨] 다크모드 로고 로직 수정 */
+        /* GJMST 제외: 평소엔 회색빛(하얀톤), 호버하면 쨍한 흰색 */
         body.dark-mode .partner-logo:not(.gjmst-logo) {
-            filter: grayscale(0.5) brightness(0.8); 
-            opacity: 0.7;
+            filter: brightness(0) invert(0.6); 
+            opacity: 0.8;
         }
         body.dark-mode .partner-logo:not(.gjmst-logo):hover {
-            filter: grayscale(0) brightness(1); 
+            filter: brightness(0) invert(1); /* 완전 흰색 */
             opacity: 1; 
             transform: scale(1.1);
         }
 
-        /* GJMST 로고: 다크모드에서도 원본 유지 */
+        /* GJMST 로고: 다크모드에서 원본 유지 (하얗게 변하지 않음) */
         body.dark-mode .gjmst-logo {
-            filter: none !important; 
+            filter: none; 
             opacity: 1; 
         }
         body.dark-mode .gjmst-logo:hover {
-            transform: scale(1.1);
+            transform: scale(1.1); /* 커지기만 함 */
         }
         
         /* 라이트 모드 호버 */
@@ -684,10 +686,11 @@
 
         // --- [진동 애니메이션 함수] ---
         function shakeButton(btn) {
+            // 버튼 요소 자체에 shake-animation 클래스 추가/제거
             btn.classList.add('shake-animation');
             setTimeout(() => {
                 btn.classList.remove('shake-animation');
-            }, 400); 
+            }, 300); // 0.3초 후 제거
         }
 
         window.onload = function() {
