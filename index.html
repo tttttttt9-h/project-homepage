@@ -223,21 +223,44 @@
         .product-grid { max-width: 1100px; margin: 80px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; padding: 0 24px; }
         .product-card { background: var(--card-bg); border-radius: 30px; padding: 50px; border: 1px solid var(--card-border); display: flex; flex-direction: column; }
         
-        .product-card:not(.disabled-card):hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        /* [수정됨] Office도 호버 적용되게 변경 */
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
         
         .disabled-card { opacity: 0.7; cursor: default; }
-        .disabled-card:hover { transform: none; box-shadow: none; }
+        .disabled-card:hover { /* 호버 효과는 적용되지만 커서는 그대로 */ }
 
         .product-img-box { width: 100%; height: 320px; background: var(--bg-light); border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
 
-        /* [진동 효과] */
+        /* ==========================
+           [진동 효과] (쫀득 + 더 강하게)
+           - 기존 느낌(좌우 흔들) 유지
+           - 감쇠/탄성 느낌 추가
+        ========================== */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-1px); }
-            40%, 80% { transform: translateX(1px); }
+            20% { transform: translateX(-1px); }
+            40% { transform: translateX(1px); }
+            60% { transform: translateX(-1px); }
+            80% { transform: translateX(1px); }
         }
+
+        @keyframes shake-jelly-strong {
+            0%   { transform: translateX(0) rotate(0deg); }
+            12%  { transform: translateX(-8px) rotate(-1.5deg); }
+            24%  { transform: translateX(8px) rotate(1.5deg); }
+            36%  { transform: translateX(-6px) rotate(-1.1deg); }
+            48%  { transform: translateX(6px) rotate(1.1deg); }
+            60%  { transform: translateX(-4px) rotate(-0.8deg); }
+            72%  { transform: translateX(4px) rotate(0.8deg); }
+            84%  { transform: translateX(-2px) rotate(-0.4deg); }
+            100% { transform: translateX(0) rotate(0deg); }
+        }
+
         .shake-animation {
-            animation: shake 0.3s ease-in-out;
+            /* 기존 진동 + 더 강한 쫀득 진동을 연속으로 */
+            animation:
+                shake 0.25s ease-in-out,
+                shake-jelly-strong 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         /* --- [BUY & RECEIPT] --- */
@@ -349,6 +372,110 @@
             filter: invert(1); 
         }
         body.dark-mode .scroll-top-btn img { filter: invert(0); }
+
+        /* ==========================
+           [추가됨] 제품 상세 모달(오버레이)
+        ========================== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 20000;
+            padding: 20px;
+        }
+        .modal-overlay.show {
+            display: flex;
+            animation: simpleFadeIn 0.25s ease-out forwards;
+        }
+        .modal-content {
+            width: min(920px, 100%);
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+            overflow: hidden;
+            transform: translateY(8px);
+            animation: modalPop 0.25s ease-out forwards;
+        }
+        @keyframes modalPop {
+            from { opacity: 0; transform: translateY(14px) scale(0.99); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 22px 0;
+        }
+        .modal-title {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin: 0;
+            color: var(--text-main);
+        }
+        .modal-close {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid var(--card-border);
+            background: var(--bg-light);
+            color: var(--text-main);
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 800;
+        }
+        .modal-close:hover { transform: scale(1.05); }
+        .modal-body {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 22px;
+            padding: 22px;
+        }
+        .modal-image {
+            width: 100%;
+            min-height: 320px;
+            background: var(--bg-light);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #bbb;
+        }
+        .modal-desc {
+            color: var(--text-sub);
+            font-size: 15px;
+            line-height: 1.7;
+            margin: 0 0 18px;
+            white-space: pre-line; /* \n 줄바꿈 반영 */
+        }
+        .modal-badge {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: var(--bg-light);
+            border: 1px solid var(--card-border);
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+        .modal-actions .cta-button { padding: 14px 20px; border-radius: 18px; font-size: 15px; }
+
+        @media (max-width: 768px) {
+            .modal-body { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -494,20 +621,26 @@
             <h2>Choose Your Plan</h2>
             <p>필요한 만큼, 확실한 보호를 선택하세요.</p>
         </header>
+
         <section class="product-grid">
-            <div class="product-card">
+            <!-- [수정됨] 카드 클릭 -> 모달 오픈 -->
+            <div class="product-card" onclick="openProductModal('src04')">
                 <h4 style="color:var(--primary-color); margin-bottom: 5px;">Dormitory Edition</h4>
                 <h3 style="font-size: 28px; margin-top: 0;">SRC-04</h3>
                 <p>냉장고에 설치하는 초소형 카메라 모듈.</br>촬영된 사진은 즉시 클라우드에 저장되며, 언제 어디서나 확인 가능합니다.</p>
                 <div class="product-img-box">[ 제품 이미지 ]</div>
-                <button onclick="showPage('buy')" class="cta-button">제품 구매하기</button>
+                <!-- [수정됨] 버튼 클릭은 페이지 이동, 카드 클릭 전파 방지 -->
+                <button onclick="event.stopPropagation(); showPage('buy')" class="cta-button">제품 구매하기</button>
             </div>
-            <div class="product-card disabled-card" style="border-style: dashed;">
+
+            <!-- [수정됨] Office 카드도 클릭 -> 모달 오픈 -->
+            <div class="product-card disabled-card" style="border-style: dashed;" onclick="openProductModal('office')">
                 <h4 style="color:var(--text-sub); margin-bottom: 5px;">Office Edition</h4>
                 <h3 style="font-size: 28px; margin-top: 0; color: #86868b;">SRC-04 For Office</h3>
                 <p>사원증 및 얼굴 인식 기능이 추가된 제품.</br>더 많은 기능의 관리자 페이지와 우수한 보안의 로그 서버를 제공합니다.</p>
                 <div class="product-img-box" style="opacity: 1;">[ 개발 중 ]</div>
-                <button class="cta-button" style="background-color: #ccc; cursor: default;" onclick="shakeButton(this)">준비 중</button>
+                <!-- [수정됨] 버튼 클릭 전파 방지 + 기존 진동 유지 -->
+                <button class="cta-button" style="background-color: #ccc; cursor: default;" onclick="event.stopPropagation(); shakeButton(this)">준비 중</button>
             </div>
         </section>
     </main>
@@ -602,6 +735,27 @@
             <p style="margin-top: 20px;">Copyright © 2025 The Gjmst Thieves. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- ==========================
+         [추가됨] 제품 상세 모달(오버레이) HTML
+         - 배경 클릭/닫기 버튼/ESC로 닫기
+    ========================== -->
+    <div id="productModal" class="modal-overlay" onclick="closeProductModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 id="pm_title" class="modal-title">제품 상세</h3>
+                <button class="modal-close" aria-label="Close" onclick="closeProductModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="pm_image" class="modal-image">[ 이미지 ]</div>
+                <div>
+                    <div id="pm_badge" class="modal-badge">Edition</div>
+                    <p id="pm_desc" class="modal-desc"></p>
+                    <div class="modal-actions" id="pm_actions"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         // --- [통계 자동 계산 설정] ---
@@ -732,12 +886,94 @@
 
         // --- [진동 애니메이션 함수] ---
         function shakeButton(btn) {
-            // 버튼 요소 자체에 shake-animation 클래스 추가/제거
             btn.classList.add('shake-animation');
             setTimeout(() => {
                 btn.classList.remove('shake-animation');
-            }, 300); // 0.3초 후 제거
+            }, 900); // [수정됨] 강한 쫀득 진동 끝까지 유지
         }
+
+        // ==========================
+        // [추가됨] 제품 상세 모달 로직
+        // ==========================
+        const productData = {
+            src04: {
+                title: "SRC-04",
+                badge: "Dormitory Edition",
+                desc:
+`냉장고에 설치하는 초소형 카메라 모듈.
+촬영된 사진은 즉시 클라우드에 저장되며, 언제 어디서나 확인 가능합니다.
+
+동작 감지 → 푸시 알림 → 기록 확인까지,
+간단하지만 확실한 보호를 제공합니다.`,
+                imageText: "[ 제품 이미지 ]",
+                actions: [
+                    { type: "buy", label: "제품 구매하기" }
+                ]
+            },
+            office: {
+                title: "SRC-04 For Office",
+                badge: "Office Edition (개발 중)",
+                desc:
+`사원증 및 얼굴 인식 기능이 추가된 제품.
+더 많은 기능의 관리자 페이지와 우수한 보안의 로그 서버를 제공합니다.
+
+현재 준비 중입니다.`,
+                imageText: "[ 개발 중 ]",
+                actions: [
+                    { type: "shake", label: "준비 중" }
+                ]
+            }
+        };
+
+        function openProductModal(key) {
+            const data = productData[key];
+            if (!data) return;
+
+            document.getElementById('pm_title').innerText = data.title;
+            document.getElementById('pm_badge').innerText = data.badge;
+            document.getElementById('pm_desc').innerText = data.desc;
+            document.getElementById('pm_image').innerText = data.imageText;
+
+            const actions = document.getElementById('pm_actions');
+            actions.innerHTML = "";
+
+            data.actions.forEach(a => {
+                const btn = document.createElement('button');
+                btn.className = 'cta-button';
+
+                if (a.type === "buy") {
+                    btn.innerText = a.label;
+                    btn.onclick = () => {
+                        closeProductModal();
+                        showPage('buy');
+                    };
+                } else if (a.type === "shake") {
+                    btn.innerText = a.label;
+                    btn.style.backgroundColor = '#ccc';
+                    btn.style.cursor = 'default';
+                    btn.onclick = (e) => {
+                        shakeButton(e.currentTarget);
+                    };
+                }
+
+                actions.appendChild(btn);
+            });
+
+            const modal = document.getElementById('productModal');
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('productModal');
+            if (!modal) return;
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeProductModal();
+        });
 
         window.onload = function() {
             type();
