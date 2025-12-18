@@ -6,46 +6,48 @@
     <title>공마고의 도둑들</title>
     <style>
         :root {
-            /* [라이트 모드] 배경톤 정리: 완전 흰색 대신 부드러운 오프화이트 사용 */
-            --primary-color: #0071e3;
+            /* [색상 변경] 파란색 제거 -> 고급스러운 '딥 퍼플' 적용 */
+            --primary-color: #5856d6; 
+            
             --text-main: #1d1d1f;
             --text-sub: #86868b;
             
-            --bg-light: #f2f2f7; /* 섹션 배경 (조금 더 진한 회색) */
-            --white: #ffffff;    /* 전체 바디 배경 */
+            --bg-light: #f5f5f7; 
+            --white: #ffffff;
             
-            --header-bg: #1d1d1f;
-            --header-text: #fff;
+            /* [수정 1] 라이트 모드에서 헤더 배경을 본문(흰색)과 통일 */
+            --header-bg: #ffffff; 
+            --header-text: #1d1d1f; /* 글씨는 어둡게 */
             
             --nav-bg: rgba(255, 255, 255, 0.8);
             
-            /* [핵심] 카드 배경을 완전 흰색이 아닌 '아주 연한 회색'으로 설정해 부드러움 강조 */
+            /* 카드 배경: 미세한 회색조로 흰색 배경과 구분 */
             --card-bg: #fbfbfd; 
-            --card-border: rgba(0, 0, 0, 0.08); /* 테두리도 연하게 */
+            --card-border: rgba(0, 0, 0, 0.08);
             
             --hero-grad-1: #ffffff;
-            --hero-grad-2: #f2f7ff;
-            --hero-grad-3: #e8f0ff;
+            --hero-grad-2: #f2f2f7; /* 보라빛이 살짝 도는 회색 */
+            --hero-grad-3: #e5e5ea;
             --btn-bg: #1d1d1f;
             
             --theme-speed: 0.5s;
         }
 
-        /* [다크 모드] 바이올렛 포인트 + 어두운 회색 톤 유지 */
+        /* [다크 모드] */
         body.dark-mode {
-            --primary-color: #bf5af2;
+            --primary-color: #bf5af2; /* 다크모드는 밝은 네온 퍼플 */
             
             --text-main: #f5f5f7;
             --text-sub: #a1a1a6;
             --bg-light: #000000;
             --white: #1c1c1e;
             
-            --header-bg: #1c1c1e; 
+            --header-bg: #1c1c1e; /* 본문과 동일하게 */
             --header-text: #ffffff;
             
             --nav-bg: rgba(28, 28, 30, 0.8);
             --card-bg: #2c2c2e;
-            --card-border: rgba(255, 255, 255, 0.1); /* 다크모드 테두리 */
+            --card-border: rgba(255, 255, 255, 0.1);
             
             --hero-grad-1: #1c1c1e;
             --hero-grad-2: #242426;
@@ -53,7 +55,7 @@
             --btn-bg: #ffffff;
         }
 
-        /* [전환 효과] 배경색 등은 천천히 */
+        /* [전환 효과] */
         body, .navbar, .section-header, .poll-section, .poll-container, 
         .info-section, .info-card, .app-section, .ceo-card, .member-card, 
         .product-card, .buy-form, .receipt-card, .partner-section, .footer {
@@ -64,8 +66,9 @@
                         box-shadow var(--theme-speed) ease;
         }
 
-        /* [호버 효과] 부드럽고 쫀득하게 (Cubic Bezier) */
-        .live-view-btn, .cta-button, .partner-logo, .theme-toggle-btn, .info-card, .member-card, .product-card {
+        /* [호버 효과] 부드럽게 */
+        .live-view-btn, .cta-button, .partner-logo, .theme-toggle-btn, 
+        .info-card, .member-card, .product-card:not(.disabled-card) {
             transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
                         box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
                         background-color 0.3s ease,
@@ -109,12 +112,12 @@
             white-space: nowrap;
         }
 
-        /* --- 공통 섹션 헤더 --- */
+        /* --- 공통 섹션 헤더 (수정됨: 배경색 변수 적용) --- */
         .section-header {
             padding: 100px 24px 60px;
             text-align: center;
-            background-color: var(--header-bg);
-            color: var(--header-text);
+            background-color: var(--header-bg); /* 이제 흰색/검정색으로 바뀜 */
+            color: var(--header-text);          /* 이제 검정/흰색으로 바뀜 */
         }
         .section-header h2 { font-size: 42px; font-weight: 700; margin: 0 0 15px 0; letter-spacing: -1px; }
         .section-header p { font-size: 18px; opacity: 0.8; margin: 0; }
@@ -223,12 +226,28 @@
         /* --- [PRODUCT] --- */
         .product-grid { max-width: 1100px; margin: 80px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; padding: 0 24px; }
         .product-card { background: var(--card-bg); border-radius: 30px; padding: 50px; border: 1px solid var(--card-border); display: flex; flex-direction: column; }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); } /* 호버 추가 */
+        
+        /* [수정 3] 일반 카드는 호버됨 */
+        .product-card:not(.disabled-card):hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        
+        /* [수정 3] 비활성화 카드 (Office)는 호버 안됨, 커서 변경 */
+        .disabled-card { opacity: 0.7; cursor: default; }
+        .disabled-card:hover { transform: none; box-shadow: none; }
+
         .product-img-box { width: 100%; height: 320px; background: var(--bg-light); border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
+
+        /* [수정 4] 거부 진동 애니메이션 */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        .shake-animation {
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+        }
 
         /* --- [BUY & RECEIPT] --- */
         .buy-container { max-width: 1100px; margin: 60px auto; display: flex; flex-wrap: wrap; gap: 50px; padding: 0 24px; }
-        /* [수정] buy-form 배경을 카드 배경과 일치시킴 */
         .buy-form { background: var(--card-bg); padding: 40px; border-radius: 24px; border: 1px solid var(--card-border); flex: 1; min-width: 320px; }
         .pay-method-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
         .pay-btn { padding: 18px; border-radius: 12px; border: 1px solid #d2d2d7; background: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; color: #1d1d1f; }
@@ -251,7 +270,6 @@
             cursor: pointer; 
         }
         
-        /* 로고 호버 효과 */
         body:not(.dark-mode) .partner-logo:hover {
             filter: grayscale(0%); opacity: 1; transform: scale(1.1);
         }
@@ -293,7 +311,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <div onclick="showPage('home')" class="logo-area">
-                <img src="images/icon.png" alt="Logo" class="logo-img" onerror="this.style.backgroundColor='#0071e3'; this.style.width='50px'; this.style.borderRadius='10px';">
+                <img src="images/icon.png" alt="Logo" class="logo-img" onerror="this.style.backgroundColor='#5856d6'; this.style.width='50px'; this.style.borderRadius='10px';">
                 <span class="logo-text">공마고의 도둑들</span>
             </div>
             <div class="nav-menu">
@@ -435,12 +453,12 @@
                 <div class="product-img-box">[ 제품 이미지 ]</div>
                 <button onclick="showPage('buy')" class="cta-button">제품 구매하기</button>
             </div>
-            <div class="product-card" style="background-color: var(--bg-light); border-style: dashed; opacity: 0.6;">
+            <div class="product-card disabled-card" style="border-style: dashed;">
                 <h4 style="color:var(--text-sub); margin-bottom: 5px;">Office Edition</h4>
                 <h3 style="font-size: 28px; margin-top: 0; color: #86868b;">SRC-04 For Office</h3>
                 <p>사원증 및 얼굴 인식 기능이 추가된 제품.</br>더 많은 기능의 관리자 페이지와 우수한 보안의 로그 서버를 제공합니다.</p>
                 <div class="product-img-box" style="opacity: 1;">[ 개발 중 ]</div>
-                <button class="cta-button" style="background-color: #ccc; cursor: default;">준비 중</button>
+                <button class="cta-button" style="background-color: #ccc; cursor: default;" onclick="shakeButton(this)">준비 중</button>
             </div>
         </section>
     </main>
@@ -638,7 +656,6 @@
         const iconMoon = '<img src="images/dark.svg" alt="Dark Mode">'; 
         const iconSun = '<img src="images/light.svg" alt="Light Mode">'; 
 
-        // 초기 설정
         const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         
         if (userPrefersDark) {
@@ -648,12 +665,23 @@
             themeBtn.innerHTML = iconMoon;
         }
 
-        // 버튼 클릭 이벤트
         themeBtn.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
             const isDark = body.classList.contains('dark-mode');
             themeBtn.innerHTML = isDark ? iconSun : iconMoon;
         });
+
+        // --- [진동 애니메이션 함수] ---
+        function shakeButton(btn) {
+            // 버튼이 있는 카드 전체가 아니라 버튼만 흔들리거나, 카드를 흔들거나 선택 가능
+            // 여기서는 '준비 중' 버튼 자체를 흔듦
+            btn.classList.add('shake-animation');
+            
+            // 애니메이션 끝나면 클래스 제거 (재실행 위해)
+            setTimeout(() => {
+                btn.classList.remove('shake-animation');
+            }, 400); // 0.4s
+        }
 
         window.onload = function() {
             type();
