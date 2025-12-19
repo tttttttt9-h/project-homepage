@@ -191,7 +191,15 @@
         .inquiry-form input, .inquiry-form textarea { width: 100%; padding: 16px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 12px; box-sizing: border-box; background: var(--white); color: var(--text-main); font-size: 16px; font-family: inherit; }
         .inquiry-form textarea { resize: vertical; }
         body.dark-mode .inquiry-form input, body.dark-mode .inquiry-form textarea { border-color: var(--card-border); }
-        .inquiry-title { font-size: 24px; font-weight: 700; margin: 0 0 30px; text-align: center; color: var(--text-main); }
+
+        /* [수정됨] 문의 제목 (FAQ 스타일과 동일하게) */
+        .inquiry-title { 
+            font-size: 24px; 
+            font-weight: 700; 
+            margin: 0 0 30px; 
+            text-align: center; 
+            color: var(--text-main); 
+        }
 
         /* --- [FAQ SECTION] --- */
         .faq-container { margin: 0 auto 0; padding: 0 20px; border-radius: 30px; }
@@ -610,7 +618,7 @@
     </div>
 
     <div id="inquiryModal" class="modal-overlay" onclick="closeInquiryModal()">
-        <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 500px; padding: 40px;">
+        <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 800px; padding: 40px;">
             <div class="modal-header" style="padding: 0; margin-bottom: 20px;">
                 <h3 class="modal-title">Send Message</h3>
                 <button class="modal-close" onclick="closeInquiryModal()">×</button>
@@ -781,8 +789,7 @@
             e.preventDefault();
             closeInquiryModal();
             showSystemConfirm("문의를 전송하시겠습니까?", () => {
-                // 실제 전송 로직이 들어갈 곳 (현재는 리셋만)
-                e.target.reset();
+                e.target.reset(); // 폼 초기화
             });
         }
 
