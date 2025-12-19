@@ -163,17 +163,31 @@
         .phone-mockup { width: 280px; height: 560px; background: #000; border-radius: 40px; border: 12px solid #1d1d1f; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2); overflow: hidden; background: #fff; }
         .notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 25px; background: #1d1d1f; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; z-index: 10; }
 
-        /* [수정됨] 알림 리스트: 가운데 정렬 + 정적 */
+        /* ✅ (핸드폰) 화면 내부를 중앙에 오게끔: "최근 감지 기록" / 알림 / 버튼을 하나의 블록으로 중앙 정렬 */
+        .phone-screen{
+            width:100%;
+            height:100%;
+            display:flex;
+            flex-direction:column;
+            box-sizing:border-box;
+        }
+        .phone-center-wrap{
+            flex:1;
+            display:flex;
+            flex-direction:column;
+            justify-content:center; /* 세로 가운데 */
+            align-items:center;     /* 가로 가운데 */
+            padding: 0 20px;
+            box-sizing:border-box;
+            gap: 14px;
+        }
+
+        /* ✅ 알림 리스트: 정적 + 가운데 정렬 */
         #notification-list{
             width: 100%;
-            padding: 20px;
-            box-sizing: border-box;
-
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;   /* 세로 가운데 */
-            align-items: center;       /* 가로 가운데 */
+            display:flex;
+            flex-direction:column;
+            align-items:center;  /* 가로 가운데 */
             gap: 12px;
         }
         .notification-item{
@@ -182,11 +196,8 @@
             border-radius: 12px;
             display: flex;
             align-items: center;
-
-            width: min(220px, 100%);
-            justify-content: flex-start;
-
-            animation: none; /* 정적 */
+            width: min(240px, 100%);
+            animation: none;
         }
 
         .live-view-btn { background: var(--primary-color); color: white; padding: 10px 20px; border-radius: 20px; display: inline-block; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
@@ -404,11 +415,20 @@
                 <div class="app-image">
                     <div class="phone-mockup">
                         <div class="notch"></div>
+
+                        <!-- ✅ 여기 구조만 "중앙 정렬 래퍼" 추가 (기능 영향 없음) -->
                         <div class="phone-screen">
-                            <div style="width:100%; padding:20px 20px 10px; box-sizing:border-box; font-weight:bold; font-size:18px; color:#333;">최근 감지 기록</div>
-                            <div id="notification-list"></div>
-                            <div style="margin-bottom:20px; text-align:center;"><a href="https://project.whanci.xyz" target="_blank" class="live-view-btn">체험 해보기</a></div>
+                            <div class="phone-center-wrap">
+                                <div style="width:100%; font-weight:bold; font-size:18px; color:#333; text-align:left; max-width:240px;">최근 감지 기록</div>
+
+                                <div id="notification-list"></div>
+
+                                <div style="text-align:center;">
+                                    <a href="https://project.whanci.xyz" target="_blank" class="live-view-btn">체험 해보기</a>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -668,7 +688,7 @@
             setTimeout(type, typeSpeed);
         }
 
-        /* [수정됨] 알림: 정적 3개 고정 렌더 */
+        /* ✅ 알림: 정적 3개 고정 렌더 (기능 유지, 갱신만 제거) */
         function updateNotifications() {
             const list = document.getElementById('notification-list');
             if(!list) return;
@@ -757,11 +777,11 @@
 
         window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeProductModal(); });
 
-        /* [수정됨] 알림 반복 갱신 제거: 1회만 렌더 */
-        window.onload = function() {
+        /* ✅ 기존 기능 전부 실행 (onload 덮어쓰기 없이) */
+        window.addEventListener('load', () => {
             type();
             updateNotifications();
-        };
+        });
     </script>
 </body>
 </html>
