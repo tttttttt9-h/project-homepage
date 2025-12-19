@@ -36,8 +36,8 @@
             --btn-bg: #ffffff;
         }
 
-        /* [기본 스타일] */
-        body, nav, header, section, footer, div, p, h1, h2, h3, h4, span, a, button, img, input, textarea, details, summary {
+        /* [색상 전환 효과] */
+        body, nav, header, section, footer, div, p, h1, h2, h3, h4, span, a, button, img, input, textarea {
             transition: background-color var(--theme-speed) ease,
                         color var(--theme-speed) ease,
                         border-color var(--theme-speed) ease,
@@ -46,8 +46,10 @@
                         filter var(--theme-speed) ease;
         }
 
+        /* [호버 효과 별도 속도] */
         .live-view-btn, .cta-button, .partner-logo, .theme-toggle-btn, .scroll-top-btn,
-        .info-card, .member-card, .product-card:not(.disabled-card), .contact-card {
+        .info-card, .member-card, .product-card:not(.disabled-card), 
+        .contact-card /* 문의 카드 추가 */ {
             transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
                         box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
                         background-color 0.3s ease,
@@ -84,11 +86,11 @@
         .nav-menu { display: flex; align-items: center; }
         .nav-menu a {
             font-size: 15px; color: var(--text-main); text-decoration: none;
-            margin-left: 20px; opacity: 0.8; cursor: pointer; font-weight: 600;
+            margin-left: 20px; opacity: 0.8; transition: opacity 0.2s; cursor: pointer; font-weight: 600;
             white-space: nowrap;
         }
 
-        /* --- 섹션 헤더 --- */
+        /* --- 공통 섹션 헤더 --- */
         .section-header {
             padding: 100px 24px 60px;
             text-align: center;
@@ -98,38 +100,75 @@
         .section-header h2 { font-size: 42px; font-weight: 700; margin: 0 0 15px 0; letter-spacing: -1px; }
         .section-header p { font-size: 18px; opacity: 0.8; margin: 0; }
 
-        /* --- 페이지 전환 --- */
+        /* [페이지 전환: 단순 페이드인] */
         .page { display: none; padding-top: 90px; }
-        .page.active { display: block; animation: simpleFadeIn 0.5s ease-out forwards; }
+        .page.active { 
+            display: block; 
+            animation: simpleFadeIn 0.5s ease-out forwards;
+        }
         @keyframes simpleFadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- [HOME] --- */
-        .hero { padding: 160px 24px; text-align: center; background: var(--hero-bg); }
+        @media (max-width: 768px) {
+            .nav-container { height: 60px; padding: 0 10px; }
+            .logo-img { height: 28px; margin-right: 5px; }
+            .logo-text { font-size: 15px; letter-spacing: -0.5px; }
+            .nav-menu a { margin-left: 8px; font-size: 12px; letter-spacing: -0.5px; }
+            .hero { padding: 80px 20px; }
+            .typing-container { margin-top: 20px; }
+            .flex-container, .buy-container { flex-direction: column; }
+            .executive-grid, .product-grid, .info-grid, .app-container, .contact-grid { grid-template-columns: 1fr; flex-direction: column; }
+            .section-header { padding: 50px 20px 30px; }
+            .section-header h2 { font-size: 28px; }
+            .app-text { text-align: center; margin-bottom: 40px; }
+            .logo-grid { padding-left: 0 !important; gap: 20px 30px; }
+            
+            /* [모바일] 주문서 및 문의폼 입력창 줄이기 */
+            .buy-form, .inquiry-box { padding: 25px !important; }
+            .buy-form input, .inquiry-form input, .inquiry-form textarea { 
+                padding: 10px !important; 
+                margin-bottom: 8px !important; 
+                font-size: 14px;
+            }
+        }
+
+        /* --- [HERO] --- */
+        .hero { padding: 160px 24px; text-align: center; background: var(--hero-bg); position: relative; overflow: hidden; }
         .typing-container { font-size: clamp(36px, 6vw, 68px); font-weight: 800; margin-bottom: 24px; letter-spacing: -2px; min-height: 1.2em; }
         .typing-text::after { content: '|'; animation: blink 0.7s infinite; }
         @keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; } }
+        .hero p { font-size: clamp(18px, 3vw, 24px); color: var(--text-sub); max-width: 800px; margin: 0 auto 50px; }
 
+        /* --- [POLL] --- */
         .poll-section { padding: 100px 24px; background-color: var(--bg-light); text-align: center; }
         .poll-container { max-width: 700px; margin: 0 auto; background: var(--card-bg); padding: 50px 40px; border-radius: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); border: 1px solid var(--card-border); }
+        .stat-title { font-size: 24px; font-weight: 700; margin-bottom: 10px; color: var(--text-main); }
+        .stat-desc { font-size: 16px; color: var(--text-sub); margin-bottom: 40px; }
+        .bar-bg { height: 24px; background: var(--bg-light); border-radius: 12px; margin: 20px 0; overflow: hidden; position: relative; }
+        .bar-fill { height: 100%; background: var(--primary-color); border-radius: 12px; width: 0; transition: width 2.5s cubic-bezier(0.22, 1, 0.36, 1); }
         .stat-number { font-size: 64px; font-weight: 800; color: var(--primary-color); display: block; line-height: 1; margin-bottom: 10px; }
-        .bar-bg { height: 24px; background: var(--bg-light); border-radius: 12px; margin: 20px 0; overflow: hidden; }
-        .bar-fill { height: 100%; background: var(--primary-color); width: 0; transition: width 2.5s cubic-bezier(0.22, 1, 0.36, 1); }
 
+        /* --- [INFO CARDS] --- */
         .info-section { background: var(--bg-light); padding-bottom: 80px; }
         .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); max-width: 1100px; margin: 0 auto; gap: 30px; }
-        .info-card { padding: 50px 40px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid var(--card-border); background: var(--card-bg); }
+        .info-card { padding: 50px 40px; border-radius: 30px; display: flex; flex-direction: column; justify-content: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid var(--card-border); background: var(--card-bg); }
         .info-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+        .card-dorm h3, .card-office h3 { color: var(--text-main) !important; }
+        .card-dorm p, .card-office p { color: var(--text-main) !important; }
 
         /* --- [APP PREVIEW] --- */
         .app-section { padding: 100px 24px; background: var(--bg-light); overflow: hidden; }
         .app-container { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 50px; }
         .app-text { flex: 1; text-align: left; }
-        .phone-mockup { width: 280px; height: 560px; background: #fff; border-radius: 40px; border: 12px solid #1d1d1f; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2); overflow: hidden; }
+        .app-image { flex: 1; display: flex; justify-content: center; }
+        .phone-mockup { width: 280px; height: 560px; background: #000; border-radius: 40px; border: 12px solid #1d1d1f; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2); overflow: hidden; background: #fff; }
         .notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 25px; background: #1d1d1f; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; z-index: 10; }
+        .phone-screen { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         #notification-list { width: 100%; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; }
-        .notification-item { background: #f5f5f7; padding: 15px; border-radius: 12px; display: flex; align-items: center; animation: slideDownIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
-        @keyframes slideDownIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-        .live-view-btn { background: var(--primary-color); color: white; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; }
+        .notification-item { background: #f5f5f7; padding: 15px; border-radius: 12px; display: flex; align-items: center; animation: slideUpList 0.5s ease-out forwards; }
+        @keyframes slideUpList { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .live-view-btn { background: var(--primary-color); color: white; padding: 10px 20px; border-radius: 20px; display: inline-block; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .live-view-btn:hover { filter: brightness(1.1); transform: scale(1.05) translateY(-2px); box-shadow: 0 8px 15px rgba(0,0,0,0.2); }
 
         /* --- [TEAM] --- */
         .team-container { max-width: 1100px; margin: 80px auto; padding: 0 24px; }
@@ -143,84 +182,76 @@
         /* --- [PRODUCT] --- */
         .product-grid { max-width: 1100px; margin: 80px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; padding: 0 24px; }
         .product-card { background: var(--card-bg); border-radius: 30px; padding: 50px; border: 1px solid var(--card-border); display: flex; flex-direction: column; cursor: pointer; }
-        .product-card:not(.disabled-card):hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .disabled-card { opacity: 0.7; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .disabled-card { opacity: 0.7; cursor: default; }
+        .disabled-card:hover { transform: none; box-shadow: none; }
         .product-img-box { width: 100%; height: 320px; background: var(--bg-light); border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
 
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-1px); } 40%, 80% { transform: translateX(1px); } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-1px); } 40% { transform: translateX(1px); } 60% { transform: translateX(-1px); } 80% { transform: translateX(1px); } }
         .shake-animation { animation: shake 0.3s ease-in-out; }
-
-        /* --- [CONTACT PAGE (New)] --- */
-        .contact-container { max-width: 1100px; margin: 0 auto; padding: 0 24px 100px; }
-        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 60px; }
-        
-        .contact-card {
-            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 30px;
-            padding: 40px; text-align: center; transition: all 0.3s ease;
-        }
-        .contact-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .contact-icon { font-size: 40px; margin-bottom: 15px; display: block; }
-        
-        .inquiry-box {
-            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 30px;
-            padding: 50px; margin-bottom: 60px;
-        }
-        .inquiry-title { font-size: 24px; font-weight: 700; margin: 0 0 20px; }
-        .form-group { margin-bottom: 15px; }
-        .form-input, .form-textarea {
-            width: 100%; padding: 16px; border: 1px solid var(--card-border); border-radius: 12px;
-            background: var(--bg-light); color: var(--text-main); font-size: 16px; box-sizing: border-box;
-            resize: vertical; font-family: inherit;
-        }
-        .form-input:focus, .form-textarea:focus { outline: 2px solid var(--primary-color); border-color: transparent; }
-
-        .faq-title { font-size: 24px; font-weight: 700; margin: 0 0 20px; text-align: center; }
-        .faq-item { border-bottom: 1px solid var(--card-border); }
-        .faq-summary {
-            padding: 20px 0; cursor: pointer; font-weight: 600; font-size: 17px;
-            list-style: none; display: flex; justify-content: space-between; align-items: center;
-        }
-        .faq-summary::-webkit-details-marker { display: none; }
-        .faq-summary::after { content: '+'; font-size: 20px; font-weight: 400; color: var(--text-sub); }
-        details[open] .faq-summary::after { content: '-'; }
-        .faq-content { padding-bottom: 20px; color: var(--text-sub); font-size: 15px; line-height: 1.6; }
 
         /* --- [BUY & RECEIPT] --- */
         .buy-container { max-width: 1100px; margin: 60px auto; display: flex; flex-wrap: wrap; gap: 50px; padding: 0 24px; }
         .buy-form { background: var(--card-bg); padding: 40px; border-radius: 24px; border: 1px solid var(--card-border); flex: 1; min-width: 320px; }
         .buy-form input { width: 100%; padding: 14px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .pay-method-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
         .pay-btn { padding: 18px; border-radius: 12px; border: 1px solid #d2d2d7; background: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; color: #1d1d1f; }
+        .pay-btn img { height: 20px; margin-right: 8px; }
         .pay-btn:hover { filter: brightness(0.85); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .receipt-card { max-width: 500px; margin: 60px auto; background: var(--card-bg); padding: 40px; border-radius: 24px; border: 1px solid var(--card-border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .receipt-line { display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed #eee; padding-bottom: 4px; }
-        
         .cta-button { display: inline-block; background-color: var(--primary-color); color: white; padding: 18px 40px; border-radius: 35px; text-decoration: none; font-weight: 700; font-size: 18px; cursor: pointer; text-align: center; border: none; }
         .cta-button:hover { filter: brightness(1.1); transform: scale(1.03); }
 
-        /* --- [PARTNERS] --- */
+        /* --- [NEW] CONTACT PAGE STYLES --- */
+        .contact-container { max-width: 1100px; margin: 0 auto; padding: 0 24px 100px; }
+        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 60px; }
+        .contact-card {
+            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 30px;
+            padding: 40px; text-align: center; display: flex; flex-direction: column; justify-content: center;
+        }
+        .contact-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .contact-icon { font-size: 48px; margin-bottom: 20px; display: block; }
+        
+        .inquiry-box {
+            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 30px;
+            padding: 50px; flex: 1;
+        }
+        .inquiry-form input, .inquiry-form textarea {
+            width: 100%; padding: 16px; margin-bottom: 15px; border: 1px solid #ddd; 
+            border-radius: 12px; box-sizing: border-box; background: var(--white); color: var(--text-main);
+            font-size: 16px; font-family: inherit;
+        }
+        .inquiry-form textarea { resize: vertical; }
+
+        /* --- [PARTNER SECTION] --- */
         .partner-section { padding: 80px 24px; background-color: var(--card-bg); text-align: center; border-top: 1px solid var(--card-border); }
+        .partner-title { font-size: 14px; font-weight: 600; color: var(--text-sub); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 40px; }
         .logo-grid { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px 20px; max-width: 1000px; margin: 0 auto; padding-left: 50px; }
         .partner-logo { height: 30px; width: auto; opacity: 0.4; filter: grayscale(100%); cursor: pointer; }
+        
         body.dark-mode .partner-logo:not(.gjmst-logo) { filter: brightness(0) invert(0.8); opacity: 0.8; }
         body.dark-mode .partner-logo:not(.gjmst-logo):hover { filter: brightness(0) invert(1); opacity: 1; transform: scale(1.1); }
         body.dark-mode .gjmst-logo { filter: grayscale(100%) opacity(0.8); }
         body.dark-mode .gjmst-logo:hover { filter: grayscale(0%) brightness(0.9); opacity: 1; transform: scale(1.1); }
         body:not(.dark-mode) .partner-logo:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
+        .partner-logo.main-logo { height: 50px; opacity: 0.8; }
         .logo-grid img:nth-child(3) { margin-right: -10px; }
 
-        /* --- [FOOTER & BUTTONS] --- */
+        /* --- [FOOTER] --- */
         .footer { background-color: var(--bg-light); padding: 80px 24px; border-top: 1px solid var(--card-border); }
         .footer-content { max-width: 1100px; margin: 0 auto; color: var(--text-sub); font-size: 13px; }
         .allow-select, .allow-select * { -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important; }
 
+        /* --- [BUTTONS] --- */
         .theme-toggle-btn, .scroll-top-btn { position: fixed; right: 30px; width: 50px; height: 50px; border-radius: 50%; background-color: var(--btn-bg); border: 1px solid rgba(128,128,128,0.2); box-shadow: 0 4px 15px rgba(0,0,0,0.1); cursor: pointer; z-index: 9999; display: flex; align-items: center; justify-content: center; }
         .theme-toggle-btn { bottom: 30px; }
         .theme-toggle-btn:hover { transform: scale(1.1); }
-        .theme-toggle-btn img, .scroll-top-btn img { width: 24px; height: 24px; transition: all var(--theme-speed); filter: invert(1); }
-        body.dark-mode .theme-toggle-btn img, body.dark-mode .scroll-top-btn img { filter: invert(0); }
         .scroll-top-btn { bottom: 90px; opacity: 0; pointer-events: none; transform: translateY(20px); transition: opacity 1.2s ease, transform 1.2s ease, background-color 0.3s ease; }
         .scroll-top-btn.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
         .scroll-top-btn:hover { transform: scale(1.1); }
+        .theme-toggle-btn img, .scroll-top-btn img { width: 24px; height: 24px; transition: all var(--theme-speed); filter: invert(1); }
+        body.dark-mode .theme-toggle-btn img, body.dark-mode .scroll-top-btn img { filter: invert(0); }
 
         /* --- [MODAL] --- */
         .modal-overlay {
@@ -228,48 +259,30 @@
             display: none; align-items: center; justify-content: center; z-index: 20000; padding: 20px;
             transition: opacity 0.3s ease;
         }
-        .modal-overlay.show { display: flex; animation: simpleFadeIn 0.3s forwards; }
+        .modal-overlay.show { display: flex; animation: simpleFadeIn 0.25s ease-out forwards; }
         .modal-overlay.hide { animation: simpleFadeOut 0.3s forwards; } 
         .modal-content {
             width: min(1280px, 100%); background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 34px;
             box-shadow: 0 30px 80px rgba(0,0,0,0.25); overflow: hidden;
-            animation: modalPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            animation: modalPop 0.25s ease-out forwards;
         }
         .modal-overlay.hide .modal-content { animation: modalHide 0.3s ease-in forwards; }
-        @keyframes modalPop { from { opacity: 0; transform: translateY(30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
-        @keyframes modalHide { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(30px) scale(0.95); } }
+        @keyframes modalPop { from { opacity: 0; transform: translateY(14px) scale(0.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes modalHide { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(14px) scale(0.99); } }
         @keyframes simpleFadeOut { from { opacity: 1; } to { opacity: 0; } }
 
         .modal-header { display: flex; align-items: flex-start; justify-content: space-between; padding: 22px 26px 0; gap: 16px; }
         .modal-title-wrap { display: flex; flex-direction: column; gap: 8px; }
-        .modal-badge { font-size: 14px; font-weight: 900; color: var(--primary-color); }
+        .modal-badge { display: inline-block; padding: 0; border: none; background: transparent; font-size: 14px; font-weight: 900; letter-spacing: 0.4px; color: var(--primary-color); margin: 0; }
         .modal-title { font-size: 30px; font-weight: 900; letter-spacing: -0.6px; margin: 0; color: var(--text-main); line-height: 1.15; }
         .modal-close { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--card-border); background: var(--bg-light); color: var(--text-main); cursor: pointer; font-size: 20px; font-weight: 900; flex-shrink: 0; }
+        .modal-close:hover { transform: scale(1.05); }
         .modal-body { display: grid; grid-template-columns: 1.35fr 1fr; gap: 26px; padding: 26px; }
         .modal-image { width: 100%; min-height: 460px; background: var(--bg-light); border-radius: 22px; display: flex; align-items: center; justify-content: center; color: #bbb; font-weight: 800; }
         .modal-right { display: flex; flex-direction: column; min-height: 460px; }
         .modal-desc { color: var(--text-sub); font-size: 16px; line-height: 1.8; margin: 0 0 18px; white-space: pre-line; }
         .modal-actions { display: flex; gap: 14px; margin-top: auto; justify-content: flex-end; padding-top: 16px; }
         .modal-actions .cta-button { min-width: 260px; }
-
-        @media (max-width: 768px) {
-            .nav-container { height: 60px; padding: 0 10px; }
-            .logo-img { height: 28px; margin-right: 5px; }
-            .logo-text { font-size: 15px; letter-spacing: -0.5px; }
-            .nav-menu a { margin-left: 8px; font-size: 12px; }
-            .app-container, .flex-container, .buy-container { flex-direction: column; }
-            .executive-grid, .product-grid, .info-grid, .contact-grid { grid-template-columns: 1fr; }
-            .section-header h2 { font-size: 28px; }
-            .app-text { text-align: center; margin-bottom: 40px; }
-            .logo-grid { padding-left: 0 !important; gap: 20px 30px; }
-            .buy-form { padding: 25px; }
-            .buy-form input { padding: 10px !important; margin-bottom: 8px !important; font-size: 14px; }
-            .modal-body { grid-template-columns: 1fr; }
-            .modal-right { min-height: auto; }
-            .modal-image { min-height: 260px; }
-            .modal-actions { justify-content: center; }
-            .modal-actions .cta-button { width: 100%; min-width: 0; }
-        }
     </style>
 </head>
 <body>
@@ -306,28 +319,37 @@
                 <p class="stat-desc">자체 설문조사 결과 (응답자 <span id="display-total">0</span>명)</p>
                 <span class="stat-number" id="display-percent">0%</span>
                 <div class="bar-bg"><div class="bar-fill" id="poll-bar"></div></div>
-                <p style="font-size: 15px; color: var(--text-sub); margin-top: 30px;">기숙사생 10명 중 <span id="display-people-ratio">0</span>명이 겪는 스트레스.</p>
+                <p style="font-size: 15px; line-height: 1.6; margin-top: 30px; color: var(--text-sub);">
+                    기숙사생 10명 중 <span id="display-people-ratio">0</span>명이 겪는 스트레스.<br>
+                    더 이상 참지 마세요. <b>공마고의 도둑들</b>이 해결해 드립니다.
+                </p>
             </div>
         </section>
         <section class="info-section">
             <div class="info-grid">
-                <div class="info-card"><h3>Dormitory Edition</h3><p>기숙사생들의 스트레스 1위 '냉장고 절도'. 설치 즉시 완벽하게 분쟁을 해결합니다.</p></div>
-                <div class="info-card"><h3>Office Edition</h3><p>탕비실 냉장고 에티켓 관리 솔루션. 기술로 건강하고 신뢰 있는 사내 문화를 만듭니다.</p></div>
+                <div class="info-card card-dorm">
+                    <h3 style="font-size: 28px; margin-top: 0; margin-bottom: 10px;">Dormitory Edition</h3>
+                    <p style="font-size: 17px; line-height: 1.5; font-weight: 500;">기숙사생들의 스트레스 1위 '냉장고 절도'.<br>설치 즉시 완벽하게 분쟁을 해결합니다.</p>
+                </div>
+                <div class="info-card card-office">
+                    <h3 style="font-size: 28px; margin-top: 0; margin-bottom: 10px;">Office Edition</h3>
+                    <p style="font-size: 17px; line-height: 1.5; font-weight: 500;">탕비실 냉장고 에티켓 관리 솔루션.<br>기술로 건강하고 신뢰 있는 사내 문화를 만듭니다.</p>
+                </div>
             </div>
         </section>
         <section class="app-section">
             <div class="app-container">
                 <div class="app-text">
-                    <span style="color: var(--primary-color); font-weight: 700;">Access Anywhere</span>
-                    <h2 style="font-size: 42px; font-weight: 700; margin: 15px 0;">범인은 이 안에.<br>어디서나 확인하세요.</h2>
-                    <p style="color: #86868b; font-size: 18px;">동작 감지 순간을 포착하여 스마트폰으로 즉시 알림을 보냅니다.</p>
+                    <span style="color: var(--primary-color); font-weight: 700; font-size: 14px; letter-spacing: 1px;">Access Anywhere</span>
+                    <h2 style="font-size: 42px; font-weight: 700; margin: 15px 0 20px; line-height: 1.1;">범인은 이 안에.<br>어디서나 확인하세요.</h2>
+                    <p style="font-size: 18px; color: #86868b; line-height: 1.6;">누가 내 음료수를 가져갔을까요?<br>SRC-04 전용 앱이 동작 감지 순간을 포착하여<br>스마트폰으로 즉시 알림을 보내드립니다.</p>
                     <a onclick="showPage('product')" style="display:inline-block; margin-top:30px; color:var(--primary-color); font-weight:600; cursor:pointer; text-decoration:underline;">제품 자세히 보기 ></a>
                 </div>
                 <div class="app-image">
                     <div class="phone-mockup">
                         <div class="notch"></div>
                         <div class="phone-screen">
-                            <div style="width:100%; padding:40px 20px 10px; font-weight:bold; font-size:18px; color:#333;">최근 감지 기록</div>
+                            <div style="width:100%; padding:20px 20px 10px; box-sizing:border-box; font-weight:bold; font-size:18px; color:#333;">최근 감지 기록</div>
                             <div id="notification-list"></div>
                             <div style="margin-bottom:20px; text-align:center;"><a href="https://project.whanci.xyz" target="_blank" class="live-view-btn">체험 해보기</a></div>
                         </div>
@@ -347,9 +369,9 @@
                 <p style="color:var(--text-main); font-size: 18px; font-weight: 600; margin-bottom: 20px;">"작은 불편을 해결하는 것이 더 나은 문화를 만든다고 믿습니다."</p>
             </div>
             <div class="executive-grid">
-                <div class="member-card"><div class="member-initial">배</div><h4>배충만</h4><p>CTO & CPO</p></div>
-                <div class="member-card"><div class="member-initial">이</div><h4>이시환</h4><p>CIO & DevOps</p></div>
-                <div class="member-card"><div class="member-initial">이</div><h4>이지후</h4><p>CFO & CMO</p></div>
+                <div class="member-card"><div class="member-initial">배</div><div class="member-name">배충만</div><div class="member-role" style="color:var(--primary-color); font-weight:600; font-size:14px;">CTO & CPO</div><p style="font-size: 14px; color: var(--text-sub); margin-top: 15px;">하드웨어 설계 및 소프트웨어 설계 총괄</p></div>
+                <div class="member-card"><div class="member-initial">이</div><div class="member-name">이시환</div><div class="member-role" style="color:var(--primary-color); font-weight:600; font-size:14px;">CIO & DevOps</div><p style="font-size: 14px; color: var(--text-sub); margin-top: 15px;">소프트웨어 개발 및 클라우드 개발 총괄</p></div>
+                <div class="member-card"><div class="member-initial">이</div><div class="member-name">이지후</div><div class="member-role" style="color:var(--primary-color); font-weight:600; font-size:14px;">CFO & CMO</div><p style="font-size: 14px; color: var(--text-sub); margin-top: 15px;">재무 회계 및 하드웨어 제작 총괄</p></div>
             </div>
         </section>
     </main>
@@ -359,14 +381,14 @@
         <section class="product-grid">
             <div class="product-card" onclick="openProductModal('src04')">
                 <h4 style="color:var(--primary-color); margin-bottom: 5px;">Dormitory Edition</h4>
-                <h3>SRC-04</h3>
+                <h3 style="font-size: 28px; margin-top: 0;">SRC-04</h3>
                 <p>냉장고에 설치하는 초소형 카메라 모듈.</br>촬영된 사진은 즉시 클라우드에 저장되며, 언제 어디서나 확인 가능합니다.</p>
                 <div class="product-img-box">[ 제품 이미지 ]</div>
                 <button onclick="event.stopPropagation(); showPage('buy')" class="cta-button">제품 구매하기</button>
             </div>
             <div class="product-card disabled-card" style="border-style: dashed;" onclick="openProductModal('office')">
                 <h4 style="color:var(--text-sub); margin-bottom: 5px;">Office Edition</h4>
-                <h3>SRC-04 For Office</h3>
+                <h3 style="font-size: 28px; margin-top: 0; color: #86868b;">SRC-04 For Office</h3>
                 <p>사원증 및 얼굴 인식 기능이 추가된 제품.</br>더 많은 기능의 관리자 페이지와 우수한 보안의 로그 서버를 제공합니다.</p>
                 <div class="product-img-box" style="opacity: 1;">[ 개발 중 ]</div>
                 <button class="cta-button" style="background-color: #ccc; cursor: default;" onclick="event.stopPropagation(); shakeButton(this)">준비 중</button>
@@ -388,7 +410,7 @@
                 <h3 style="margin-top:0;">배송 정보</h3>
                 <form onsubmit="goToPayment(event)">
                     <input type="text" id="buyer_name" placeholder="수령인" required>
-                    <input type="text" id="buyer_tel" placeholder="연락처" required>
+                    <input type="text" id="buyer_tel" placeholder="연락처 ( - 를 제외하고 입력 )" required>
                     <input type="text" id="buyer_addr" placeholder="배송지" required>
                     <button type="submit" class="cta-button" style="width: 100%;">결제하기</button>
                 </form>
@@ -434,59 +456,31 @@
                 <div class="contact-card">
                     <span class="contact-icon">💼</span>
                     <h3 style="font-size:20px; margin: 10px 0;">Business</h3>
-                    <p style="color:var(--text-sub); font-size:15px;">제휴 및 사업 문의</p>
-                    <p class="allow-select" style="font-weight:700; margin-top:10px;">business@gjmst.com</p>
+                    <p style="color:var(--text-sub); font-size:15px; margin-bottom:10px;">제휴 및 사업 문의</p>
+                    <p class="allow-select" style="font-weight:700;">business@gjmst-thives.com</p>
                 </div>
                 <div class="contact-card">
                     <span class="contact-icon">🎧</span>
                     <h3 style="font-size:20px; margin: 10px 0;">Support</h3>
-                    <p style="color:var(--text-sub); font-size:15px;">고객 지원 센터</p>
-                    <p class="allow-select" style="font-weight:700; margin-top:10px;">201-704-04</p>
+                    <p style="color:var(--text-sub); font-size:15px; margin-bottom:10px;">고객 지원 센터</p>
+                    <p class="allow-select" style="font-weight:700;">201-704-04</p>
                 </div>
                 <div class="contact-card">
                     <span class="contact-icon">🏢</span>
                     <h3 style="font-size:20px; margin: 10px 0;">Visit Us</h3>
-                    <p style="color:var(--text-sub); font-size:15px;">충남 공주시 유구읍</p>
-                    <p class="allow-select" style="font-weight:700; margin-top:10px;">중앙1길 27-12 1학년 1반</p>
+                    <p style="color:var(--text-sub); font-size:15px; margin-bottom:10px;">충남 공주시 유구읍</p>
+                    <p class="allow-select" style="font-weight:700;">중앙1길 27-12 1학년 1반</p>
                 </div>
             </div>
 
             <div class="inquiry-box">
-                <h3 class="inquiry-title">Send a Message</h3>
-                <form onsubmit="event.preventDefault(); alert('문의가 접수되었습니다.');">
-                    <div class="form-group">
-                        <input type="text" class="form-input" placeholder="이름" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-input" placeholder="이메일" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-textarea" rows="5" placeholder="문의 내용을 입력해주세요..." required></textarea>
-                    </div>
+                <h3 style="font-size:24px; font-weight:700; margin:0 0 20px;">Send Message</h3>
+                <form class="inquiry-form" onsubmit="event.preventDefault(); alert('문의가 접수되었습니다.');">
+                    <input type="text" placeholder="이름" required>
+                    <input type="email" placeholder="이메일" required>
+                    <textarea rows="5" placeholder="문의 내용을 입력해주세요..." required></textarea>
                     <button type="submit" class="cta-button" style="width: 100%;">문의하기</button>
                 </form>
-            </div>
-
-            <div class="faq-container">
-                <h3 class="faq-title">Frequently Asked Questions</h3>
-                <div class="faq-item">
-                    <details>
-                        <summary class="faq-summary">배송 기간은 얼마나 걸리나요?</summary>
-                        <div class="faq-content">평일 기준 주문 후 2~3일 내에 발송되며, 지역에 따라 1~2일 추가 소요될 수 있습니다.</div>
-                    </details>
-                </div>
-                <div class="faq-item">
-                    <details>
-                        <summary class="faq-summary">설치는 어렵지 않나요?</summary>
-                        <div class="faq-content">누구나 1분 안에 설치할 수 있도록 설계되었습니다. 동봉된 부착 가이드를 참고해주세요.</div>
-                    </details>
-                </div>
-                <div class="faq-item">
-                    <details>
-                        <summary class="faq-summary">AS 기간은 어떻게 되나요?</summary>
-                        <div class="faq-content">제품 구매일로부터 1년간 무상 AS를 보증합니다. (단, 고객 과실 제외)</div>
-                    </details>
-                </div>
             </div>
         </div>
     </main>
@@ -496,15 +490,16 @@
         <div class="logo-grid">
             <img src="images/gjmst.svg" alt="Gjmst" class="partner-logo main-logo gjmst-logo">
             <img src="images/aws.png" alt="Amazon" class="partner-logo">
-            <img src="images/nvidia.svg" alt="Nvidia" class="partner-logo">
+            <img src="images/nvidia.svg" alt="Nvidia" class="partner-logo" style="height: 22px;">
             <img src="images/toss.png" alt="Toss" class="partner-logo">
-            <img src="images/spacex.svg" alt="spacex" class="partner-logo">
+            <img src="images/spacex.svg" alt="spacex" class="partner-logo" style="height: 22px;">
         </div>
     </section>
 
     <footer class="footer">
         <div class="footer-content">
-            <p><b>(주)공마고의 도둑들</b> | 대표이사: 윤수원 | contact@gjmst-thives.com</p>
+            <p><b>(주)공마고의 도둑들</b> | 대표이사: 윤수원</p>
+            <p class="allow-select">충청남도 공주시 유구읍 중앙1길 27-12 1학년 1반 | contact@gjmst-thives.com</p>
             <p style="margin-top: 20px;">Copyright © 2025 The Gjmst Thieves. All rights reserved.</p>
         </div>
     </footer>
@@ -513,10 +508,10 @@
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-header">
                 <div class="modal-title-wrap">
-                    <span id="pm_badge" class="modal-badge">Edition</span>
+                    <div id="pm_badge" class="modal-badge">Edition</div>
                     <h3 id="pm_title" class="modal-title">제품 상세</h3>
                 </div>
-                <button class="modal-close" onclick="closeProductModal()">×</button>
+                <button class="modal-close" aria-label="Close" onclick="closeProductModal()">×</button>
             </div>
             <div class="modal-body">
                 <div id="pm_image" class="modal-image">[ 이미지 ]</div>
@@ -535,58 +530,30 @@
         window.addEventListener('load', function() {
             const percentage = Math.round((experiencedCount / totalRespondents) * 100);
             const peopleRatio = Math.round(percentage / 10);
-            document.getElementById('display-total').innerText = totalRespondents.toLocaleString();
-            document.getElementById('display-people-ratio').innerText = peopleRatio;
+            const displayTotal = document.getElementById('display-total');
+            if(displayTotal) displayTotal.innerText = totalRespondents.toLocaleString();
 
             let currentNum = 0;
             const numElement = document.getElementById('display-percent');
-            const interval = setInterval(() => {
-                if (currentNum >= percentage) { clearInterval(interval); numElement.innerText = percentage + "%"; } 
-                else { currentNum++; numElement.innerText = currentNum + "%"; }
-            }, 40);
-            setTimeout(() => { document.getElementById('poll-bar').style.width = percentage + "%"; }, 300);
+            if(numElement) {
+                const interval = setInterval(() => {
+                    if (currentNum >= percentage) {
+                        clearInterval(interval);
+                        numElement.innerText = percentage + "%";
+                    } else {
+                        currentNum++;
+                        numElement.innerText = currentNum + "%";
+                    }
+                }, 40);
+            }
+            setTimeout(() => {
+                const bar = document.getElementById('poll-bar');
+                if(bar) bar.style.width = percentage + "%";
+            }, 300);
+            const ratioText = document.getElementById('display-people-ratio');
+            if(ratioText) ratioText.innerText = peopleRatio;
         });
 
-        // --- [모달 로직] ---
-        const productData = {
-            src04: { title: "SRC-04", badge: "Dormitory Edition", badgeColor: "var(--primary-color)", desc: "기숙사 냉장고를 위한 최적의 솔루션.\n초소형 카메라가 동작을 감지하여 클라우드에 저장하고 실시간 알림을 보냅니다.", imageText: "[ 제품 이미지 ]", actions: [{type:"buy", label:"제품 구매하기"}] },
-            office: { title: "SRC-04 For Office", badge: "Office Edition", badgeColor: "#a1a1a6", desc: "사내 탕비실을 위한 고성능 모델.\n사원증 인식 및 얼굴 인식 기능이 추가될 예정입니다.", imageText: "[ 개발 중 ]", actions: [{type:"shake", label:"준비 중"}] }
-        };
-
-        function openProductModal(key) {
-            const data = productData[key];
-            document.getElementById('pm_title').innerText = data.title;
-            const badgeEl = document.getElementById('pm_badge');
-            badgeEl.innerText = data.badge;
-            badgeEl.style.color = data.badgeColor || 'var(--primary-color)';
-            document.getElementById('pm_desc').innerText = data.desc;
-            document.getElementById('pm_image').innerText = data.imageText;
-            const actions = document.getElementById('pm_actions');
-            actions.innerHTML = "";
-            data.actions.forEach(a => {
-                const btn = document.createElement('button');
-                btn.className = 'cta-button';
-                btn.innerText = a.label;
-                if(a.type === "shake") { btn.style.backgroundColor = '#ccc'; btn.style.cursor='default'; btn.onclick = (e) => shakeButton(e.currentTarget); }
-                else { btn.onclick = () => { closeProductModal(); showPage('buy'); }; }
-                actions.appendChild(btn);
-            });
-            const modal = document.getElementById('productModal');
-            modal.classList.remove('hide'); modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeProductModal() {
-            const modal = document.getElementById('productModal');
-            if (!modal.classList.contains('show')) return;
-            modal.classList.add('hide'); 
-            setTimeout(() => {
-                modal.classList.remove('show'); modal.classList.remove('hide');
-                document.body.style.overflow = '';
-            }, 300);
-        }
-
-        // --- [페이지 및 주문] ---
         let orderInfo = {};
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -617,7 +584,7 @@
             const currentSentence = sentences[sentenceIdx];
             if (isDeleting) textElement.innerText = currentSentence.substring(0, charIdx - 1), charIdx--;
             else textElement.innerText = currentSentence.substring(0, charIdx + 1), charIdx++;
-            let typeSpeed = isDeleting ? 40 : 100;
+            let typeSpeed = isDeleting ? 40 : 120;
             if (!isDeleting && charIdx === currentSentence.length) typeSpeed = 2000, isDeleting = true;
             else if (isDeleting && charIdx === 0) isDeleting = false, sentenceIdx = (sentenceIdx + 1) % sentences.length, typeSpeed = 500;
             setTimeout(type, typeSpeed);
@@ -627,31 +594,70 @@
             const list = document.getElementById('notification-list');
             if(!list) return;
             const now = new Date();
-            const timeStr = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`;
+            const timeStr = `오늘 ${now.getHours() > 12 ? '오후' : '오전'} ${now.getHours() % 12 || 12}:${String(now.getMinutes()).padStart(2, '0')}`;
             if (list.children.length >= 3) list.removeChild(list.firstElementChild);
             const item = document.createElement('div');
             item.className = 'notification-item';
-            item.innerHTML = `<div style="width:36px; height:36px; background:var(--primary-color); border-radius:10px; margin-right:12px; display:flex; align-items:center; justify-content:center; color:white;">📸</div><div style="text-align:left;"><div style="font-size:13px; font-weight:bold; color:#333;">동작 감지됨</div><div style="font-size:11px; color:#888;">오늘 ${timeStr}</div></div>`;
+            item.innerHTML = `<div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">📸</div><div style="text-align:left;"><div style="font-size:14px; font-weight:bold; color:#333;">동작 감지됨</div><div style="font-size:12px; color:#888;">${timeStr}</div></div>`;
             list.appendChild(item);
         }
 
         const themeBtn = document.getElementById('themeToggle');
-        themeBtn.innerHTML = '<img src="images/dark.svg" alt="Dark">';
-        themeBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            themeBtn.innerHTML = `<img src="images/${isDark?'light':'dark'}.svg" alt="Theme">`;
-        });
+        const body = document.body;
+        const iconMoon = '<img src="images/dark.svg" alt="Dark Mode">';
+        const iconSun = '<img src="images/light.svg" alt="Light Mode">';
+        const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (userPrefersDark) { body.classList.add('dark-mode'); themeBtn.innerHTML = iconSun; } else { themeBtn.innerHTML = iconMoon; }
+        themeBtn.addEventListener('click', () => { body.classList.toggle('dark-mode'); const isDark = body.classList.contains('dark-mode'); themeBtn.innerHTML = isDark ? iconSun : iconMoon; });
 
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
         window.addEventListener('scroll', () => {
-            const btn = document.getElementById('scrollTopBtn');
-            if(window.scrollY > 300) btn.classList.add('show'); else btn.classList.remove('show');
+            if (window.scrollY > 300) scrollTopBtn.classList.add('show');
+            else scrollTopBtn.classList.remove('show');
         });
 
         function shakeButton(btn) {
             btn.classList.add('shake-animation');
-            setTimeout(() => btn.classList.remove('shake-animation'), 650);
+            setTimeout(() => { btn.classList.remove('shake-animation'); }, 650);
         }
+
+        const productData = {
+            src04: { title: "SRC-04", badge: "Dormitory Edition", badgeColor: "var(--primary-color)", desc: `냉장고에 설치하는 초소형 카메라 모듈.\n촬영된 사진은 즉시 클라우드에 저장되며, 언제 어디서나 확인 가능합니다.\n\n동작 감지 → 푸시 알림 → 기록 확인까지,\n간단하지만 확실한 보호를 제공합니다.`, imageText: "[ 제품 이미지 ]", actions: [{ type: "buy", label: "제품 구매하기" }] },
+            office: { title: "SRC-04 For Office", badge: "Office Edition", badgeColor: "#a1a1a6", desc: `사원증 및 얼굴 인식 기능이 추가된 제품.\n더 많은 기능의 관리자 페이지와 우수한 보안의 로그 서버를 제공합니다.\n\n현재 준비 중입니다.`, imageText: "[ 개발 중 ]", actions: [{ type: "shake", label: "준비 중" }] }
+        };
+
+        function openProductModal(key) {
+            const data = productData[key];
+            if (!data) return;
+            document.getElementById('pm_title').innerText = data.title;
+            const badgeEl = document.getElementById('pm_badge');
+            badgeEl.innerText = data.badge;
+            badgeEl.style.color = data.badgeColor || 'var(--primary-color)';
+            document.getElementById('pm_desc').innerText = data.desc;
+            document.getElementById('pm_image').innerText = data.imageText;
+            const actions = document.getElementById('pm_actions');
+            actions.innerHTML = "";
+            data.actions.forEach(a => {
+                const btn = document.createElement('button');
+                btn.className = 'cta-button';
+                if (a.type === "buy") { btn.innerText = a.label; btn.onclick = () => { closeProductModal(); showPage('buy'); }; } 
+                else if (a.type === "shake") { btn.innerText = a.label; btn.style.backgroundColor = '#ccc'; btn.style.cursor = 'default'; btn.onclick = (e) => { shakeButton(e.currentTarget); }; }
+                actions.appendChild(btn);
+            });
+            const modal = document.getElementById('productModal');
+            modal.classList.remove('hide');
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('productModal');
+            if (!modal.classList.contains('show')) return;
+            modal.classList.add('hide'); 
+            setTimeout(() => { modal.classList.remove('show'); modal.classList.remove('hide'); document.body.style.overflow = ''; }, 300);
+        }
+
+        window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeProductModal(); });
 
         window.onload = function() {
             type();
