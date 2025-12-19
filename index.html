@@ -65,7 +65,7 @@
             line-height: 1.6;
             word-break: keep-all;
             overflow-x: hidden;
-            -webkit-user-select: none; -moz-user-select: none; -ms-use-select: none; user-select: none;
+            -webkit-user-select: none; user-select: none;
         }
 
         /* --- 네비게이션 --- */
@@ -91,7 +91,7 @@
             .nav-container { height: 60px; padding: 0 10px; }
             .logo-img { height: 28px; margin-right: 5px; }
             .logo-text { font-size: 15px; letter-spacing: -0.5px; }
-            .nav-menu a { margin-left: 8px; font-size: 12px; letter-spacing: -0.5px; }
+            .nav-menu a { margin-left: 8px; font-size: 12px; }
             .hero { padding: 80px 20px; }
             .typing-container { margin-top: 20px; }
             .flex-container, .buy-container { flex-direction: column; }
@@ -465,9 +465,15 @@
         <div style="max-width: 500px; margin: 60px auto; padding: 0 20px; text-align: center;">
             <h2 style="font-size: 32px;">결제 수단을 선택하세요.</h2>
             <div class="pay-method-grid">
-                <button class="pay-btn naver-pay" style="background: #000000; border-color: #000000; color: #00d25a;" onclick="completeOrder('네이버페이')"><img src="images/npay.jpg" alt="네이버페이"> 네이버페이</button>
-                <button class="pay-btn" style="background: #ffe000; border-color: #ffe000;" onclick="completeOrder('카카오페이')"><img src="images/kpay.svg" alt="카카오페이"> 카카오페이</button>
-                <button class="pay-btn" style="border-color: #d2d2d7;" onclick="completeOrder('토스페이')"><img src="images/toss.png" alt="토스페이" onerror="this.style.display='none'"> 토스페이</button>
+                <button class="pay-btn naver-pay" style="background: #000000; border-color: #000000; color: #00d25a;" onclick="completeOrder('네이버페이')">
+                    <img src="images/npay.jpg" alt="네이버페이"> 네이버페이
+                </button>
+                <button class="pay-btn" style="background: #ffe000; border-color: #ffe000;" onclick="completeOrder('카카오페이')">
+                    <img src="images/kpay.svg" alt="카카오페이"> 카카오페이
+                </button>
+                <button class="pay-btn" style="border-color: #d2d2d7;" onclick="completeOrder('토스페이')">
+                    <img src="images/toss.png" alt="토스페이" onerror="this.style.display='none'"> 토스페이
+                </button>
                 <button class="pay-btn" onclick="completeOrder('신용/체크카드')">
                     <img src="images/card.svg" alt="Card" style="height: 20px; margin-right: 8px;"> 신용/체크카드
                 </button>
@@ -559,8 +565,7 @@
             </div>
 
             <div class="inquiry-box">
-                <h3 style="font-size:24px; font-weight:700; margin:0 0 20px;">Send us a message.</h3>
-                <form class="inquiry-form" onsubmit="event.preventDefault(); alert('문의가 접수되었습니다.');">
+                <form class="inquiry-form" onsubmit="submitInquiry(event)">
                     <input type="text" placeholder="이름" required>
                     <input type="email" placeholder="이메일" required>
                     <textarea rows="5" placeholder="문의 내용을 입력해주세요..." required></textarea>
@@ -612,7 +617,7 @@
         <div class="modal-content" style="max-width: 400px; text-align: center; padding: 30px;">
             <h3 id="sys_title" style="margin-top:0; margin-bottom: 15px; font-size: 22px;">알림</h3>
             <p id="sys_msg" style="margin-bottom: 30px; color: var(--text-sub); font-size: 16px;"></p>
-            <div class="modal-actions" style="justify-content: center; gap: 10px;">
+            <div class="modal-actions" style="justify-content: center; gap: 10px; width: 100%;">
                 <button id="sys_btn_no" class="cta-button" style="background:#e5e5ea; color:#000; min-width:100px;">취소</button>
                 <button id="sys_btn_yes" class="cta-button" style="min-width:100px;">확인</button>
             </div>
@@ -714,7 +719,7 @@
             }, 2000); // 2초 로딩
         }
 
-        // [수정] 결제 완료 로직
+        // [수정] 결제 완료 로직 (입력창 초기화 포함)
         function completeOrder(method) {
             showSystemConfirm(method + "(으)로 결제하시겠습니까?", () => {
                 showLoading(() => {
@@ -723,6 +728,15 @@
                     document.getElementById('rec_name').innerText = orderInfo.name || "";
                     document.getElementById('rec_addr').innerText = orderInfo.addr || "";
                     document.getElementById('rec_method').innerText = method;
+                    
+                    // [추가] 구매 완료 시 입력 폼 초기화
+                    const nameEl = document.getElementById('buyer_name');
+                    const telEl = document.getElementById('buyer_tel');
+                    const addrEl = document.getElementById('buyer_addr');
+                    if(nameEl) nameEl.value = "";
+                    if(telEl) telEl.value = "";
+                    if(addrEl) addrEl.value = "";
+                    
                     showPage('receipt');
                 });
             });
@@ -730,7 +744,7 @@
 
         // [수정] 주문/결제 취소 로직
         function cancelOrder(fromPayment=false) {
-            const msg = fromPayment ? "결제를 취소하고 돌아갈까요?" : "주문서를 초기화하고 돌아갈까요?";
+            const msg = fromPayment ? "결제를 취소하고 상품 페이지로 돌아갈까요?" : "주문을 취소하고 상품 페이지로 돌아갈까요?";
             showSystemConfirm(msg, () => {
                 orderInfo = {};
                 const nameEl = document.getElementById('buyer_name');
@@ -741,6 +755,14 @@
                 if(addrEl) addrEl.value = "";
                 showPage('product');
             });
+        }
+        
+        // [추가] 문의 제출 로직 (입력창 초기화)
+        function submitInquiry(e) {
+            e.preventDefault();
+            // 커스텀 모달 대신 간단한 알림 사용 (요청 없음, 필요시 커스텀 가능) -> 여기서는 그냥 alert 유지하되 폼 리셋
+            alert('문의가 접수되었습니다.');
+            e.target.reset();
         }
 
         const textElement = document.getElementById('typewriter');
@@ -756,16 +778,36 @@
             setTimeout(type, typeSpeed);
         }
 
+        /* [알림] 정적 3개 고정 렌더 */
         function updateNotifications() {
             const list = document.getElementById('notification-list');
             if(!list) return;
-            const now = new Date();
-            const timeStr = `오늘 ${now.getHours() > 12 ? '오후' : '오전'} ${now.getHours() % 12 || 12}:${String(now.getMinutes()).padStart(2, '0')}`;
-            if (list.children.length >= 3) list.removeChild(list.firstElementChild);
-            const item = document.createElement('div');
-            item.className = 'notification-item';
-            item.innerHTML = `<div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">📸</div><div style="text-align:left;"><div style="font-size:14px; font-weight:bold; color:#333;">동작 감지됨</div><div style="font-size:12px; color:#888;">${timeStr}</div></div>`;
-            list.appendChild(item);
+
+            list.innerHTML = `
+                <div class="notification-item">
+                    <div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">📸</div>
+                    <div style="text-align:left;">
+                        <div style="font-size:14px; font-weight:bold; color:#333;">동작 감지됨</div>
+                        <div style="font-size:12px; color:#888;">오늘 오전 10:12</div>
+                    </div>
+                </div>
+
+                <div class="notification-item">
+                    <div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">🔔</div>
+                    <div style="text-align:left;">
+                        <div style="font-size:14px; font-weight:bold; color:#333;">새 기록 저장됨</div>
+                        <div style="font-size:12px; color:#888;">오늘 오전 09:58</div>
+                    </div>
+                </div>
+
+                <div class="notification-item">
+                    <div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">✅</div>
+                    <div style="text-align:left;">
+                        <div style="font-size:14px; font-weight:bold; color:#333;">장치 연결됨</div>
+                        <div style="font-size:12px; color:#888;">오늘 오전 09:40</div>
+                    </div>
+                </div>
+            `;
         }
 
         const themeBtn = document.getElementById('themeToggle');
@@ -860,7 +902,7 @@
 
         window.onload = function() {
             type();
-            updateNotifications(); // [주의] 알림은 동적 JS 그대로 유지 (사용자 코드 반영)
+            updateNotifications();
             initFaqAccordion();
         };
     </script>
