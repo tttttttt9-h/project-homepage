@@ -36,7 +36,7 @@
             --btn-bg: #ffffff;
         }
 
-        /* [색상 전환 효과] */
+        /* 기본 트랜지션 */
         body, nav, header, section, footer, div, p, h1, h2, h3, h4, span, a, button, img, input, textarea, details, summary {
             transition: background-color var(--theme-speed) ease,
                         color var(--theme-speed) ease,
@@ -46,7 +46,7 @@
                         filter var(--theme-speed) ease;
         }
 
-        /* [호버 효과] */
+        /* 호버 효과 */
         .live-view-btn, .cta-button, .partner-logo, .theme-toggle-btn, .scroll-top-btn,
         .info-card, .member-card, .product-card:not(.disabled-card), 
         .contact-card, .review-card {
@@ -68,32 +68,32 @@
             -webkit-user-select: none; user-select: none;
         }
 
-        /* --- 네비게이션 --- */
+        /* 네비게이션 */
         .navbar { position: fixed; top: 0; width: 100%; background-color: var(--nav-bg); backdrop-filter: blur(20px); z-index: 1000; border-bottom: 1px solid var(--card-border); }
         .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; height: 90px; padding: 0 15px; }
         .logo-area { display: flex; align-items: center; text-decoration: none; color: var(--text-main); cursor: pointer; flex-shrink: 0; }
         .logo-img { height: 50px; margin-right: 10px; }
         .logo-text { font-weight: 800; font-size: 24px; letter-spacing: -1px; }
         .nav-menu { display: flex; align-items: center; }
-        .nav-menu a { font-size: 15px; color: var(--text-main); text-decoration: none; margin-left: 20px; opacity: 0.8; transition: opacity 0.2s; cursor: pointer; font-weight: 600; white-space: nowrap; }
+        .nav-menu a { font-size: 15px; color: var(--text-main); text-decoration: none; margin-left: 20px; opacity: 0.8; cursor: pointer; font-weight: 600; white-space: nowrap; }
 
-        /* --- 섹션 헤더 --- */
+        /* 섹션 헤더 */
         .section-header { padding: 100px 24px 60px; text-align: center; background-color: var(--header-bg); color: var(--header-text); }
         .section-header h2 { font-size: 42px; font-weight: 700; margin: 0 0 15px 0; letter-spacing: -1px; }
         .section-header p { font-size: 18px; opacity: 0.8; margin: 0; }
 
-        /* [페이지 전환] */
+        /* 페이지 전환 */
         .page { display: none; padding-top: 90px; }
         .page.active { display: block; animation: simpleFadeIn 0.5s ease-out forwards; }
         @keyframes simpleFadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+        /* 반응형 */
         @media (max-width: 768px) {
             .nav-container { height: 60px; padding: 0 10px; }
             .logo-img { height: 28px; margin-right: 5px; }
             .logo-text { font-size: 15px; letter-spacing: -0.5px; }
             .nav-menu a { margin-left: 8px; font-size: 12px; }
             .hero { padding: 80px 20px; }
-            .typing-container { margin-top: 20px; }
             .flex-container, .buy-container { flex-direction: column; }
             .executive-grid, .product-grid, .info-grid, .app-container, .contact-grid, .review-grid { grid-template-columns: 1fr; flex-direction: column; }
             .section-header { padding: 50px 20px 30px; }
@@ -104,26 +104,20 @@
             .buy-form input, .inquiry-form input, .inquiry-form textarea { padding: 10px !important; margin-bottom: 8px !important; font-size: 14px; }
             .modal-body { grid-template-columns: 1fr !important; }
             .modal-image { min-height: 240px !important; }
-            .modal-right { min-height: unset !important; }
         }
 
-        /* --- [HERO] --- */
+        /* 메인 섹션들 */
         .hero { padding: 160px 24px; text-align: center; background: var(--hero-bg); position: relative; overflow: hidden; }
         .typing-container { font-size: clamp(36px, 6vw, 68px); font-weight: 800; margin-bottom: 24px; letter-spacing: -2px; min-height: 1.2em; }
         .typing-text::after { content: '|'; animation: blink 0.7s infinite; }
         @keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; } }
-        .hero p { font-size: clamp(18px, 3vw, 24px); color: var(--text-sub); max-width: 800px; margin: 0 auto 50px; }
 
-        /* --- [POLL] --- */
         .poll-section { padding: 100px 24px; background-color: var(--bg-light); text-align: center; }
         .poll-container { max-width: 700px; margin: 0 auto; background: var(--card-bg); padding: 50px 40px; border-radius: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); border: 1px solid var(--card-border); }
-        .stat-title { font-size: 24px; font-weight: 700; margin-bottom: 10px; color: var(--text-main); }
-        .stat-desc { font-size: 16px; color: var(--text-sub); margin-bottom: 40px; }
+        .stat-number { font-size: 64px; font-weight: 800; color: var(--primary-color); display: block; line-height: 1; margin-bottom: 10px; }
         .bar-bg { height: 24px; background: var(--bg-light); border-radius: 12px; margin: 20px 0; overflow: hidden; position: relative; }
         .bar-fill { height: 100%; background: var(--primary-color); border-radius: 12px; width: 0; transition: width 2.5s cubic-bezier(0.22, 1, 0.36, 1); }
-        .stat-number { font-size: 64px; font-weight: 800; color: var(--primary-color); display: block; line-height: 1; margin-bottom: 10px; }
 
-        /* --- [REVIEW SECTION] --- */
         .review-section { padding: 100px 24px; background-color: var(--bg-light); text-align: center; }
         .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
         .review-card { background: var(--card-bg); padding: 40px; border-radius: 30px; text-align: left; border: 1px solid var(--card-border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
@@ -131,108 +125,77 @@
         .reviewer-avatar { width: 40px; height: 40px; background: var(--bg-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--text-sub); border: 1px solid var(--card-border); flex-shrink: 0; }
         .review-content { flex-grow: 1; }
         .reviewer-info-box { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
-        .review-title-group { margin-bottom: 60px; }
-        .review-subtitle { color: var(--text-sub); font-size: 18px; margin-top: 15px; font-weight: 500; }
 
-        /* --- [APP PREVIEW] --- */
         .app-section { padding: 100px 24px; background: var(--bg-light); overflow: hidden; }
         .app-container { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 50px; }
         .app-text { flex: 1; text-align: left; }
-        .app-image { flex: 1; display: flex; justify-content: center; }
         .phone-mockup { width: 280px; height: 560px; background: #000; border-radius: 40px; border: 12px solid #1d1d1f; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2); overflow: hidden; background: #fff; }
         .notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 25px; background: #1d1d1f; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; z-index: 10; }
         .phone-screen { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; }
         #notification-list { width: 100%; padding: 0 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px; flex-grow: 1; justify-content: center; }
         .notification-item { background: #f5f5f7; padding: 15px; border-radius: 16px; display: flex; align-items: center; opacity: 1; }
         .live-view-btn { background: var(--primary-color); color: white; padding: 10px 20px; border-radius: 20px; display: inline-block; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .live-view-btn:hover { filter: brightness(1.1); transform: scale(1.05) translateY(-2px); box-shadow: 0 8px 15px rgba(0,0,0,0.2); }
 
-        /* --- [TEAM] --- */
         .team-container { max-width: 1100px; margin: 80px auto; padding: 0 24px; }
         .ceo-card { background: var(--card-bg); padding: 60px 24px; border-radius: 40px; text-align: center; border: 1px solid var(--card-border); margin-bottom: 60px; }
         .profile-initial { width: 160px; height: 160px; background: var(--bg-light); border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; font-size: 64px; font-weight: 800; color: var(--text-sub); }
         .executive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .member-card { background: var(--card-bg); border: 1px solid var(--card-border); padding: 40px; border-radius: 30px; text-align: center; }
-        .member-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .member-initial { width: 100px; height: 100px; background: var(--bg-light); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 700; color: var(--text-sub); }
 
-        /* --- [PRODUCT] --- */
         .product-grid { max-width: 1100px; margin: 80px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; padding: 0 24px; }
         .product-card { background: var(--card-bg); border-radius: 30px; padding: 50px; border: 1px solid var(--card-border); display: flex; flex-direction: column; cursor: pointer; }
         .product-card:not(.disabled-card):hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
         .disabled-card { opacity: 0.7; cursor: default; }
-        .disabled-card:hover { transform: none; box-shadow: none; }
         .product-img-box { width: 100%; height: 320px; background: var(--bg-light); border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
 
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-1px); } 40% { transform: translateX(1px); } 60% { transform: translateX(-1px); } 80% { transform: translateX(1px); } }
-        .shake-animation { animation: shake 0.3s ease-in-out; }
-
-        /* --- [BUY & RECEIPT] --- */
         .buy-container { max-width: 1100px; margin: 60px auto; display: flex; flex-wrap: wrap; gap: 50px; padding: 0 24px; }
         .buy-form { background: var(--card-bg); padding: 40px; border-radius: 24px; border: 1px solid var(--card-border); flex: 1; min-width: 320px; }
         .buy-form input { width: 100%; padding: 14px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
         .pay-method-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
         .pay-btn { padding: 18px; border-radius: 12px; border: 1px solid #d2d2d7; background: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; color: #1d1d1f; }
-        .pay-btn img { height: 20px; margin-right: 8px; }
         .pay-btn:hover { filter: brightness(0.85); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .receipt-card { max-width: 500px; margin: 60px auto; background: var(--card-bg); padding: 40px; border-radius: 24px; border: 1px solid var(--card-border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .receipt-line { display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed #eee; padding-bottom: 4px; }
         .cta-button { display: inline-block; background-color: var(--primary-color); color: white; padding: 18px 40px; border-radius: 35px; text-decoration: none; font-weight: 700; font-size: 18px; cursor: pointer; text-align: center; border: none; }
-        .cta-button:hover { filter: brightness(1.1); transform: scale(1.03); }
 
-        /* --- [CONTACT PAGE STYLES] --- */
+        /* 문의 페이지 스타일 */
         .contact-container { max-width: 1100px; margin: 0 auto; padding: 0 24px 100px; }
         .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 60px; }
         .contact-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 30px; padding: 40px; text-align: center; display: flex; flex-direction: column; justify-content: center; }
         .contact-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
         .contact-icon { height: 48px; width: auto; margin: 0 auto 20px; display: block; transition: all 0.5s ease; }
         body.dark-mode .contact-icon { filter: invert(1); }
-        
         .inquiry-form input, .inquiry-form textarea { width: 100%; padding: 16px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 12px; box-sizing: border-box; background: var(--white); color: var(--text-main); font-size: 16px; font-family: inherit; }
-        .inquiry-form textarea { resize: vertical; }
         body.dark-mode .inquiry-form input, body.dark-mode .inquiry-form textarea { border-color: var(--card-border); }
 
-        .inquiry-title { font-size: 24px; font-weight: 700; margin: 0 0 30px; text-align: center; color: var(--text-main); }
-
-        /* --- [FAQ SECTION] --- */
+        /* FAQ 스타일 */
         .faq-container { margin: 0 auto 0; padding: 0 20px; border-radius: 30px; }
         .faq-item { border-bottom: 1px solid var(--card-border); }
         .faq-q { width: 100%; padding: 20px 0; background: transparent; border: none; text-align: left; cursor: pointer; font-weight: 600; font-size: 17px; color: var(--text-main); display: flex; justify-content: space-between; align-items: center; }
-        .faq-icon { font-size: 20px; font-weight: 400; color: var(--text-sub); transition: transform 0.25s ease, opacity 0.25s ease; }
+        .faq-icon { font-size: 20px; font-weight: 400; color: var(--text-sub); transition: transform 0.25s ease; }
         .faq-icon::before { content:"+"; }
         .faq-item.open .faq-icon { transform: rotate(180deg); opacity: 0.9; }
         .faq-item.open .faq-icon::before { content:"-"; }
         .faq-a { height: 0; overflow: hidden; transition: height 0.32s cubic-bezier(0.22, 1, 0.36, 1); }
         .faq-a-inner { padding: 0 0 20px; color: var(--text-sub); font-size: 15px; line-height: 1.6; }
 
-        /* --- [PARTNER SECTION] --- */
+        /* 파트너 & 푸터 & 버튼 */
         .partner-section { padding: 80px 24px; background-color: var(--card-bg); text-align: center; border-top: 1px solid var(--card-border); }
         .partner-title { font-size: 14px; font-weight: 600; color: var(--text-sub); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 40px; }
-        .logo-grid { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px 20px; max-width: 1000px; margin: 0 auto; padding-left: 50px; }
-        .partner-logo { height: 30px; width: auto; opacity: 0.4; filter: grayscale(100%); cursor: pointer; }
+        .logo-grid { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px 20px; }
+        .partner-logo { height: 30px; opacity: 0.4; filter: grayscale(100%); cursor: pointer; }
         body.dark-mode .partner-logo:not(.gjmst-logo) { filter: brightness(0) invert(0.8); opacity: 0.8; }
         body.dark-mode .partner-logo:not(.gjmst-logo):hover { filter: brightness(0) invert(1); opacity: 1; transform: scale(1.1); }
-        body.dark-mode .gjmst-logo { filter: grayscale(100%) opacity(0.8); }
-        body.dark-mode .gjmst-logo:hover { filter: grayscale(0%) brightness(0.9); opacity: 1; transform: scale(1.1); }
-        body:not(.dark-mode) .partner-logo:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
-        .partner-logo.main-logo { height: 50px; opacity: 0.8; }
-        .logo-grid img:nth-child(3) { margin-right: -10px; }
-
-        /* --- [FOOTER & BUTTONS] --- */
-        .footer { background-color: var(--bg-light); padding: 80px 24px; border-top: 1px solid var(--card-border); }
-        .footer-content { max-width: 1100px; margin: 0 auto; color: var(--text-sub); font-size: 13px; }
-        .allow-select, .allow-select * { -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important; }
-
         .theme-toggle-btn, .scroll-top-btn { position: fixed; right: 30px; width: 50px; height: 50px; border-radius: 50%; background-color: var(--btn-bg); border: 1px solid rgba(128,128,128,0.2); box-shadow: 0 4px 15px rgba(0,0,0,0.1); cursor: pointer; z-index: 9999; display: flex; align-items: center; justify-content: center; }
         .theme-toggle-btn { bottom: 30px; }
-        .theme-toggle-btn:hover { transform: scale(1.1); }
         .scroll-top-btn { bottom: 90px; opacity: 0; pointer-events: none; transform: translateY(20px); transition: opacity 1.2s ease, transform 1.2s ease, background-color 0.3s ease; }
         .scroll-top-btn.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
-        .scroll-top-btn:hover { transform: scale(1.1); }
-        .theme-toggle-btn img, .scroll-top-btn img { width: 24px; height: 24px; transition: all var(--theme-speed); filter: invert(1); }
+        .theme-toggle-btn img, .scroll-top-btn img { width: 24px; height: 24px; filter: invert(1); }
         body.dark-mode .theme-toggle-btn img, body.dark-mode .scroll-top-btn img { filter: invert(0); }
+        .footer { background-color: var(--bg-light); padding: 80px 24px; border-top: 1px solid var(--card-border); }
+        .footer-content { max-width: 1100px; margin: 0 auto; color: var(--text-sub); font-size: 13px; }
 
-        /* --- [MODAL] --- */
+        /* 모달 공통 */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center; z-index: 20000; padding: 20px; transition: opacity 0.3s ease; }
         .modal-overlay.show { display: flex; animation: simpleFadeIn 0.25s ease-out forwards; }
         .modal-overlay.hide { animation: simpleFadeOut 0.3s forwards; } 
@@ -242,24 +205,17 @@
         @keyframes modalHide { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(14px) scale(0.99); } }
         @keyframes simpleFadeOut { from { opacity: 1; } to { opacity: 0; } }
 
-        /* 커스텀 확인창/로딩 스타일 */
+        /* 로딩 & 확인창 */
         .loading-spinner { width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: var(--primary-color); animation: spin 1s ease-in-out infinite; margin: 0 auto; }
         @keyframes spin { to { transform: rotate(360deg); } }
-
         .modal-header { display: flex; align-items: flex-start; justify-content: space-between; padding: 22px 26px 0; gap: 16px; }
-        .modal-title-wrap { display: flex; flex-direction: column; gap: 8px; }
-        .modal-badge { display: inline-block; padding: 0; border: none; background: transparent; font-size: 14px; font-weight: 900; letter-spacing: 0.4px; color: var(--primary-color); margin: 0; }
-        .modal-title { font-size: 30px; font-weight: 900; letter-spacing: -0.6px; margin: 0; color: var(--text-main); line-height: 1.15; }
-        .modal-close { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--card-border); background: var(--bg-light); color: var(--text-main); cursor: pointer; font-size: 20px; font-weight: 900; flex-shrink: 0; }
-        .modal-close:hover { transform: scale(1.05); }
+        .modal-close { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--card-border); background: var(--bg-light); color: var(--text-main); cursor: pointer; font-size: 20px; font-weight: 900; }
         .modal-body { display: grid; grid-template-columns: 1.35fr 1fr; gap: 26px; padding: 26px; }
         .modal-image { width: 100%; min-height: 460px; background: var(--bg-light); border-radius: 22px; display: flex; align-items: center; justify-content: center; color: #bbb; font-weight: 800; }
-        .modal-right { display: flex; flex-direction: column; min-height: 460px; }
-        .modal-desc { color: var(--text-sub); font-size: 16px; line-height: 1.8; margin: 0 0 18px; white-space: pre-line; }
         .modal-actions { display: flex; gap: 14px; margin-top: auto; justify-content: flex-end; padding-top: 16px; width: 100%; }
         .modal-actions .cta-button { width: 100%; min-width: 0; }
 
-        /* [이스터에그 스타일] */
+        /* 이스터에그 스타일 */
         #lee-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.9); z-index: 999999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease; backdrop-filter: blur(10px); }
         .rainbow-text { font-size: 15vw; font-weight: 900; color: #fff; margin: 0; line-height: 1; white-space: nowrap; animation: rainbow-glow 0.5s linear infinite; }
         @keyframes rainbow-glow { 0%{text-shadow:0 0 20px #ff0000} 15%{text-shadow:0 0 20px #ff7f00} 30%{text-shadow:0 0 20px #ffff00} 45%{text-shadow:0 0 20px #00ff00} 60%{text-shadow:0 0 20px #0000ff} 75%{text-shadow:0 0 20px #4b0082} 100%{text-shadow:0 0 20px #8b00ff} }
@@ -269,6 +225,9 @@
         body.dark-mode #test-overlay img { filter: invert(1) brightness(1.2) drop-shadow(0 10px 20px rgba(255,255,255,0.2)); }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
         @keyframes fadeOut { to { opacity: 0; } }
+
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-1px); } 40% { transform: translateX(1px); } 60% { transform: translateX(-1px); } 80% { transform: translateX(1px); } }
+        .shake-animation { animation: shake 0.3s ease-in-out; }
     </style>
 </head>
 <body>
@@ -477,21 +436,11 @@
         <div style="max-width: 500px; margin: 60px auto; padding: 0 20px; text-align: center;">
             <h2 style="font-size: 32px;">결제 수단을 선택하세요.</h2>
             <div class="pay-method-grid">
-                <button class="pay-btn naver-pay" style="background: #000000; border-color: #000000; color: #00d25a;" onclick="completeOrder('네이버페이')">
-                    <img src="images/npay.jpg" alt="네이버페이"> 네이버페이
-                </button>
-                <button class="pay-btn" style="background: #ffe000; border-color: #ffe000;" onclick="completeOrder('카카오페이')">
-                    <img src="images/kpay.svg" alt="카카오페이"> 카카오페이
-                </button>
-                <button class="pay-btn" style="border-color: #d2d2d7;" onclick="completeOrder('토스페이')">
-                    <img src="images/toss.png" alt="토스페이" onerror="this.style.display='none'"> 토스페이
-                </button>
-                <button class="pay-btn" onclick="completeOrder('신용/체크카드')">
-                    <img src="images/card.svg" alt="Card" style="height: 20px; margin-right: 8px;"> 신용/체크카드
-                </button>
-                <button class="pay-btn" onclick="completeOrder('무통장입금')">
-                    <img src="images/bank.svg" alt="Bank" style="height: 20px; margin-right: 8px;"> 무통장 입금
-                </button>
+                <button class="pay-btn naver-pay" style="background: #000000; border-color: #000000; color: #00d25a;" onclick="completeOrder('네이버페이')"><img src="images/npay.jpg" alt="네이버페이"> 네이버페이</button>
+                <button class="pay-btn" style="background: #ffe000; border-color: #ffe000;" onclick="completeOrder('카카오페이')"><img src="images/kpay.svg" alt="카카오페이"> 카카오페이</button>
+                <button class="pay-btn" style="border-color: #d2d2d7;" onclick="completeOrder('토스페이')"><img src="images/toss.png" alt="토스페이" onerror="this.style.display='none'"> 토스페이</button>
+                <button class="pay-btn" onclick="completeOrder('신용/체크카드')"><img src="images/card.svg" alt="Card" style="height: 20px; margin-right: 8px;"> 신용/체크카드</button>
+                <button class="pay-btn" onclick="completeOrder('무통장입금')"><img src="images/bank.svg" alt="Bank" style="height: 20px; margin-right: 8px;"> 무통장 입금</button>
             </div>
             <button class="cta-button" style="width:auto; background:none; border:none; color:var(--text-sub); text-decoration:underline; font-size:16px; margin-top:20px;" onclick="showPage('buy')">배송 정보 수정하기</button>
             <button class="cta-button" style="width:auto; background:none; border:none; color:var(--text-sub); text-decoration:underline; font-size:16px; margin-top:10px;" onclick="cancelOrder(true)">결제 취소</button>
@@ -542,37 +491,16 @@
             <div class="faq-container" style="margin-bottom: 60px;">
                 <h3 style="font-size:24px; font-weight:700; margin:0 0 30px; text-align:center;">Frequently Asked Questions</h3>
                 <div class="faq-item">
-                    <button class="faq-q" type="button">
-                        배송 기간은 얼마나 걸리나요?
-                        <span class="faq-icon"></span>
-                    </button>
-                    <div class="faq-a">
-                        <div class="faq-a-inner">
-                            평일 기준 주문 후 2~3일 내에 발송되며, 지역에 따라 1~2일 추가 소요될 수 있습니다.
-                        </div>
-                    </div>
+                    <button class="faq-q" type="button">배송 기간은 얼마나 걸리나요?<span class="faq-icon"></span></button>
+                    <div class="faq-a"><div class="faq-a-inner">평일 기준 주문 후 2~3일 내에 발송되며, 지역에 따라 1~2일 추가 소요될 수 있습니다.</div></div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-q" type="button">
-                        설치는 어렵지 않나요?
-                        <span class="faq-icon"></span>
-                    </button>
-                    <div class="faq-a">
-                        <div class="faq-a-inner">
-                            남녀노소 누구나 1분 안에 설치할 수 있도록 설계되었습니다. 동봉된 부착 가이드를 참고해주세요.
-                        </div>
-                    </div>
+                    <button class="faq-q" type="button">설치는 어렵지 않나요?<span class="faq-icon"></span></button>
+                    <div class="faq-a"><div class="faq-a-inner">남녀노소 누구나 1분 안에 설치할 수 있도록 설계되었습니다. 동봉된 부착 가이드를 참고해주세요.</div></div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-q" type="button">
-                        AS 기간은 어떻게 되나요?
-                        <span class="faq-icon"></span>
-                    </button>
-                    <div class="faq-a">
-                        <div class="faq-a-inner">
-                            제품 구매일로부터 2년간 무상 AS를 보증합니다. (단, 고객 과실 제외)
-                        </div>
-                    </div>
+                    <button class="faq-q" type="button">AS 기간은 어떻게 되나요?<span class="faq-icon"></span></button>
+                    <div class="faq-a"><div class="faq-a-inner">제품 구매일로부터 2년간 무상 AS를 보증합니다. (단, 고객 과실 제외)</div></div>
                 </div>
             </div>
 
@@ -605,18 +533,12 @@
     <div id="productModal" class="modal-overlay" onclick="closeProductModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-header">
-                <div class="modal-title-wrap">
-                    <div id="pm_badge" class="modal-badge">Edition</div>
-                    <h3 id="pm_title" class="modal-title">제품 상세</h3>
-                </div>
+                <div class="modal-title-wrap"><div id="pm_badge" class="modal-badge">Edition</div><h3 id="pm_title" class="modal-title">제품 상세</h3></div>
                 <button class="modal-close" aria-label="Close" onclick="closeProductModal()">×</button>
             </div>
             <div class="modal-body">
                 <div id="pm_image" class="modal-image">[ 이미지 ]</div>
-                <div class="modal-right">
-                    <p id="pm_desc" class="modal-desc"></p>
-                    <div class="modal-actions" id="pm_actions"></div>
-                </div>
+                <div class="modal-right"><p id="pm_desc" class="modal-desc"></p><div class="modal-actions" id="pm_actions"></div></div>
             </div>
         </div>
     </div>
@@ -668,13 +590,8 @@
             const numElement = document.getElementById('display-percent');
             if(numElement) {
                 const interval = setInterval(() => {
-                    if (currentNum >= percentage) {
-                        clearInterval(interval);
-                        numElement.innerText = percentage + "%";
-                    } else {
-                        currentNum++;
-                        numElement.innerText = currentNum + "%";
-                    }
+                    if (currentNum >= percentage) { clearInterval(interval); numElement.innerText = percentage + "%"; } 
+                    else { currentNum++; numElement.innerText = currentNum + "%"; }
                 }, 40);
             }
             setTimeout(() => {
@@ -698,37 +615,25 @@
             showPage('payment');
         }
 
-        // 시스템 모달 호출 함수
+        // 시스템 모달
         function showSystemConfirm(message, onYes) {
             const modal = document.getElementById('systemModal');
             const msgEl = document.getElementById('sys_msg');
             const btnYes = document.getElementById('sys_btn_yes');
             const btnNo = document.getElementById('sys_btn_no');
-
             msgEl.innerText = message;
-
             const newBtnYes = btnYes.cloneNode(true);
             const newBtnNo = btnNo.cloneNode(true);
             btnYes.parentNode.replaceChild(newBtnYes, btnYes);
             btnNo.parentNode.replaceChild(newBtnNo, btnNo);
-
-            newBtnYes.onclick = () => {
-                closeSystemModal();
-                if (onYes) onYes();
-            };
+            newBtnYes.onclick = () => { closeSystemModal(); if (onYes) onYes(); };
             newBtnNo.onclick = closeSystemModal;
-
-            modal.classList.remove('hide');
-            modal.classList.add('show');
+            modal.classList.remove('hide'); modal.classList.add('show');
         }
-
         function closeSystemModal() {
             const modal = document.getElementById('systemModal');
             modal.classList.add('hide');
-            setTimeout(() => {
-                modal.classList.remove('show');
-                modal.classList.remove('hide');
-            }, 300);
+            setTimeout(() => { modal.classList.remove('show'); modal.classList.remove('hide'); }, 300);
         }
 
         function showLoading(callback) {
@@ -748,14 +653,10 @@
                     document.getElementById('rec_name').innerText = orderInfo.name || "";
                     document.getElementById('rec_addr').innerText = orderInfo.addr || "";
                     document.getElementById('rec_method').innerText = method;
-                    
-                    const nameEl = document.getElementById('buyer_name');
-                    const telEl = document.getElementById('buyer_tel');
-                    const addrEl = document.getElementById('buyer_addr');
-                    if(nameEl) nameEl.value = "";
-                    if(telEl) telEl.value = "";
-                    if(addrEl) addrEl.value = "";
-                    
+                    // 결제 후 입력 폼 초기화
+                    document.getElementById('buyer_name').value = "";
+                    document.getElementById('buyer_tel').value = "";
+                    document.getElementById('buyer_addr').value = "";
                     showPage('receipt');
                 });
             });
@@ -765,35 +666,28 @@
             const msg = fromPayment ? "결제를 취소하고 상품 페이지로 돌아갈까요?" : "주문을 취소하고 상품 페이지로 돌아갈까요?";
             showSystemConfirm(msg, () => {
                 orderInfo = {};
-                const nameEl = document.getElementById('buyer_name');
-                const telEl = document.getElementById('buyer_tel');
-                const addrEl = document.getElementById('buyer_addr');
-                if(nameEl) nameEl.value = "";
-                if(telEl) telEl.value = "";
-                if(addrEl) addrEl.value = "";
+                document.getElementById('buyer_name').value = "";
+                document.getElementById('buyer_tel').value = "";
+                document.getElementById('buyer_addr').value = "";
                 showPage('product');
             });
         }
         
-        // 문의 모달 관련 로직
+        // 문의 모달 & 이스터에그 로직
         function openInquiryModal() {
             const modal = document.getElementById('inquiryModal');
-            modal.classList.remove('hide');
-            modal.classList.add('show');
+            modal.classList.remove('hide'); modal.classList.add('show');
         }
         function closeInquiryModal() {
             const modal = document.getElementById('inquiryModal');
             modal.classList.add('hide');
-            setTimeout(() => {
-                modal.classList.remove('show');
-                modal.classList.remove('hide');
-            }, 300);
+            setTimeout(() => { modal.classList.remove('show'); modal.classList.remove('hide'); }, 300);
         }
         function submitInquiry(e) {
             e.preventDefault();
             closeInquiryModal();
             showSystemConfirm("문의를 전송하시겠습니까?", () => {
-                e.target.reset(); // 폼 초기화
+                e.target.reset(); // 문의 내용 초기화
             });
         }
 
@@ -810,36 +704,10 @@
             setTimeout(type, typeSpeed);
         }
 
-        /* [알림] 정적 3개 고정 렌더 */
         function updateNotifications() {
             const list = document.getElementById('notification-list');
             if(!list) return;
-
-            list.innerHTML = `
-                <div class="notification-item">
-                    <div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">📸</div>
-                    <div style="text-align:left;">
-                        <div style="font-size:14px; font-weight:bold; color:#333;">동작 감지됨</div>
-                        <div style="font-size:12px; color:#888;">오늘 오전 10:12</div>
-                    </div>
-                </div>
-
-                <div class="notification-item">
-                    <div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">🔔</div>
-                    <div style="text-align:left;">
-                        <div style="font-size:14px; font-weight:bold; color:#333;">새 기록 저장됨</div>
-                        <div style="font-size:12px; color:#888;">오늘 오전 09:58</div>
-                    </div>
-                </div>
-
-                <div class="notification-item">
-                    <div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">✅</div>
-                    <div style="text-align:left;">
-                        <div style="font-size:14px; font-weight:bold; color:#333;">장치 연결됨</div>
-                        <div style="font-size:12px; color:#888;">오늘 오전 09:40</div>
-                    </div>
-                </div>
-            `;
+            // 정적 알림이라 JS로 추가 안함
         }
 
         const themeBtn = document.getElementById('themeToggle');
@@ -852,8 +720,7 @@
 
         const scrollTopBtn = document.getElementById('scrollTopBtn');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) scrollTopBtn.classList.add('show');
-            else scrollTopBtn.classList.remove('show');
+            if (window.scrollY > 300) scrollTopBtn.classList.add('show'); else scrollTopBtn.classList.remove('show');
         });
 
         function shakeButton(btn) {
@@ -885,8 +752,7 @@
                 actions.appendChild(btn);
             });
             const modal = document.getElementById('productModal');
-            modal.classList.remove('hide');
-            modal.classList.add('show');
+            modal.classList.remove('hide'); modal.classList.add('show');
             document.body.style.overflow = 'hidden';
         }
 
@@ -907,7 +773,29 @@
                 const a = item.querySelector('.faq-a');
                 a.style.height = '0px';
 
-          현'];
+                q.addEventListener('click', () => {
+                    const isOpen = item.classList.contains('open');
+                    if (isOpen) {
+                        a.style.height = a.scrollHeight + 'px';
+                        requestAnimationFrame(() => { a.style.height = '0px'; });
+                        item.classList.remove('open');
+                        return;
+                    }
+                    item.classList.add('open');
+                    a.style.height = a.scrollHeight + 'px';
+                });
+            });
+            window.addEventListener('resize', () => {
+                document.querySelectorAll('.faq-item.open .faq-a').forEach(a => { a.style.height = a.scrollHeight + 'px'; });
+            });
+        }
+
+        // 이스터에그 스크립트
+        let leeInputSequence = '';
+        let testInputSequence = '';
+        const triggerEnglish = 'dlrlwns'; 
+        const triggerKorean = '이기준';   
+        const testTriggers = ['shangus', '노무현'];
 
         window.addEventListener('keyup', (e) => {
             // 홈 화면에서만 작동
@@ -954,7 +842,6 @@
 
         window.onload = function() {
             type();
-            updateNotifications();
             initFaqAccordion();
         };
     </script>
