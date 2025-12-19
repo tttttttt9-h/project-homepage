@@ -46,7 +46,7 @@
                         filter var(--theme-speed) ease;
         }
 
-        /* [호버 효과 별도 속도] */
+        /* [호버 효과] */
         .live-view-btn, .cta-button, .partner-logo, .theme-toggle-btn, .scroll-top-btn,
         .info-card, .member-card, .product-card:not(.disabled-card), 
         .contact-card, .review-card {
@@ -77,7 +77,7 @@
         .nav-menu { display: flex; align-items: center; }
         .nav-menu a { font-size: 15px; color: var(--text-main); text-decoration: none; margin-left: 20px; opacity: 0.8; transition: opacity 0.2s; cursor: pointer; font-weight: 600; white-space: nowrap; }
 
-        /* --- 공통 섹션 헤더 --- */
+        /* --- 섹션 헤더 --- */
         .section-header { padding: 100px 24px 60px; text-align: center; background-color: var(--header-bg); color: var(--header-text); }
         .section-header h2 { font-size: 42px; font-weight: 700; margin: 0 0 15px 0; letter-spacing: -1px; }
         .section-header p { font-size: 18px; opacity: 0.8; margin: 0; }
@@ -134,7 +134,7 @@
         .review-title-group { margin-bottom: 60px; }
         .review-subtitle { color: var(--text-sub); font-size: 18px; margin-top: 15px; font-weight: 500; }
 
-        /* --- [APP PREVIEW & NOTIFICATIONS] --- */
+        /* --- [APP PREVIEW] --- */
         .app-section { padding: 100px 24px; background: var(--bg-light); overflow: hidden; }
         .app-container { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 50px; }
         .app-text { flex: 1; text-align: left; }
@@ -192,14 +192,7 @@
         .inquiry-form textarea { resize: vertical; }
         body.dark-mode .inquiry-form input, body.dark-mode .inquiry-form textarea { border-color: var(--card-border); }
 
-        /* [수정됨] 문의 제목 (FAQ 스타일과 동일하게) */
-        .inquiry-title { 
-            font-size: 24px; 
-            font-weight: 700; 
-            margin: 0 0 30px; 
-            text-align: center; 
-            color: var(--text-main); 
-        }
+        .inquiry-title { font-size: 24px; font-weight: 700; margin: 0 0 30px; text-align: center; color: var(--text-main); }
 
         /* --- [FAQ SECTION] --- */
         .faq-container { margin: 0 auto 0; padding: 0 20px; border-radius: 30px; }
@@ -265,6 +258,17 @@
         .modal-desc { color: var(--text-sub); font-size: 16px; line-height: 1.8; margin: 0 0 18px; white-space: pre-line; }
         .modal-actions { display: flex; gap: 14px; margin-top: auto; justify-content: flex-end; padding-top: 16px; width: 100%; }
         .modal-actions .cta-button { width: 100%; min-width: 0; }
+
+        /* [이스터에그 스타일] */
+        #lee-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.9); z-index: 999999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease; backdrop-filter: blur(10px); }
+        .rainbow-text { font-size: 15vw; font-weight: 900; color: #fff; margin: 0; line-height: 1; white-space: nowrap; animation: rainbow-glow 0.5s linear infinite; }
+        @keyframes rainbow-glow { 0%{text-shadow:0 0 20px #ff0000} 15%{text-shadow:0 0 20px #ff7f00} 30%{text-shadow:0 0 20px #ffff00} 45%{text-shadow:0 0 20px #00ff00} 60%{text-shadow:0 0 20px #0000ff} 75%{text-shadow:0 0 20px #4b0082} 100%{text-shadow:0 0 20px #8b00ff} }
+        
+        #test-overlay { position: fixed; inset: 0; z-index: 999999; display: flex; align-items: center; justify-content: center; pointer-events: none; animation: fadeIn 0.3s ease-out, fadeOut 0.5s ease-in 2.5s forwards; }
+        #test-overlay img { max-width: 80vw; max-height: 80vh; object-fit: contain; transition: filter var(--theme-speed) ease; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2)); }
+        body.dark-mode #test-overlay img { filter: invert(1) brightness(1.2) drop-shadow(0 10px 20px rgba(255,255,255,0.2)); }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeOut { to { opacity: 0; } }
     </style>
 </head>
 <body>
@@ -313,7 +317,7 @@
             <div class="review-title-group">
                 <p style="color: var(--primary-color); font-weight: 700; font-size: 14px; letter-spacing: 1px; margin-bottom: 10px;">REAL STORIES</p>
                 <h2 style="font-size: 42px; font-weight: 700; margin: 0; color: var(--text-main);">Proven In Action</h2>
-                <p class="review-subtitle"><b>공마고의 도둑들</b>의 제품은 결과로 증명합니다.</p>
+                <p class="review-subtitle">누적 판매량 15,000개 돌파, 사용자 만족도 4.9/5.0</p>
             </div>
             
             <div class="review-grid">
@@ -574,7 +578,7 @@
 
             <div style="text-align: center; margin-top: 60px;">
                 <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 20px;">Have questions?</h3>
-                <button class="cta-button" onclick="openInquiryModal()">문의 하기</button>
+                <button class="cta-button" onclick="openInquiryModal()">Send Message</button>
             </div>
         </div>
     </main>
@@ -771,7 +775,7 @@
             });
         }
         
-        // [추가] 문의 모달 관련 로직
+        // 문의 모달 관련 로직
         function openInquiryModal() {
             const modal = document.getElementById('inquiryModal');
             modal.classList.remove('hide');
@@ -895,37 +899,57 @@
 
         window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeProductModal(); });
 
-        /* [추가] FAQ 아코디언: 열/닫 매번 애니메이션 */
+        /* FAQ 아코디언 */
         function initFaqAccordion() {
             const items = document.querySelectorAll('.faq-item');
             items.forEach(item => {
                 const q = item.querySelector('.faq-q');
                 const a = item.querySelector('.faq-a');
-
                 a.style.height = '0px';
 
-                q.addEventListener('click', () => {
-                    const isOpen = item.classList.contains('open');
+          현'];
 
-                    if (isOpen) {
-                        a.style.height = a.scrollHeight + 'px';
-                        requestAnimationFrame(() => {
-                            a.style.height = '0px';
-                        });
-                        item.classList.remove('open');
-                        return;
-                    }
+        window.addEventListener('keyup', (e) => {
+            // 홈 화면에서만 작동
+            if (document.querySelector('.page.active').id !== 'home') return;
+            
+            // 이기준 모드
+            if (e.key !== 'Process') leeInputSequence += e.key;
+            if (leeInputSequence.length > 20) leeInputSequence = leeInputSequence.slice(-20);
+            if (leeInputSequence.includes(triggerEnglish) || leeInputSequence.includes(triggerKorean)) {
+                activateLeeMode();
+                leeInputSequence = '';
+            }
 
-                    item.classList.add('open');
-                    a.style.height = a.scrollHeight + 'px';
-                });
-            });
+            // TEST 모드
+            if (e.key !== 'Process' && e.key.length === 1) testInputSequence += e.key.toLowerCase();
+            if (testInputSequence.length > 20) testInputSequence = testInputSequence.slice(-20);
+            const isMatch = testTriggers.some(trigger => testInputSequence.endsWith(trigger));
+            if (isMatch) {
+                activateTestMode();
+                testInputSequence = '';
+            }
+        });
 
-            window.addEventListener('resize', () => {
-                document.querySelectorAll('.faq-item.open .faq-a').forEach(a => {
-                    a.style.height = a.scrollHeight + 'px';
-                });
-            });
+        function activateLeeMode() {
+            if (document.getElementById('lee-overlay')) return;
+            const overlay = document.createElement('div');
+            overlay.id = 'lee-overlay';
+            overlay.innerHTML = `<h1 class="rainbow-text">이기준</h1>`;
+            document.body.appendChild(overlay);
+            setTimeout(() => {
+                overlay.style.opacity = '0';
+                setTimeout(() => { overlay.remove(); }, 500);
+            }, 3000);
+        }
+
+        function activateTestMode() {
+            if (document.getElementById('test-overlay')) return;
+            const overlay = document.createElement('div');
+            overlay.id = 'test-overlay';
+            overlay.innerHTML = `<img src="images/test.png" alt="Test Image">`;
+            document.body.appendChild(overlay);
+            setTimeout(() => { overlay.remove(); }, 3000);
         }
 
         window.onload = function() {
@@ -935,155 +959,4 @@
         };
     </script>
 </body>
-    <script>
-        let leeInputSequence = '';
-        const triggerEnglish = 'dlrlwns'; // 영타
-        const triggerKorean = '이기준';   // 한타 (완성형)
-
-        window.addEventListener('keyup', (e) => {
-            // 입력된 키를 누적 (Process는 한글 조합 중 상태)
-            if (e.key !== 'Process') {
-                leeInputSequence += e.key;
-            }
-
-            // 문자열이 너무 길어지면 자름 (메모리 관리)
-            if (leeInputSequence.length > 20) {
-                leeInputSequence = leeInputSequence.slice(-20);
-            }
-
-            // 영타(dlrlwns) 또는 한타(이기준) 감지
-            if (leeInputSequence.includes(triggerEnglish) || leeInputSequence.includes(triggerKorean)) {
-                activateLeeMode();
-                leeInputSequence = ''; // 초기화
-            }
-        });
-
-        function activateLeeMode() {
-            // 중복 실행 방지
-            if (document.getElementById('lee-overlay')) return;
-
-            const overlay = document.createElement('div');
-            overlay.id = 'lee-overlay';
-            overlay.innerHTML = `<h1 class="rainbow-text">이기준</h1>`;
-            document.body.appendChild(overlay);
-
-            // 3초 후 제거
-            setTimeout(() => {
-                overlay.style.opacity = '0'; // 페이드 아웃
-                setTimeout(() => {
-                    overlay.remove();
-                }, 500);
-            }, 3000);
-        }
-    </script>
-
-    <style>
-        /* 이기준 이스터에그 스타일 */
-        #lee-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.9); /* 배경 어둡게 */
-            z-index: 999999; /* 최상단 */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.5s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .rainbow-text {
-            font-size: 15vw; /* 화면 꽉 차게 */
-            font-weight: 900;
-            color: #fff;
-            margin: 0;
-            line-height: 1;
-            white-space: nowrap;
-            /* 무지개 발광 애니메이션 */
-            animation: rainbow-glow 0.5s linear infinite;
-        }
-
-        @keyframes rainbow-glow {
-            0%   { text-shadow: 0 0 20px #ff0000, 0 0 50px #ff0000, 0 0 100px #ff0000; }
-            15%  { text-shadow: 0 0 20px #ff7f00, 0 0 50px #ff7f00, 0 0 100px #ff7f00; }
-            30%  { text-shadow: 0 0 20px #ffff00, 0 0 50px #ffff00, 0 0 100px #ffff00; }
-            45%  { text-shadow: 0 0 20px #00ff00, 0 0 50px #00ff00, 0 0 100px #00ff00; }
-            60%  { text-shadow: 0 0 20px #0000ff, 0 0 50px #0000ff, 0 0 100px #0000ff; }
-            75%  { text-shadow: 0 0 20px #4b0082, 0 0 50px #4b0082, 0 0 100px #4b0082; }
-            100% { text-shadow: 0 0 20px #8b00ff, 0 0 50px #8b00ff, 0 0 100px #8b00ff; }
-        }
-    </style>
-    <script>
-        let testInputSequence = '';
-        // 감지할 단어 목록 (영타 'test', 한타 'ㅅㄷㄴㅅ')
-        const testTriggers = ['shangus', 'shangus'];
-
-        window.addEventListener('keyup', (e) => {
-            // 한글 조합 중(Process)인 경우나 특수키는 무시하고, 실제 입력된 키만 누적
-            if (e.key === 'Process' || e.key.length > 1) return;
-
-            // 입력된 키를 소문자로 누적
-            testInputSequence += e.key.toLowerCase();
-
-            // 문자열이 너무 길어지면 자름 (메모리 관리)
-            if (testInputSequence.length > 20) {
-                testInputSequence = testInputSequence.slice(-20);
-            }
-
-            // 'test' 또는 'ㅅㄷㄴㅅ' 로 끝나는지 확인
-            const isMatch = testTriggers.some(trigger => testInputSequence.endsWith(trigger));
-
-            if (isMatch) {
-                activateTestMode();
-                testInputSequence = ''; // 초기화
-            }
-        });
-
-        function activateTestMode() {
-            // 이미 떠있으면 중복 실행 방지
-            if (document.getElementById('test-overlay')) return;
-
-            const overlay = document.createElement('div');
-            overlay.id = 'test-overlay';
-            // 이미지가 images 폴더 안에 있다고 가정합니다.
-            overlay.innerHTML = `<img src="images/test.png" alt="Test Image">`;
-            document.body.appendChild(overlay);
-
-            // 3초 후 제거 (CSS 애니메이션과 시간 맞춤)
-            setTimeout(() => {
-                overlay.remove();
-            }, 3000);
-        }
-    </script>
-
-    <style>
-        /* 테스트 이미지 오버레이 스타일 */
-        #test-overlay {
-            position: fixed;
-            inset: 0; /* top, right, bottom, left: 0 과 동일 */
-            z-index: 999999; /* 최상단 */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none; /* 클릭 통과 */
-            /* 등장 애니메이션 및 2.5초 후 페이드아웃 시작 */
-            animation: fadeIn 0.3s ease-out, fadeOut 0.5s ease-in 2.5s forwards;
-        }
-
-        #test-overlay img {
-            max-width: 80vw;  /* 화면 너비의 80%까지만 */
-            max-height: 80vh; /* 화면 높이의 80%까지만 */
-            object-fit: contain;
-            transition: filter var(--theme-speed) ease; /* 테마 변경 시 부드럽게 */
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2)); /* 약간의 그림자 */
-        }
-
-        /* [핵심] 다크 모드일 때 이미지 색상 반전 (검정 -> 흰색) */
-        body.dark-mode #test-overlay img {
-            filter: invert(1) brightness(1.2) drop-shadow(0 10px 20px rgba(255,255,255,0.2));
-        }
-
-        /* 애니메이션 정의 */
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-        @keyframes fadeOut { to { opacity: 0; } }
-    </style>
 </html>
