@@ -49,7 +49,7 @@
         /* [호버 효과 별도 속도] */
         .live-view-btn, .cta-button, .partner-logo, .theme-toggle-btn, .scroll-top-btn,
         .info-card, .member-card, .product-card:not(.disabled-card), 
-        .contact-card /* 문의 카드 추가 */ {
+        .contact-card {
             transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
                         box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
                         background-color 0.3s ease,
@@ -211,7 +211,14 @@
             padding: 40px; text-align: center; display: flex; flex-direction: column; justify-content: center;
         }
         .contact-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .contact-icon { font-size: 48px; margin-bottom: 20px; display: block; }
+        
+        /* [수정] 문의 아이콘 이미지 스타일 */
+        .contact-icon { 
+            height: 48px; width: auto; margin: 0 auto 20px; display: block; 
+            transition: all 0.5s ease;
+        }
+        /* 다크모드에서 아이콘 하얗게 반전 */
+        body.dark-mode .contact-icon { filter: invert(1); }
         
         .inquiry-box {
             background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 30px;
@@ -223,6 +230,12 @@
             font-size: 16px; font-family: inherit;
         }
         .inquiry-form textarea { resize: vertical; }
+
+        /* [수정] 다크모드 입력창 테두리 색상 부드럽게 변경 */
+        body.dark-mode .inquiry-form input, 
+        body.dark-mode .inquiry-form textarea {
+            border-color: var(--card-border); /* rgba(255,255,255,0.1) */
+        }
 
         /* --- [PARTNER SECTION] --- */
         .partner-section { padding: 80px 24px; background-color: var(--card-bg); text-align: center; border-top: 1px solid var(--card-border); }
@@ -447,29 +460,29 @@
 
     <main id="contact" class="page">
         <header class="section-header">
-            <h2>Start The Conversation</h2>
-            <p></p>
+            <h2>We're Here to Help</h2>
+            <p>궁금한 점이 있으신가요? 언제든 편하게 문의해주세요.</p>
         </header>
         
         <div class="contact-container">
             <div class="contact-grid">
                 <div class="contact-card">
-                    <span class="contact-icon">💼</span>
+                    <img src="images/business.svg" alt="Business" class="contact-icon">
                     <h3 style="font-size:20px; margin: 10px 0;">Business</h3>
                     <p style="color:var(--text-sub); font-size:15px; margin-bottom:10px;">제휴 및 사업 문의</p>
                     <p class="allow-select" style="font-weight:700;">business@gjmst-thives.com</p>
                 </div>
                 <div class="contact-card">
-                    <span class="contact-icon">🎧</span>
+                    <img src="images/support.svg" alt="Support" class="contact-icon">
                     <h3 style="font-size:20px; margin: 10px 0;">Support</h3>
                     <p style="color:var(--text-sub); font-size:15px; margin-bottom:10px;">고객 지원 센터</p>
                     <p class="allow-select" style="font-weight:700;">201-704-04</p>
                 </div>
                 <div class="contact-card">
-                    <span class="contact-icon">🏢</span>
+                    <img src="images/office.svg" alt="Office" class="contact-icon">
                     <h3 style="font-size:20px; margin: 10px 0;">Visit Us</h3>
-                    <p style="color:var(--text-sub); font-size:15px; margin-bottom:10px;">주소</p>
-                    <p class="allow-select" style="font-weight:700;">충청남도 공주시 유구읍 중앙1길 27-12 1학년 1반</p>
+                    <p style="color:var(--text-sub); font-size:15px; margin-bottom:10px;">충남 공주시 유구읍</p>
+                    <p class="allow-select" style="font-weight:700;">중앙1길 27-12 1학년 1반</p>
                 </div>
             </div>
 
