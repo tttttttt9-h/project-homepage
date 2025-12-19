@@ -37,7 +37,7 @@
         }
 
         /* [색상 전환 효과] */
-        body, nav, header, section, footer, div, p, h1, h2, h3, h4, span, a, button, img, input, textarea {
+        body, nav, header, section, footer, div, p, h1, h2, h3, h4, span, a, button, img, input, textarea, details, summary {
             transition: background-color var(--theme-speed) ease,
                         color var(--theme-speed) ease,
                         border-color var(--theme-speed) ease,
@@ -48,8 +48,7 @@
 
         /* [호버 효과 별도 속도] */
         .live-view-btn, .cta-button, .partner-logo, .theme-toggle-btn, .scroll-top-btn,
-        .info-card, .member-card, .product-card:not(.disabled-card), 
-        .contact-card {
+        .info-card, .member-card, .product-card:not(.disabled-card), .contact-card, .review-card {
             transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
                         box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
                         background-color 0.3s ease,
@@ -116,13 +115,13 @@
             .hero { padding: 80px 20px; }
             .typing-container { margin-top: 20px; }
             .flex-container, .buy-container { flex-direction: column; }
-            .executive-grid, .product-grid, .info-grid, .app-container, .contact-grid { grid-template-columns: 1fr; flex-direction: column; }
+            .executive-grid, .product-grid, .info-grid, .app-container, .contact-grid, .review-grid { grid-template-columns: 1fr; flex-direction: column; }
             .section-header { padding: 50px 20px 30px; }
             .section-header h2 { font-size: 28px; }
             .app-text { text-align: center; margin-bottom: 40px; }
             .logo-grid { padding-left: 0 !important; gap: 20px 30px; }
             
-            /* [모바일] 주문서 및 문의폼 입력창 줄이기 */
+            /* [모바일] 입력창 최적화 */
             .buy-form, .inquiry-box { padding: 25px !important; }
             .buy-form input, .inquiry-form input, .inquiry-form textarea { 
                 padding: 10px !important; 
@@ -162,13 +161,28 @@
         .app-image { flex: 1; display: flex; justify-content: center; }
         .phone-mockup { width: 280px; height: 560px; background: #000; border-radius: 40px; border: 12px solid #1d1d1f; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2); overflow: hidden; background: #fff; }
         .notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 25px; background: #1d1d1f; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; z-index: 10; }
-        .phone-screen { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         #notification-list { width: 100%; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; }
         .notification-item { background: #f5f5f7; padding: 15px; border-radius: 12px; display: flex; align-items: center; animation: slideUpList 0.5s ease-out forwards; }
         @keyframes slideUpList { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
         .live-view-btn { background: var(--primary-color); color: white; padding: 10px 20px; border-radius: 20px; display: inline-block; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .live-view-btn:hover { filter: brightness(1.1); transform: scale(1.05) translateY(-2px); box-shadow: 0 8px 15px rgba(0,0,0,0.2); }
+
+        /* --- [NEW: REVIEW SECTION] --- */
+        .review-section { padding: 100px 24px; background-color: var(--white); text-align: center; border-top: 1px solid var(--card-border); }
+        .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .review-card { background: var(--bg-light); padding: 40px; border-radius: 30px; text-align: left; border: 1px solid var(--card-border); }
+        .review-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .reviewer-avatar { width: 40px; height: 40px; background: #ddd; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #555; }
+        
+        /* --- [NEW: HOME FAQ SECTION] --- */
+        .home-faq-section { padding: 80px 24px; background-color: var(--bg-light); border-top: 1px solid var(--card-border); }
+        .home-faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid var(--card-border); }
+        .faq-summary { padding: 20px 0; cursor: pointer; font-weight: 600; font-size: 17px; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--text-main); }
+        .faq-summary::-webkit-details-marker { display: none; }
+        .faq-summary::after { content: '+'; font-size: 20px; font-weight: 400; color: var(--text-sub); }
+        details[open] .faq-summary::after { content: '-'; }
+        .faq-content { padding-bottom: 20px; color: var(--text-sub); font-size: 15px; line-height: 1.6; }
 
         /* --- [TEAM] --- */
         .team-container { max-width: 1100px; margin: 80px auto; padding: 0 24px; }
@@ -182,7 +196,7 @@
         /* --- [PRODUCT] --- */
         .product-grid { max-width: 1100px; margin: 80px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; padding: 0 24px; }
         .product-card { background: var(--card-bg); border-radius: 30px; padding: 50px; border: 1px solid var(--card-border); display: flex; flex-direction: column; cursor: pointer; }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .product-card:not(.disabled-card):hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
         .disabled-card { opacity: 0.7; cursor: default; }
         .disabled-card:hover { transform: none; box-shadow: none; }
         .product-img-box { width: 100%; height: 320px; background: var(--bg-light); border-radius: 20px; margin: 30px 0; display: flex; align-items: center; justify-content: center; color: #ccc; font-weight: bold; }
@@ -203,39 +217,18 @@
         .cta-button { display: inline-block; background-color: var(--primary-color); color: white; padding: 18px 40px; border-radius: 35px; text-decoration: none; font-weight: 700; font-size: 18px; cursor: pointer; text-align: center; border: none; }
         .cta-button:hover { filter: brightness(1.1); transform: scale(1.03); }
 
-        /* --- [NEW] CONTACT PAGE STYLES --- */
+        /* --- [CONTACT PAGE] --- */
         .contact-container { max-width: 1100px; margin: 0 auto; padding: 0 24px 100px; }
         .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 60px; }
-        .contact-card {
-            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 30px;
-            padding: 40px; text-align: center; display: flex; flex-direction: column; justify-content: center;
-        }
+        .contact-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 30px; padding: 40px; text-align: center; display: flex; flex-direction: column; justify-content: center; }
         .contact-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        
-        /* [수정] 문의 아이콘 이미지 스타일 */
-        .contact-icon { 
-            height: 48px; width: auto; margin: 0 auto 20px; display: block; 
-            transition: all 0.5s ease;
-        }
-        /* 다크모드에서 아이콘 하얗게 반전 */
+        .contact-icon { height: 48px; width: auto; margin: 0 auto 20px; display: block; transition: all 0.5s ease; }
         body.dark-mode .contact-icon { filter: invert(1); }
         
-        .inquiry-box {
-            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 30px;
-            padding: 50px; flex: 1;
-        }
-        .inquiry-form input, .inquiry-form textarea {
-            width: 100%; padding: 16px; margin-bottom: 15px; border: 1px solid #ddd; 
-            border-radius: 12px; box-sizing: border-box; background: var(--white); color: var(--text-main);
-            font-size: 16px; font-family: inherit;
-        }
+        .inquiry-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 30px; padding: 50px; flex: 1; }
+        .inquiry-form input, .inquiry-form textarea { width: 100%; padding: 16px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 12px; box-sizing: border-box; background: var(--white); color: var(--text-main); font-size: 16px; font-family: inherit; }
         .inquiry-form textarea { resize: vertical; }
-
-        /* [수정] 다크모드 입력창 테두리 색상 부드럽게 변경 */
-        body.dark-mode .inquiry-form input, 
-        body.dark-mode .inquiry-form textarea {
-            border-color: var(--card-border); /* rgba(255,255,255,0.1) */
-        }
+        body.dark-mode .inquiry-form input, body.dark-mode .inquiry-form textarea { border-color: var(--card-border); }
 
         /* --- [PARTNER SECTION] --- */
         .partner-section { padding: 80px 24px; background-color: var(--card-bg); text-align: center; border-top: 1px solid var(--card-border); }
@@ -370,6 +363,77 @@
                 </div>
             </div>
         </section>
+
+        <section class="review-section">
+            <div style="max-width: 1100px; margin: 0 auto; margin-bottom: 80px;">
+                <p style="color: var(--primary-color); font-weight: 700; font-size: 14px; letter-spacing: 1px; margin-bottom: 10px;">REAL STORIES</p>
+                <h2 style="font-size: 42px; font-weight: 700; margin: 0 0 60px; color: var(--text-main);">이미 평화는 시작되었습니다.</h2>
+                
+                <div class="review-grid">
+                    <div class="review-card">
+                        <div style="color: #FFD700; font-size: 20px; margin-bottom: 15px;">★★★★★</div>
+                        <p style="font-size: 18px; line-height: 1.6; color: var(--text-main); margin-bottom: 20px; font-weight: 600;">
+                            "맨날 사라지던 몬스터... 설치하고 하루 만에 범인 잡았습니다. 305호 사는 친구야, 맛있었니?"
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div class="reviewer-avatar">김</div>
+                            <div>
+                                <div style="font-size: 14px; font-weight: 700; color: var(--text-main);">김민준</div>
+                                <div style="font-size: 12px; color: var(--text-sub);">공마고 1학년 • 기숙사생</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div style="color: #FFD700; font-size: 20px; margin-bottom: 15px;">★★★★★</div>
+                        <p style="font-size: 18px; line-height: 1.6; color: var(--text-main); margin-bottom: 20px; font-weight: 600;">
+                            "설치하는데 1분도 안 걸렸어요. 앱 알림이 생각보다 엄청 빨라서 놀랐습니다. 강추합니다."
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div class="reviewer-avatar">P</div>
+                            <div>
+                                <div style="font-size: 14px; font-weight: 700; color: var(--text-main);">Park S.H.</div>
+                                <div style="font-size: 12px; color: var(--text-sub);">IT 스타트업 재직</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div style="color: #FFD700; font-size: 20px; margin-bottom: 15px;">★★★★★</div>
+                        <p style="font-size: 18px; line-height: 1.6; color: var(--text-main); margin-bottom: 20px; font-weight: 600;">
+                            "범인을 잡는 것도 좋지만, 카메라가 있다는 것만으로도 도난이 싹 사라졌어요. 이게 기술의 힘인가요."
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div class="reviewer-avatar">최</div>
+                            <div>
+                                <div style="font-size: 14px; font-weight: 700; color: var(--text-main);">최지훈</div>
+                                <div style="font-size: 12px; color: var(--text-sub);">공마고 2학년</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="home-faq-container">
+                <h3 style="font-size: 24px; font-weight: 700; margin: 0 0 30px; text-align: center; color: var(--text-main);">Frequently Asked Questions</h3>
+                <div class="faq-item">
+                    <details>
+                        <summary class="faq-summary">배송 기간은 얼마나 걸리나요?</summary>
+                        <div class="faq-content">평일 기준 주문 후 2~3일 내에 발송되며, 지역에 따라 1~2일 추가 소요될 수 있습니다.</div>
+                    </details>
+                </div>
+                <div class="faq-item">
+                    <details>
+                        <summary class="faq-summary">설치는 어렵지 않나요?</summary>
+                        <div class="faq-content">누구나 1분 안에 설치할 수 있도록 설계되었습니다. 동봉된 부착 가이드를 참고해주세요.</div>
+                    </details>
+                </div>
+                <div class="faq-item">
+                    <details>
+                        <summary class="faq-summary">AS 기간은 어떻게 되나요?</summary>
+                        <div class="faq-content">제품 구매일로부터 1년간 무상 AS를 보증합니다. (단, 고객 과실 제외)</div>
+                    </details>
+                </div>
+            </div>
+        </section>
     </main>
 
     <main id="team" class="page">
@@ -460,8 +524,8 @@
 
     <main id="contact" class="page">
         <header class="section-header">
-            <h2>Start The Conversation</h2>
-            <p>작은 대화가 큰 변화를 만듭니다.</p>
+            <h2>We're Here to Help</h2>
+            <p>궁금한 점이 있으신가요? 언제든 편하게 문의해주세요.</p>
         </header>
         
         <div class="contact-container">
@@ -481,8 +545,8 @@
                 <div class="contact-card">
                     <img src="images/office.svg" alt="Office" class="contact-icon">
                     <h3 style="font-size:20px; margin: 10px 0;">Visit Us</h3>
-                    <p style="color:var(--text-sub); font-size:15px; margin-bottom:10px;">주소</p>
-                    <p class="allow-select" style="font-weight:700;">충청남도 공주시 유구읍 중앙1길 27-12 1학년 1반</p>
+                    <p style="color:var(--text-sub); font-size:15px; margin-bottom:10px;">충남 공주시 유구읍</p>
+                    <p class="allow-select" style="font-weight:700;">중앙1길 27-12 1학년 1반</p>
                 </div>
             </div>
 
@@ -591,7 +655,7 @@
         }
 
         const textElement = document.getElementById('typewriter');
-        const sentences = ["기숙사 냉장고의 평화,", "사무실 냉장고의 신뢰,", "기술로 완성합니다."];
+        const sentences = ["기숙사 냉장고의 평화,", "오피스 냉장고의 신뢰,", "기술로 완성합니다."];
         let sentenceIdx = 0; let charIdx = 0; let isDeleting = false;
         function type() {
             const currentSentence = sentences[sentenceIdx];
