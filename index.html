@@ -790,60 +790,81 @@
             });
         }
 
-        // 이스터에그 스크립트
         let leeInputSequence = '';
-        let testInputSequence = '';
-        const triggerEnglish = 'dlrlwns'; 
-        const triggerKorean = '이기준';   
-        const testTriggers = ['shangus', '노무현'];
+        const triggerEnglish = 'dlrlwns'; // 영타
+        const triggerKorean = '이기준';   // 한타 (완성형)
 
         window.addEventListener('keyup', (e) => {
-            // 홈 화면에서만 작동
-            if (document.querySelector('.page.active').id !== 'home') return;
-            
-            // 이기준 모드
-            if (e.key !== 'Process') leeInputSequence += e.key;
-            if (leeInputSequence.length > 20) leeInputSequence = leeInputSequence.slice(-20);
-            if (leeInputSequence.includes(triggerEnglish) || leeInputSequence.includes(triggerKorean)) {
-                activateLeeMode();
-                leeInputSequence = '';
+            // 입력된 키를 누적 (Process는 한글 조합 중 상태)
+            if (e.key !== 'Process') {
+                leeInputSequence += e.key;
             }
 
-            // TEST 모드
-            if (e.key !== 'Process' && e.key.length === 1) testInputSequence += e.key.toLowerCase();
-            if (testInputSequence.length > 20) testInputSequence = testInputSequence.slice(-20);
-            const isMatch = testTriggers.some(trigger => testInputSequence.endsWith(trigger));
-            if (isMatch) {
-                activateTestMode();
-                testInputSequence = '';
+            // 문자열이 너무 길어지면 자름 (메모리 관리)
+            if (leeInputSequence.length > 20) {
+                leeInputSequence = leeInputSequence.slice(-20);
+            }
+
+            // 영타(dlrlwns) 또는 한타(이기준) 감지
+            if (leeInputSequence.includes(triggerEnglish) || leeInputSequence.includes(triggerKorean)) {
+                activateLeeMode();
+                leeInputSequence = ''; // 초기화
             }
         });
 
         function activateLeeMode() {
+            // 중복 실행 방지
             if (document.getElementById('lee-overlay')) return;
+
             const overlay = document.createElement('div');
             overlay.id = 'lee-overlay';
             overlay.innerHTML = `<h1 class="rainbow-text">이기준</h1>`;
             document.body.appendChild(overlay);
+
+            // 3초 후 제거
             setTimeout(() => {
-                overlay.style.opacity = '0';
-                setTimeout(() => { overlay.remove(); }, 500);
+                overlay.style.opacity = '0'; // 페이드 아웃
+                setTimeout(() => {
+                    overlay.remove();
+                }, 500);
             }, 3000);
         }
+    </script>
 
-        function activateTestMode() {
-            if (document.getElementById('test-overlay')) return;
-            const overlay = document.createElement('div');
-            overlay.id = 'test-overlay';
-            overlay.innerHTML = `<img src="images/test.png" alt="Test Image">`;
-            document.body.appendChild(overlay);
-            setTimeout(() => { overlay.remove(); }, 3000);
+    <style>
+        /* 이기준 이스터에그 스타일 */
+        #lee-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9); /* 배경 어둡게 */
+            z-index: 999999; /* 최상단 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+            backdrop-filter: blur(10px);
         }
 
-        window.onload = function() {
-            type();
-            initFaqAccordion();
-        };
-    </script>
+        .rainbow-text {
+            font-size: 15vw; /* 화면 꽉 차게 */
+            font-weight: 900;
+            color: #fff;
+            margin: 0;
+            line-height: 1;
+            white-space: nowrap;
+            /* 무지개 발광 애니메이션 */
+            animation: rainbow-glow 0.5s linear infinite;
+        }
+
+        @keyframes rainbow-glow {
+            0%   { text-shadow: 0 0 20px #ff0000, 0 0 50px #ff0000, 0 0 100px #ff0000; }
+            15%  { text-shadow: 0 0 20px #ff7f00, 0 0 50px #ff7f00, 0 0 100px #ff7f00; }
+            30%  { text-shadow: 0 0 20px #ffff00, 0 0 50px #ffff00, 0 0 100px #ffff00; }
+            45%  { text-shadow: 0 0 20px #00ff00, 0 0 50px #00ff00, 0 0 100px #00ff00; }
+            60%  { text-shadow: 0 0 20px #0000ff, 0 0 50px #0000ff, 0 0 100px #0000ff; }
+            75%  { text-shadow: 0 0 20px #4b0082, 0 0 50px #4b0082, 0 0 100px #4b0082; }
+            100% { text-shadow: 0 0 20px #8b00ff, 0 0 50px #8b00ff, 0 0 100px #8b00ff; }
+        }
+    </style>
 </body>
 </html>
