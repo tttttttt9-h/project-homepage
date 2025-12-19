@@ -37,7 +37,7 @@
         }
 
         /* [색상 전환 효과] */
-        body, nav, header, section, footer, div, p, h1, h2, h3, h4, span, a, button, img, input, textarea, details, summary {
+        body, nav, header, section, footer, div, p, h1, h2, h3, h4, span, a, button, img, input, textarea {
             transition: background-color var(--theme-speed) ease,
                         color var(--theme-speed) ease,
                         border-color var(--theme-speed) ease,
@@ -48,7 +48,7 @@
 
         /* [호버 효과 별도 속도] */
         .live-view-btn, .cta-button, .partner-logo, .theme-toggle-btn, .scroll-top-btn,
-        .info-card, .member-card, .product-card:not(.disabled-card), 
+        .member-card, .product-card:not(.disabled-card), 
         .contact-card, .review-card {
             transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
                         box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
@@ -115,8 +115,8 @@
             .nav-menu a { margin-left: 8px; font-size: 12px; letter-spacing: -0.5px; }
             .hero { padding: 80px 20px; }
             .typing-container { margin-top: 20px; }
-            .flex-container, .buy-container { flex-direction: column; }
-            .executive-grid, .product-grid, .info-grid, .app-container, .contact-grid, .review-grid { grid-template-columns: 1fr; flex-direction: column; }
+            .buy-container { flex-direction: column; }
+            .executive-grid, .product-grid, .app-container, .contact-grid, .review-grid { grid-template-columns: 1fr; flex-direction: column; }
             .section-header { padding: 50px 20px 30px; }
             .section-header h2 { font-size: 28px; }
             .app-text { text-align: center; margin-bottom: 40px; }
@@ -128,6 +128,11 @@
                 margin-bottom: 8px !important; 
                 font-size: 14px;
             }
+
+            /* 모달 모바일 대응 */
+            .modal-body { grid-template-columns: 1fr !important; }
+            .modal-image { min-height: 240px !important; }
+            .modal-right { min-height: unset !important; }
         }
 
         /* --- [HERO] --- */
@@ -152,7 +157,6 @@
         .review-card { background: var(--card-bg); padding: 40px; border-radius: 30px; text-align: left; border: 1px solid var(--card-border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .review-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
         .reviewer-avatar { width: 40px; height: 40px; background: var(--bg-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--text-sub); border: 1px solid var(--card-border); }
-        
         .review-title-group { margin-bottom: 60px; }
         .review-subtitle { color: var(--text-sub); font-size: 18px; margin-top: 15px; font-weight: 500; }
 
@@ -163,9 +167,38 @@
         .app-image { flex: 1; display: flex; justify-content: center; }
         .phone-mockup { width: 280px; height: 560px; background: #000; border-radius: 40px; border: 12px solid #1d1d1f; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2); overflow: hidden; background: #fff; }
         .notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 25px; background: #1d1d1f; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; z-index: 10; }
-        #notification-list { width: 100%; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; }
-        .notification-item { background: #f5f5f7; padding: 15px; border-radius: 12px; display: flex; align-items: center; animation: slideUpList 0.5s ease-out forwards; }
-        @keyframes slideUpList { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .phone-screen{
+            width:100%;
+            height:100%;
+            display:flex;
+            flex-direction:column;
+            padding-top: 10px;
+            box-sizing:border-box;
+        }
+
+        /* [핵심] 알림 영역을 "화면 가운데(남는 공간)"로 */
+        #notification-list{
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;   /* 세로 가운데 */
+            align-items: center;       /* 가로 가운데 */
+            gap: 12px;
+        }
+        .notification-item{
+            background: #f5f5f7;
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            width: min(230px, 100%);
+            justify-content: flex-start;
+            animation: none;
+        }
+
         .live-view-btn { background: var(--primary-color); color: white; padding: 10px 20px; border-radius: 20px; display: inline-block; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .live-view-btn:hover { filter: brightness(1.1); transform: scale(1.05) translateY(-2px); box-shadow: 0 8px 15px rgba(0,0,0,0.2); }
 
@@ -218,16 +251,41 @@
         /* --- [FAQ: 아코디언 방식 (열/닫 매번 애니메이션)] --- */
         .faq-container { margin: 0 auto 0; padding: 0 20px; border-radius: 30px; }
         .faq-item { border-bottom: 1px solid var(--card-border); }
-        .faq-summary { padding: 20px 0; cursor: pointer; font-weight: 600; font-size: 17px; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--text-main); }
-        .faq-summary::-webkit-details-marker { display: none; }
-        .faq-summary::after { content: '+'; font-size: 20px; font-weight: 400; color: var(--text-sub); transition: transform 0.3s ease; }
-        details[open] .faq-summary::after { content: '-'; transform: rotate(180deg); }
-        .faq-content { 
-            padding-bottom: 20px; color: var(--text-sub); font-size: 15px; line-height: 1.6; 
-            /* [FAQ Animation] */
-            animation: slideDownFade 0.3s ease-out forwards;
+        .faq-q{
+            width: 100%;
+            padding: 20px 0;
+            background: transparent;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 17px;
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        @keyframes slideDownFade { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .faq-icon{
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--text-sub);
+            transition: transform 0.25s ease, opacity 0.25s ease;
+        }
+        .faq-icon::before{ content:"+"; }
+        .faq-item.open .faq-icon{ transform: rotate(180deg); opacity: 0.9; }
+        .faq-item.open .faq-icon::before{ content:"-"; }
+
+        .faq-a{
+            height: 0;
+            overflow: hidden;
+            transition: height 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .faq-a-inner{
+            padding: 0 0 20px;
+            color: var(--text-sub);
+            font-size: 15px;
+            line-height: 1.6;
+        }
 
         /* --- [PARTNER SECTION] --- */
         .partner-section { padding: 80px 24px; background-color: var(--card-bg); text-align: center; border-top: 1px solid var(--card-border); }
@@ -265,6 +323,7 @@
         @keyframes modalPop { from { opacity: 0; transform: translateY(14px) scale(0.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
         @keyframes modalHide { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(14px) scale(0.99); } }
         @keyframes simpleFadeOut { from { opacity: 1; } to { opacity: 0; } }
+
         .modal-header { display: flex; align-items: flex-start; justify-content: space-between; padding: 22px 26px 0; gap: 16px; }
         .modal-title-wrap { display: flex; flex-direction: column; gap: 8px; }
         .modal-badge { display: inline-block; padding: 0; border: none; background: transparent; font-size: 14px; font-weight: 900; letter-spacing: 0.4px; color: var(--primary-color); margin: 0; }
@@ -275,8 +334,20 @@
         .modal-image { width: 100%; min-height: 460px; background: var(--bg-light); border-radius: 22px; display: flex; align-items: center; justify-content: center; color: #bbb; font-weight: 800; }
         .modal-right { display: flex; flex-direction: column; min-height: 460px; }
         .modal-desc { color: var(--text-sub); font-size: 16px; line-height: 1.8; margin: 0 0 18px; white-space: pre-line; }
-        .modal-actions { display: flex; gap: 14px; margin-top: auto; justify-content: flex-end; padding-top: 16px; }
-        .modal-actions .cta-button { min-width: 260px; }
+
+        /* [핵심] 버튼이 "사진 옆 남는 공간"을 꽉 채우게 */
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: auto;
+            padding-top: 16px;
+            width: 100%;
+        }
+        .modal-actions .cta-button{
+            width: 100%;
+            min-width: 0;
+        }
     </style>
 </head>
 <body>
@@ -383,9 +454,15 @@
                     <div class="phone-mockup">
                         <div class="notch"></div>
                         <div class="phone-screen">
-                            <div style="width:100%; padding:20px 20px 10px; box-sizing:border-box; font-weight:bold; font-size:18px; color:#333;">최근 감지 기록</div>
+                            <div style="width:100%; padding:20px 20px 10px; box-sizing:border-box; font-weight:bold; font-size:18px; color:#333;">
+                                최근 감지 기록
+                            </div>
+
                             <div id="notification-list"></div>
-                            <div style="margin-bottom:20px; text-align:center;"><a href="https://project.whanci.xyz" target="_blank" class="live-view-btn">체험 해보기</a></div>
+
+                            <div style="margin-bottom:20px; text-align:center;">
+                                <a href="https://project.whanci.xyz" target="_blank" class="live-view-btn">체험 해보기</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -420,7 +497,7 @@
                 <div class="product-img-box">[ 제품 이미지 ]</div>
                 <button onclick="event.stopPropagation(); showPage('buy')" class="cta-button">제품 구매하기</button>
             </div>
-            <div class="product-card disabled-card" style="border-style: dashed;" onclick="openProductModal('office')">
+            <div class="product-card" style="border-style: dashed;" onclick="openProductModal('office')">
                 <h4 style="color:var(--text-sub); margin-bottom: 5px;">Office Edition</h4>
                 <h3 style="font-size: 28px; margin-top: 0; color: #86868b;">SRC-04 For Office</h3>
                 <p>사원증 및 얼굴 인식 기능이 추가된 제품.</br>더 많은 기능의 관리자 페이지와 우수한 보안의 로그 서버를 제공합니다.</p>
@@ -446,7 +523,16 @@
                     <input type="text" id="buyer_name" placeholder="수령인" required>
                     <input type="text" id="buyer_tel" placeholder="연락처 ( - 를 제외하고 입력 )" required>
                     <input type="text" id="buyer_addr" placeholder="배송지" required>
+
                     <button type="submit" class="cta-button" style="width: 100%;">결제하기</button>
+
+                    <!-- 주문 취소 -->
+                    <button type="button"
+                            class="cta-button"
+                            style="width:100%; margin-top:10px; background:transparent; color:var(--text-sub); border:1px solid var(--card-border);"
+                            onclick="cancelOrder(false)">
+                        주문 취소
+                    </button>
                 </form>
             </div>
         </div>
@@ -456,23 +542,25 @@
         <div style="max-width: 500px; margin: 60px auto; padding: 0 20px; text-align: center;">
             <h2 style="font-size: 32px;">결제 수단을 선택하세요.</h2>
             <div class="pay-method-grid">
-                <button class="pay-btn naver-pay" style="background: #000000; border-color: #000000; color: #00d25a;" onclick="completeOrder('네이버페이')">
-                    <img src="images/npay.jpg" alt="네이버페이"> 네이버페이
-                </button>
-                <button class="pay-btn" style="background: #ffe000; border-color: #ffe000;" onclick="completeOrder('카카오페이')">
-                    <img src="images/kpay.svg" alt="카카오페이"> 카카오페이
-                </button>
-                <button class="pay-btn" style="border-color: #d2d2d7;" onclick="completeOrder('토스페이')">
-                    <img src="images/toss.png" alt="토스페이" onerror="this.style.display='none'"> 토스페이
-                </button>
-                <button class="pay-btn" onclick="completeOrder('신용/체크카드')">
-                    <img src="images/card.svg" alt="Card" style="height: 24px; margin-right: 8px;"> 신용/체크카드
-                </button>
-                <button class="pay-btn" onclick="completeOrder('무통장입금')">
-                    <img src="images/bank.svg" alt="Bank" style="height: 24px; margin-right: 8px;"> 무통장 입금
-                </button>
+                <button class="pay-btn naver-pay" style="background: #000000; border-color: #000000; color: #00d25a;" onclick="completeOrder('네이버페이')"><img src="images/npay.jpg" alt="네이버페이"> 네이버페이</button>
+                <button class="pay-btn" style="background: #ffe000; border-color: #ffe000;" onclick="completeOrder('카카오페이')"><img src="images/kpay.svg" alt="카카오페이"> 카카오페이</button>
+                <button class="pay-btn" style="border-color: #d2d2d7;" onclick="completeOrder('토스페이')"><img src="images/toss.png" alt="토스페이" onerror="this.style.display='none'"> 토스페이</button>
+                <button class="pay-btn" onclick="completeOrder('신용/체크카드')"><img src="images/card.svg" alt="Card" style="height: 20px; margin-right: 8px;"> 신용/체크카드</button>
+				<button class="pay-btn" onclick="completeOrder('무통장입금')"><img src="images/bank.svg" alt="Bank" style="height: 20px; margin-right: 8px;"> 무통장 입금</button>
             </div>
-            <button class="cta-button" style="width:auto; background:none; border:none; color:var(--text-sub); text-decoration:underline; font-size:16px; margin-top:20px;" onclick="showPage('buy')">배송 정보 수정하기</button>
+
+            <button class="cta-button"
+                    style="width:auto; background:none; border:none; color:var(--text-sub); text-decoration:underline; font-size:16px; margin-top:20px;"
+                    onclick="showPage('buy')">
+                배송 정보 수정하기
+            </button>
+
+            <!-- 결제 취소 -->
+            <button class="cta-button"
+                    style="width:auto; background:none; border:none; color:var(--text-sub); text-decoration:underline; font-size:16px; margin-top:10px;"
+                    onclick="cancelOrder(true)">
+                결제 취소
+            </button>
         </div>
     </main>
 
@@ -512,30 +600,49 @@
                 <div class="contact-card">
                     <img src="images/office.svg" alt="Office" class="contact-icon">
                     <h3 style="font-size:20px; margin: 10px 0;">Visit Us</h3>
-                    <p style="color:var(--text-sub); font-size:15px; margin-bottom:10px;">충남 공주시 유구읍</p>
-                    <p class="allow-select" style="font-weight:700;">중앙1길 27-12 1학년 1반</p>
+                    <p style="color:var(--text-sub); font-size:15px; margin-bottom:10px;">주소</p>
+                    <p class="allow-select" style="font-weight:700;">충청남도 공주시 유구읍 중앙1길 27-12 1학년 1반</p>
                 </div>
             </div>
 
+            <!-- FAQ: 아코디언 방식으로 전체 교체 -->
             <div class="faq-container" style="margin-bottom: 60px;">
                 <h3 style="font-size:24px; font-weight:700; margin:0 0 30px; text-align:center;">Frequently Asked Questions</h3>
+
                 <div class="faq-item">
-                    <details>
-                        <summary class="faq-summary">배송 기간은 얼마나 걸리나요?</summary>
-                        <div class="faq-content">평일 기준 주문 후 2~3일 내에 발송되며, 지역에 따라 1~2일 추가 소요될 수 있습니다.</div>
-                    </details>
+                    <button class="faq-q" type="button">
+                        배송 기간은 얼마나 걸리나요?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-a">
+                        <div class="faq-a-inner">
+                            평일 기준 주문 후 2~3일 내에 발송되며, 지역에 따라 1~2일 추가 소요될 수 있습니다.
+                        </div>
+                    </div>
                 </div>
+
                 <div class="faq-item">
-                    <details>
-                        <summary class="faq-summary">설치는 어렵지 않나요?</summary>
-                        <div class="faq-content">남녀노소 누구나 1분 안에 설치할 수 있도록 설계되었습니다. 동봉된 부착 가이드를 참고해주세요.</div>
-                    </details>
+                    <button class="faq-q" type="button">
+                        설치는 어렵지 않나요?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-a">
+                        <div class="faq-a-inner">
+                            남녀노소 누구나 1분 안에 설치할 수 있도록 설계되었습니다. 동봉된 부착 가이드를 참고해주세요.
+                        </div>
+                    </div>
                 </div>
+
                 <div class="faq-item">
-                    <details>
-                        <summary class="faq-summary">AS 기간은 어떻게 되나요?</summary>
-                        <div class="faq-content">제품 구매일로부터 2년간 무상 AS를 보증합니다. (단, 고객 과실 제외)</div>
-                    </details>
+                    <button class="faq-q" type="button">
+                        AS 기간은 어떻게 되나요?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-a">
+                        <div class="faq-a-inner">
+                            제품 구매일로부터 2년간 무상 AS를 보증합니다. (단, 고객 과실 제외)
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -621,60 +728,92 @@
         });
 
         let orderInfo = {};
+
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             window.scrollTo(0, 0);
         }
+
         function goToPayment(e) {
             e.preventDefault();
             orderInfo.name = document.getElementById('buyer_name').value;
             orderInfo.addr = document.getElementById('buyer_addr').value;
             showPage('payment');
         }
+
         function completeOrder(method) {
             if(confirm(method + "(으)로 결제하시겠습니까?")) {
                 const orderNo = "ORD-" + Math.floor(Math.random() * 900000 + 100000);
                 document.getElementById('rec_no').innerText = orderNo;
-                document.getElementById('rec_name').innerText = orderInfo.name;
-                document.getElementById('rec_addr').innerText = orderInfo.addr;
+                document.getElementById('rec_name').innerText = orderInfo.name || "";
+                document.getElementById('rec_addr').innerText = orderInfo.addr || "";
                 document.getElementById('rec_method').innerText = method;
                 showPage('receipt');
             }
         }
-        
+
+        /* [추가] 주문 취소 / 결제 취소 */
         function cancelOrder(fromPayment=false) {
-            if(!confirm("주문을 취소하시겠습니까?")) return;
+            const msg = fromPayment ? "결제를 취소하고 상품 페이지로 돌아갈까요?" : "주문을 취소하고 상품 페이지로 돌아갈까요?";
+            if (!confirm(msg)) return;
+
             orderInfo = {};
-            document.getElementById('buyer_name').value = "";
-            document.getElementById('buyer_tel').value = "";
-            document.getElementById('buyer_addr').value = "";
+            const nameEl = document.getElementById('buyer_name');
+            const telEl = document.getElementById('buyer_tel');
+            const addrEl = document.getElementById('buyer_addr');
+            if (nameEl) nameEl.value = "";
+            if (telEl) telEl.value = "";
+            if (addrEl) addrEl.value = "";
+
             showPage('product');
         }
 
         const textElement = document.getElementById('typewriter');
         const sentences = ["기숙사 냉장고의 평화,", "오피스 냉장고의 신뢰,", "기술로 완성합니다."];
         let sentenceIdx = 0; let charIdx = 0; let isDeleting = false;
+
         function type() {
             const currentSentence = sentences[sentenceIdx];
-            if (isDeleting) textElement.innerText = currentSentence.substring(0, charIdx - 1), charIdx--;
-            else textElement.innerText = currentSentence.substring(0, charIdx + 1), charIdx++;
+            if (isDeleting) { textElement.innerText = currentSentence.substring(0, charIdx - 1); charIdx--; }
+            else { textElement.innerText = currentSentence.substring(0, charIdx + 1); charIdx++; }
+
             let typeSpeed = isDeleting ? 40 : 120;
-            if (!isDeleting && charIdx === currentSentence.length) typeSpeed = 2000, isDeleting = true;
-            else if (isDeleting && charIdx === 0) isDeleting = false, sentenceIdx = (sentenceIdx + 1) % sentences.length, typeSpeed = 500;
+            if (!isDeleting && charIdx === currentSentence.length) { typeSpeed = 2000; isDeleting = true; }
+            else if (isDeleting && charIdx === 0) { isDeleting = false; sentenceIdx = (sentenceIdx + 1) % sentences.length; typeSpeed = 500; }
             setTimeout(type, typeSpeed);
         }
 
+        /* [알림] 정적 3개 고정 렌더 */
         function updateNotifications() {
             const list = document.getElementById('notification-list');
             if(!list) return;
-            const now = new Date();
-            const timeStr = `오늘 ${now.getHours() > 12 ? '오후' : '오전'} ${now.getHours() % 12 || 12}:${String(now.getMinutes()).padStart(2, '0')}`;
-            if (list.children.length >= 3) list.removeChild(list.firstElementChild);
-            const item = document.createElement('div');
-            item.className = 'notification-item';
-            item.innerHTML = `<div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">📸</div><div style="text-align:left;"><div style="font-size:14px; font-weight:bold; color:#333;">동작 감지됨</div><div style="font-size:12px; color:#888;">${timeStr}</div></div>`;
-            list.appendChild(item);
+
+            list.innerHTML = `
+                <div class="notification-item">
+                    <div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">📸</div>
+                    <div style="text-align:left;">
+                        <div style="font-size:14px; font-weight:bold; color:#333;">동작 감지됨</div>
+                        <div style="font-size:12px; color:#888;">오늘 오전 10:12</div>
+                    </div>
+                </div>
+
+                <div class="notification-item">
+                    <div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">🔔</div>
+                    <div style="text-align:left;">
+                        <div style="font-size:14px; font-weight:bold; color:#333;">새 기록 저장됨</div>
+                        <div style="font-size:12px; color:#888;">오늘 오전 09:58</div>
+                    </div>
+                </div>
+
+                <div class="notification-item">
+                    <div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">✅</div>
+                    <div style="text-align:left;">
+                        <div style="font-size:14px; font-weight:bold; color:#333;">장치 연결됨</div>
+                        <div style="font-size:12px; color:#888;">오늘 오전 09:40</div>
+                    </div>
+                </div>
+            `;
         }
 
         const themeBtn = document.getElementById('themeToggle');
@@ -697,28 +836,57 @@
         }
 
         const productData = {
-            src04: { title: "SRC-04", badge: "Dormitory Edition", badgeColor: "var(--primary-color)", desc: `냉장고에 설치하는 초소형 카메라 모듈.\n촬영된 사진은 즉시 클라우드에 저장되며, 언제 어디서나 확인 가능합니다.\n\n동작 감지 → 푸시 알림 → 기록 확인까지,\n간단하지만 확실한 보호를 제공합니다.`, imageText: "[ 제품 이미지 ]", actions: [{ type: "buy", label: "제품 구매하기" }] },
-            office: { title: "SRC-04 For Office", badge: "Office Edition", badgeColor: "#a1a1a6", desc: `사원증 및 얼굴 인식 기능이 추가된 제품.\n더 많은 기능의 관리자 페이지와 우수한 보안의 로그 서버를 제공합니다.\n\n현재 준비 중입니다.`, imageText: "[ 개발 중 ]", actions: [{ type: "shake", label: "준비 중" }] }
+            src04: {
+                title: "SRC-04",
+                badge: "Dormitory Edition",
+                badgeColor: "var(--primary-color)",
+                desc: `냉장고에 설치하는 초소형 카메라 모듈.\n촬영된 사진은 즉시 클라우드에 저장되며, 언제 어디서나 확인 가능합니다.\n\n동작 감지 → 푸시 알림 → 기록 확인까지,\n간단하지만 확실한 보호를 제공합니다.`,
+                imageText: "[ 제품 이미지 ]",
+                actions: [{ type: "buy", label: "제품 구매하기" }]
+            },
+            office: {
+                title: "SRC-04 For Office",
+                badge: "Office Edition",
+                badgeColor: "#a1a1a6",
+                desc: `사원증 및 얼굴 인식 기능이 추가된 제품.\n더 많은 기능의 관리자 페이지와 우수한 보안의 로그 서버를 제공합니다.`,
+                imageText: "[ 개발 중 ]",
+                actions: [{ type: "shake", label: "준비 중" }]
+            }
         };
 
         function openProductModal(key) {
             const data = productData[key];
             if (!data) return;
+
             document.getElementById('pm_title').innerText = data.title;
+
             const badgeEl = document.getElementById('pm_badge');
             badgeEl.innerText = data.badge;
             badgeEl.style.color = data.badgeColor || 'var(--primary-color)';
+
             document.getElementById('pm_desc').innerText = data.desc;
             document.getElementById('pm_image').innerText = data.imageText;
+
             const actions = document.getElementById('pm_actions');
             actions.innerHTML = "";
+
             data.actions.forEach(a => {
                 const btn = document.createElement('button');
                 btn.className = 'cta-button';
-                if (a.type === "buy") { btn.innerText = a.label; btn.onclick = () => { closeProductModal(); showPage('buy'); }; } 
-                else if (a.type === "shake") { btn.innerText = a.label; btn.style.backgroundColor = '#ccc'; btn.style.cursor = 'default'; btn.onclick = (e) => { shakeButton(e.currentTarget); }; }
+
+                if (a.type === "buy") {
+                    btn.innerText = a.label;
+                    btn.onclick = () => { closeProductModal(); showPage('buy'); };
+                } else if (a.type === "shake") {
+                    btn.innerText = a.label;
+                    btn.style.backgroundColor = '#ccc';
+                    btn.style.cursor = 'default';
+                    btn.onclick = (e) => { shakeButton(e.currentTarget); };
+                }
+
                 actions.appendChild(btn);
             });
+
             const modal = document.getElementById('productModal');
             modal.classList.remove('hide');
             modal.classList.add('show');
@@ -729,16 +897,52 @@
             const modal = document.getElementById('productModal');
             if (!modal.classList.contains('show')) return;
             modal.classList.add('hide'); 
-            setTimeout(() => { modal.classList.remove('show'); modal.classList.remove('hide'); document.body.style.overflow = ''; }, 300);
+            setTimeout(() => {
+                modal.classList.remove('show');
+                modal.classList.remove('hide');
+                document.body.style.overflow = '';
+            }, 300);
         }
 
         window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeProductModal(); });
 
+        /* [추가] FAQ 아코디언: 열/닫 매번 애니메이션 */
+        function initFaqAccordion() {
+            const items = document.querySelectorAll('.faq-item');
+            items.forEach(item => {
+                const q = item.querySelector('.faq-q');
+                const a = item.querySelector('.faq-a');
+
+                a.style.height = '0px';
+
+                q.addEventListener('click', () => {
+                    const isOpen = item.classList.contains('open');
+
+                    if (isOpen) {
+                        a.style.height = a.scrollHeight + 'px';
+                        requestAnimationFrame(() => {
+                            a.style.height = '0px';
+                        });
+                        item.classList.remove('open');
+                        return;
+                    }
+
+                    item.classList.add('open');
+                    a.style.height = a.scrollHeight + 'px';
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                document.querySelectorAll('.faq-item.open .faq-a').forEach(a => {
+                    a.style.height = a.scrollHeight + 'px';
+                });
+            });
+        }
+
         window.onload = function() {
             type();
             updateNotifications();
-            setTimeout(updateNotifications, 1000);
-            setInterval(updateNotifications, 20000);
+            initFaqAccordion();
         };
     </script>
 </body>
