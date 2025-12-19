@@ -65,7 +65,7 @@
             line-height: 1.6;
             word-break: keep-all;
             overflow-x: hidden;
-            -webkit-user-select: none; -moz-user-select: none; -ms-use-select: none; user-select: none;
+            -webkit-user-select: none; user-select: none;
         }
 
         /* --- 네비게이션 --- */
@@ -142,19 +142,7 @@
         .phone-mockup { width: 280px; height: 560px; background: #000; border-radius: 40px; border: 12px solid #1d1d1f; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2); overflow: hidden; background: #fff; }
         .notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 25px; background: #1d1d1f; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; z-index: 10; }
         .phone-screen { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; }
-        
-        /* [수정됨] 알림 리스트 가운데 정렬 */
-        #notification-list { 
-            width: 100%; 
-            padding: 0 20px; 
-            box-sizing: border-box; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 12px; 
-            flex-grow: 1; 
-            justify-content: center; /* 수직 가운데 정렬 */
-        }
-        
+        #notification-list { width: 100%; padding: 0 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px; flex-grow: 1; justify-content: center; }
         .notification-item { background: #f5f5f7; padding: 15px; border-radius: 16px; display: flex; align-items: center; opacity: 1; }
         .live-view-btn { background: var(--primary-color); color: white; padding: 10px 20px; border-radius: 20px; display: inline-block; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .live-view-btn:hover { filter: brightness(1.1); transform: scale(1.05) translateY(-2px); box-shadow: 0 8px 15px rgba(0,0,0,0.2); }
@@ -200,19 +188,10 @@
         .contact-icon { height: 48px; width: auto; margin: 0 auto 20px; display: block; transition: all 0.5s ease; }
         body.dark-mode .contact-icon { filter: invert(1); }
         
-        .inquiry-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 30px; padding: 50px; flex: 1; margin-top: 60px; }
         .inquiry-form input, .inquiry-form textarea { width: 100%; padding: 16px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 12px; box-sizing: border-box; background: var(--white); color: var(--text-main); font-size: 16px; font-family: inherit; }
         .inquiry-form textarea { resize: vertical; }
         body.dark-mode .inquiry-form input, body.dark-mode .inquiry-form textarea { border-color: var(--card-border); }
-
-        /* [수정됨] 문의 제목 (FAQ 스타일과 동일하게) */
-        .inquiry-title { 
-            font-size: 24px; 
-            font-weight: 700; 
-            margin: 0 0 30px; 
-            text-align: center; 
-            color: var(--text-main); 
-        }
+        .inquiry-title { font-size: 24px; font-weight: 700; margin: 0 0 30px; text-align: center; color: var(--text-main); }
 
         /* --- [FAQ SECTION] --- */
         .faq-container { margin: 0 auto 0; padding: 0 20px; border-radius: 30px; }
@@ -390,7 +369,7 @@
                     <div class="phone-mockup">
                         <div class="notch"></div>
                         <div class="phone-screen">
-                            <div style="width:100%; padding:40px 20px 10px; box-sizing:border-box; font-weight:bold; font-size:18px; color:#333;">최근 감지 기록</div>
+                            <div style="width:100%; padding:20px 20px 10px; box-sizing:border-box; font-weight:bold; font-size:18px; color:#333;">최근 감지 기록</div>
                             <div id="notification-list">
                                 <div class="notification-item">
                                     <div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">📸</div>
@@ -414,7 +393,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div style="margin-bottom:30px; text-align:center;"><a href="https://project.whanci.xyz" target="_blank" class="live-view-btn">체험 해보기</a></div>
+                            <div style="margin-bottom:20px; text-align:center;"><a href="https://project.whanci.xyz" target="_blank" class="live-view-btn">체험 해보기</a></div>
                         </div>
                     </div>
                 </div>
@@ -585,14 +564,9 @@
                 </div>
             </div>
 
-            <div class="inquiry-box">
-                <h3 class="inquiry-title">Send Message</h3>
-                <form class="inquiry-form" onsubmit="submitInquiry(event)">
-                    <input type="text" placeholder="이름" required>
-                    <input type="email" placeholder="이메일" required>
-                    <textarea rows="5" placeholder="문의 내용을 입력해주세요..." required></textarea>
-                    <button type="submit" class="cta-button" style="width: 100%;">문의하기</button>
-                </form>
+            <div style="text-align: center; margin-top: 60px;">
+                <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 20px;">Have questions?</h3>
+                <button class="cta-button" onclick="openInquiryModal()">Send Message</button>
             </div>
         </div>
     </main>
@@ -632,6 +606,21 @@
                     <div class="modal-actions" id="pm_actions"></div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div id="inquiryModal" class="modal-overlay" onclick="closeInquiryModal()">
+        <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 500px; padding: 40px;">
+            <div class="modal-header" style="padding: 0; margin-bottom: 20px;">
+                <h3 class="modal-title">Send Message</h3>
+                <button class="modal-close" onclick="closeInquiryModal()">×</button>
+            </div>
+            <form class="inquiry-form" onsubmit="submitInquiry(event)">
+                <input type="text" placeholder="이름" required>
+                <input type="email" placeholder="이메일" required>
+                <textarea rows="5" placeholder="문의 내용을 입력해주세요..." required></textarea>
+                <button type="submit" class="cta-button" style="width: 100%;">보내기</button>
+            </form>
         </div>
     </div>
 
@@ -697,7 +686,7 @@
             showPage('payment');
         }
 
-        // [수정] 시스템 모달 호출 함수
+        // 시스템 모달 호출 함수
         function showSystemConfirm(message, onYes) {
             const modal = document.getElementById('systemModal');
             const msgEl = document.getElementById('sys_msg');
@@ -706,7 +695,6 @@
 
             msgEl.innerText = message;
 
-            // 이벤트 핸들러 초기화 (중복 방지)
             const newBtnYes = btnYes.cloneNode(true);
             const newBtnNo = btnNo.cloneNode(true);
             btnYes.parentNode.replaceChild(newBtnYes, btnYes);
@@ -731,17 +719,15 @@
             }, 300);
         }
 
-        // [수정] 로딩 시뮬레이션 함수
         function showLoading(callback) {
             const loading = document.getElementById('loadingOverlay');
             loading.classList.add('show');
             setTimeout(() => {
                 loading.classList.remove('show');
                 if (callback) callback();
-            }, 2000); // 2초 로딩
+            }, 2000);
         }
 
-        // [수정] 결제 완료 로직 (입력창 초기화 포함)
         function completeOrder(method) {
             showSystemConfirm(method + "(으)로 결제하시겠습니까?", () => {
                 showLoading(() => {
@@ -751,7 +737,6 @@
                     document.getElementById('rec_addr').innerText = orderInfo.addr || "";
                     document.getElementById('rec_method').innerText = method;
                     
-                    // [추가] 구매 완료 시 입력 폼 초기화
                     const nameEl = document.getElementById('buyer_name');
                     const telEl = document.getElementById('buyer_tel');
                     const addrEl = document.getElementById('buyer_addr');
@@ -764,9 +749,8 @@
             });
         }
 
-        // [수정] 주문/결제 취소 로직
         function cancelOrder(fromPayment=false) {
-            const msg = fromPayment ? "결제를 취소하고 돌아갈까요?" : "주문서를 초기화하고 돌아갈까요?";
+            const msg = fromPayment ? "결제를 취소하고 상품 페이지로 돌아갈까요?" : "주문을 취소하고 상품 페이지로 돌아갈까요?";
             showSystemConfirm(msg, () => {
                 orderInfo = {};
                 const nameEl = document.getElementById('buyer_name');
@@ -779,11 +763,26 @@
             });
         }
         
-        // [추가] 문의 제출 로직 (입력창 초기화)
+        // [추가] 문의 모달 관련 로직
+        function openInquiryModal() {
+            const modal = document.getElementById('inquiryModal');
+            modal.classList.remove('hide');
+            modal.classList.add('show');
+        }
+        function closeInquiryModal() {
+            const modal = document.getElementById('inquiryModal');
+            modal.classList.add('hide');
+            setTimeout(() => {
+                modal.classList.remove('show');
+                modal.classList.remove('hide');
+            }, 300);
+        }
         function submitInquiry(e) {
             e.preventDefault();
+            closeInquiryModal();
             showSystemConfirm("문의를 전송하시겠습니까?", () => {
-                e.target.reset(); // 폼 초기화
+                // 실제 전송 로직이 들어갈 곳 (현재는 리셋만)
+                e.target.reset();
             });
         }
 
