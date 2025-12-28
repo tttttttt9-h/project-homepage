@@ -126,7 +126,7 @@
         /* --- [REVIEW SECTION] --- */
         .review-section { padding: 100px 24px; background-color: var(--bg-light); text-align: center; }
         .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
-        .review-card { background: var(--card-bg); padding: 40px; border-radius: 30px; text-align: left; border: 1px solid var(--card-border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+        .review-card { background: var(--card-bg); padding: 40px; border-radius: 30px; text-align: left; border: 1px solid var(--card-border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); display: flex; flex-direction: column; cursor: pointer; }
         .review-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
         .reviewer-avatar { width: 40px; height: 40px; background: var(--bg-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--text-sub); border: 1px solid var(--card-border); flex-shrink: 0; }
         .review-content { flex-grow: 1; }
@@ -192,7 +192,6 @@
         .inquiry-form textarea { resize: vertical; }
         body.dark-mode .inquiry-form input, body.dark-mode .inquiry-form textarea { border-color: var(--card-border); }
 
-        /* [수정됨] 문의 제목 (FAQ 스타일과 동일하게) */
         .inquiry-title { 
             font-size: 24px; 
             font-weight: 700; 
@@ -265,6 +264,63 @@
         .modal-desc { color: var(--text-sub); font-size: 16px; line-height: 1.8; margin: 0 0 18px; white-space: pre-line; }
         .modal-actions { display: flex; gap: 14px; margin-top: auto; justify-content: flex-end; padding-top: 16px; width: 100%; }
         .modal-actions .cta-button { width: 100%; min-width: 0; }
+
+        /* [추가] 김*우 이스터에그 알림창 스타일 */
+        #easter-egg-toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 100000;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            pointer-events: none;
+            backdrop-filter: blur(5px);
+        }
+        #easter-egg-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* 이기준 이스터에그 스타일 */
+        #lee-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .rainbow-text {
+            font-size: 15vw;
+            font-weight: 900;
+            color: #fff;
+            margin: 0;
+            line-height: 1;
+            white-space: nowrap;
+            animation: rainbow-glow 0.5s linear infinite;
+        }
+
+        @keyframes rainbow-glow {
+            0%   { text-shadow: 0 0 20px #ff0000, 0 0 50px #ff0000, 0 0 100px #ff0000; }
+            15%  { text-shadow: 0 0 20px #ff7f00, 0 0 50px #ff7f00, 0 0 100px #ff7f00; }
+            30%  { text-shadow: 0 0 20px #ffff00, 0 0 50px #ffff00, 0 0 100px #ffff00; }
+            45%  { text-shadow: 0 0 20px #00ff00, 0 0 50px #00ff00, 0 0 100px #00ff00; }
+            60%  { text-shadow: 0 0 20px #0000ff, 0 0 50px #0000ff, 0 0 100px #0000ff; }
+            75%  { text-shadow: 0 0 20px #4b0082, 0 0 50px #4b0082, 0 0 100px #4b0082; }
+            100% { text-shadow: 0 0 20px #8b00ff, 0 0 50px #8b00ff, 0 0 100px #8b00ff; }
+        }
     </style>
 </head>
 <body>
@@ -332,7 +388,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="review-card">
+                <div class="review-card" onclick="showKimEasterEgg()">
                     <div class="review-content">
                         <div style="color: #FFD700; font-size: 20px; margin-bottom: 15px;">★★★★★</div>
                         <p style="font-size: 18px; line-height: 1.6; color: var(--text-main); margin-bottom: 20px; font-weight: 600;">
@@ -378,29 +434,7 @@
                         <div class="notch"></div>
                         <div class="phone-screen">
                             <div style="width:100%; padding:20px 20px 10px; box-sizing:border-box; font-weight:bold; font-size:18px; color:#333;">최근 감지 기록</div>
-                            <div id="notification-list">
-                                <div class="notification-item">
-                                    <div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">📸</div>
-                                    <div style="text-align:left;">
-                                        <div style="font-size:14px; font-weight:bold; color:#333;">동작 감지됨</div>
-                                        <div style="font-size:12px; color:#888;">오늘 오전 10:12</div>
-                                    </div>
-                                </div>
-                                <div class="notification-item">
-                                    <div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">🔔</div>
-                                    <div style="text-align:left;">
-                                        <div style="font-size:14px; font-weight:bold; color:#333;">새 기록 저장됨</div>
-                                        <div style="font-size:12px; color:#888;">오늘 오전 09:58</div>
-                                    </div>
-                                </div>
-                                <div class="notification-item">
-                                    <div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">✅</div>
-                                    <div style="text-align:left;">
-                                        <div style="font-size:14px; font-weight:bold; color:#333;">장치 연결됨</div>
-                                        <div style="font-size:12px; color:#888;">오늘 오전 09:40</div>
-                                    </div>
-                                </div>
-                            </div>
+                            <div id="notification-list"></div>
                             <div style="margin-bottom:20px; text-align:center;"><a href="https://project.whanci.xyz" target="_blank" class="live-view-btn">체험 해보기</a></div>
                         </div>
                     </div>
@@ -651,10 +685,71 @@
     </div>
 
     <script>
+        // 전역 설정 및 변수
         const totalRespondents = 342;
         const experiencedCount = 266;
+        let orderInfo = {};
 
-        window.addEventListener('load', function() {
+        // 페이지 전환
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // [추가] 김*우 이스터에그 함수
+        function showKimEasterEgg() {
+            // 이미 있으면 중복 방지
+            if (document.getElementById('easter-egg-toast')) return;
+
+            const toast = document.createElement('div');
+            toast.id = 'easter-egg-toast';
+            toast.innerText = 'XO, My Cyberlove';
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.classList.add('show'), 100);
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        }
+
+        // 이기준 이스터에그 로직
+        let leeInputSequence = '';
+        const triggerEnglish = 'dlrlwns'; 
+        const triggerKorean = '이기준';
+
+        window.addEventListener('keyup', (e) => {
+            if (e.key !== 'Process') leeInputSequence += e.key;
+            if (leeInputSequence.length > 20) leeInputSequence = leeInputSequence.slice(-20);
+            if (leeInputSequence.includes(triggerEnglish) || leeInputSequence.includes(triggerKorean)) {
+                activateLeeMode();
+                leeInputSequence = '';
+            }
+        });
+
+        function activateLeeMode() {
+            if (document.getElementById('lee-overlay')) return;
+            const overlay = document.createElement('div');
+            overlay.id = 'lee-overlay';
+            overlay.innerHTML = `<h1 class="rainbow-text">이기준</h1>`;
+            document.body.appendChild(overlay);
+            setTimeout(() => {
+                overlay.style.opacity = '0';
+                setTimeout(() => overlay.remove(), 500);
+            }, 3000);
+        }
+
+        // 초기화 로직
+        window.onload = function() {
+            type();
+            updateNotifications();
+            initFaqAccordion();
+            initPollStat();
+        };
+
+        function initPollStat() {
             const percentage = Math.round((experiencedCount / totalRespondents) * 100);
             const peopleRatio = Math.round(percentage / 10);
             const displayTotal = document.getElementById('display-total');
@@ -679,124 +774,14 @@
             }, 300);
             const ratioText = document.getElementById('display-people-ratio');
             if(ratioText) ratioText.innerText = peopleRatio;
-        });
-
-        let orderInfo = {};
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            window.scrollTo(0, 0);
-        }
-        function goToPayment(e) {
-            e.preventDefault();
-            orderInfo.name = document.getElementById('buyer_name').value;
-            orderInfo.addr = document.getElementById('buyer_addr').value;
-            showPage('payment');
         }
 
-        // 시스템 모달 호출 함수
-        function showSystemConfirm(message, onYes) {
-            const modal = document.getElementById('systemModal');
-            const msgEl = document.getElementById('sys_msg');
-            const btnYes = document.getElementById('sys_btn_yes');
-            const btnNo = document.getElementById('sys_btn_no');
-
-            msgEl.innerText = message;
-
-            const newBtnYes = btnYes.cloneNode(true);
-            const newBtnNo = btnNo.cloneNode(true);
-            btnYes.parentNode.replaceChild(newBtnYes, btnYes);
-            btnNo.parentNode.replaceChild(newBtnNo, btnNo);
-
-            newBtnYes.onclick = () => {
-                closeSystemModal();
-                if (onYes) onYes();
-            };
-            newBtnNo.onclick = closeSystemModal;
-
-            modal.classList.remove('hide');
-            modal.classList.add('show');
-        }
-
-        function closeSystemModal() {
-            const modal = document.getElementById('systemModal');
-            modal.classList.add('hide');
-            setTimeout(() => {
-                modal.classList.remove('show');
-                modal.classList.remove('hide');
-            }, 300);
-        }
-
-        function showLoading(callback) {
-            const loading = document.getElementById('loadingOverlay');
-            loading.classList.add('show');
-            setTimeout(() => {
-                loading.classList.remove('show');
-                if (callback) callback();
-            }, 2000);
-        }
-
-        function completeOrder(method) {
-            showSystemConfirm(method + "(으)로 결제하시겠습니까?", () => {
-                showLoading(() => {
-                    const orderNo = "ORD-" + Math.floor(Math.random() * 900000 + 100000);
-                    document.getElementById('rec_no').innerText = orderNo;
-                    document.getElementById('rec_name').innerText = orderInfo.name || "";
-                    document.getElementById('rec_addr').innerText = orderInfo.addr || "";
-                    document.getElementById('rec_method').innerText = method;
-                    
-                    const nameEl = document.getElementById('buyer_name');
-                    const telEl = document.getElementById('buyer_tel');
-                    const addrEl = document.getElementById('buyer_addr');
-                    if(nameEl) nameEl.value = "";
-                    if(telEl) telEl.value = "";
-                    if(addrEl) addrEl.value = "";
-                    
-                    showPage('receipt');
-                });
-            });
-        }
-
-        function cancelOrder(fromPayment=false) {
-            const msg = fromPayment ? "결제를 취소하고 상품 페이지로 돌아갈까요?" : "주문을 취소하고 상품 페이지로 돌아갈까요?";
-            showSystemConfirm(msg, () => {
-                orderInfo = {};
-                const nameEl = document.getElementById('buyer_name');
-                const telEl = document.getElementById('buyer_tel');
-                const addrEl = document.getElementById('buyer_addr');
-                if(nameEl) nameEl.value = "";
-                if(telEl) telEl.value = "";
-                if(addrEl) addrEl.value = "";
-                showPage('product');
-            });
-        }
-        
-        // [추가] 문의 모달 관련 로직
-        function openInquiryModal() {
-            const modal = document.getElementById('inquiryModal');
-            modal.classList.remove('hide');
-            modal.classList.add('show');
-        }
-        function closeInquiryModal() {
-            const modal = document.getElementById('inquiryModal');
-            modal.classList.add('hide');
-            setTimeout(() => {
-                modal.classList.remove('show');
-                modal.classList.remove('hide');
-            }, 300);
-        }
-        function submitInquiry(e) {
-            e.preventDefault();
-            closeInquiryModal();
-            showSystemConfirm("문의를 전송하시겠습니까?", () => {
-                e.target.reset(); // 폼 초기화
-            });
-        }
-
-        const textElement = document.getElementById('typewriter');
+        // 타이핑 효과
         const sentences = ["기숙사 냉장고의 평화,", "오피스 냉장고의 신뢰,", "기술로 완성합니다."];
         let sentenceIdx = 0; let charIdx = 0; let isDeleting = false;
         function type() {
+            const textElement = document.getElementById('typewriter');
+            if(!textElement) return;
             const currentSentence = sentences[sentenceIdx];
             if (isDeleting) textElement.innerText = currentSentence.substring(0, charIdx - 1), charIdx--;
             else textElement.innerText = currentSentence.substring(0, charIdx + 1), charIdx++;
@@ -806,11 +791,10 @@
             setTimeout(type, typeSpeed);
         }
 
-        /* [알림] 정적 3개 고정 렌더 */
+        // 알림 리스트 렌더링
         function updateNotifications() {
             const list = document.getElementById('notification-list');
             if(!list) return;
-
             list.innerHTML = `
                 <div class="notification-item">
                     <div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">📸</div>
@@ -819,7 +803,6 @@
                         <div style="font-size:12px; color:#888;">오늘 오전 10:12</div>
                     </div>
                 </div>
-
                 <div class="notification-item">
                     <div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">🔔</div>
                     <div style="text-align:left;">
@@ -827,7 +810,6 @@
                         <div style="font-size:12px; color:#888;">오늘 오전 09:58</div>
                     </div>
                 </div>
-
                 <div class="notification-item">
                     <div style="width:40px; height:40px; background:#ddd; border-radius:8px; margin-right:10px; display:flex; align-items:center; justify-content:center;">✅</div>
                     <div style="text-align:left;">
@@ -838,178 +820,124 @@
             `;
         }
 
+        // 테마 토글
         const themeBtn = document.getElementById('themeToggle');
-        const body = document.body;
         const iconMoon = '<img src="images/dark.svg" alt="Dark Mode">';
         const iconSun = '<img src="images/light.svg" alt="Light Mode">';
-        const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (userPrefersDark) { body.classList.add('dark-mode'); themeBtn.innerHTML = iconSun; } else { themeBtn.innerHTML = iconMoon; }
-        themeBtn.addEventListener('click', () => { body.classList.toggle('dark-mode'); const isDark = body.classList.contains('dark-mode'); themeBtn.innerHTML = isDark ? iconSun : iconMoon; });
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.add('dark-mode');
+            themeBtn.innerHTML = iconSun;
+        } else {
+            themeBtn.innerHTML = iconMoon;
+        }
+        themeBtn.onclick = () => {
+            document.body.classList.toggle('dark-mode');
+            themeBtn.innerHTML = document.body.classList.contains('dark-mode') ? iconSun : iconMoon;
+        };
 
-        const scrollTopBtn = document.getElementById('scrollTopBtn');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) scrollTopBtn.classList.add('show');
-            else scrollTopBtn.classList.remove('show');
-        });
+        // 스크롤 탑 버튼
+        window.onscroll = () => {
+            const btn = document.getElementById('scrollTopBtn');
+            if (window.scrollY > 300) btn.classList.add('show');
+            else btn.classList.remove('show');
+        };
 
-        function shakeButton(btn) {
-            btn.classList.add('shake-animation');
-            setTimeout(() => { btn.classList.remove('shake-animation'); }, 650);
+        // FAQ 아코디언
+        function initFaqAccordion() {
+            document.querySelectorAll('.faq-item').forEach(item => {
+                const q = item.querySelector('.faq-q');
+                const a = item.querySelector('.faq-a');
+                q.onclick = () => {
+                    const isOpen = item.classList.contains('open');
+                    if (isOpen) {
+                        a.style.height = '0px';
+                        item.classList.remove('open');
+                    } else {
+                        a.style.height = a.scrollHeight + 'px';
+                        item.classList.add('open');
+                    }
+                };
+            });
         }
 
+        // 구매 및 문의 모달 관련 함수들
+        function goToPayment(e) {
+            e.preventDefault();
+            orderInfo.name = document.getElementById('buyer_name').value;
+            orderInfo.addr = document.getElementById('buyer_addr').value;
+            showPage('payment');
+        }
+
+        function completeOrder(method) {
+            showSystemConfirm(method + "(으)로 결제하시겠습니까?", () => {
+                const loading = document.getElementById('loadingOverlay');
+                loading.classList.add('show');
+                setTimeout(() => {
+                    loading.classList.remove('show');
+                    document.getElementById('rec_no').innerText = "ORD-" + Math.floor(Math.random() * 900000 + 100000);
+                    document.getElementById('rec_name').innerText = orderInfo.name || "";
+                    document.getElementById('rec_addr').innerText = orderInfo.addr || "";
+                    document.getElementById('rec_method').innerText = method;
+                    showPage('receipt');
+                }, 2000);
+            });
+        }
+
+        function cancelOrder(fromPay=false) {
+            showSystemConfirm("주문을 취소하고 돌아갈까요?", () => showPage('product'));
+        }
+
+        function openInquiryModal() { document.getElementById('inquiryModal').classList.add('show'); }
+        function closeInquiryModal() { 
+            const m = document.getElementById('inquiryModal');
+            m.classList.add('hide');
+            setTimeout(() => { m.classList.remove('show', 'hide'); }, 300);
+        }
+        function submitInquiry(e) {
+            e.preventDefault();
+            closeInquiryModal();
+            showSystemConfirm("문의를 전송하시겠습니까?", () => e.target.reset());
+        }
+
+        // 공통 시스템 모달
+        function showSystemConfirm(msg, onYes) {
+            const m = document.getElementById('systemModal');
+            document.getElementById('sys_msg').innerText = msg;
+            m.classList.add('show');
+            document.getElementById('sys_btn_yes').onclick = () => { m.classList.remove('show'); onYes(); };
+            document.getElementById('sys_btn_no').onclick = () => m.classList.remove('show');
+        }
+
+        // 제품 상세 모달
         const productData = {
-            src04: { title: "SRC-04", badge: "Dormitory Edition", badgeColor: "var(--primary-color)", desc: `냉장고에 설치하는 초소형 카메라 모듈.\n촬영된 사진은 즉시 클라우드에 저장되며, 언제 어디서나 확인 가능합니다.\n\n동작 감지 → 푸시 알림 → 기록 확인까지,\n간단하지만 확실한 보호를 제공합니다.`, imageText: "[ 제품 이미지 ]", actions: [{ type: "buy", label: "제품 구매하기" }] },
-            office: { title: "SRC-04 For Office", badge: "Office Edition", badgeColor: "#a1a1a6", desc: `사원증 및 얼굴 인식 기능이 추가된 제품.\n더 많은 기능의 관리자 페이지와 우수한 보안의 로그 서버를 제공합니다.\n\n현재 준비 중입니다.`, imageText: "[ 개발 중 ]", actions: [{ type: "shake", label: "준비 중" }] }
+            src04: { title: "SRC-04", badge: "Dormitory Edition", desc: "냉장고에 설치하는 초소형 카메라 모듈.\n촬영된 사진은 즉시 클라우드에 저장되며 확인 가능합니다.", imageText: "[ 제품 이미지 ]", canBuy: true },
+            office: { title: "SRC-04 For Office", badge: "Office Edition", desc: "사원증 및 얼굴 인식 기능 추가.\n현재 준비 중입니다.", imageText: "[ 개발 중 ]", canBuy: false }
         };
 
         function openProductModal(key) {
-            const data = productData[key];
-            if (!data) return;
-            document.getElementById('pm_title').innerText = data.title;
-            const badgeEl = document.getElementById('pm_badge');
-            badgeEl.innerText = data.badge;
-            badgeEl.style.color = data.badgeColor || 'var(--primary-color)';
-            document.getElementById('pm_desc').innerText = data.desc;
-            document.getElementById('pm_image').innerText = data.imageText;
-            const actions = document.getElementById('pm_actions');
-            actions.innerHTML = "";
-            data.actions.forEach(a => {
-                const btn = document.createElement('button');
-                btn.className = 'cta-button';
-                if (a.type === "buy") { btn.innerText = a.label; btn.onclick = () => { closeProductModal(); showPage('buy'); }; } 
-                else if (a.type === "shake") { btn.innerText = a.label; btn.style.backgroundColor = '#ccc'; btn.style.cursor = 'default'; btn.onclick = (e) => { shakeButton(e.currentTarget); }; }
-                actions.appendChild(btn);
-            });
-            const modal = document.getElementById('productModal');
-            modal.classList.remove('hide');
-            modal.classList.add('show');
+            const d = productData[key];
+            document.getElementById('pm_title').innerText = d.title;
+            document.getElementById('pm_badge').innerText = d.badge;
+            document.getElementById('pm_desc').innerText = d.desc;
+            document.getElementById('pm_image').innerText = d.imageText;
+            const act = document.getElementById('pm_actions');
+            act.innerHTML = d.canBuy ? 
+                `<button class="cta-button" style="width:100%" onclick="closeProductModal();showPage('buy')">제품 구매하기</button>` :
+                `<button class="cta-button" style="width:100%;background:#ccc" onclick="shakeButton(this)">준비 중</button>`;
+            document.getElementById('productModal').classList.add('show');
             document.body.style.overflow = 'hidden';
         }
 
         function closeProductModal() {
-            const modal = document.getElementById('productModal');
-            if (!modal.classList.contains('show')) return;
-            modal.classList.add('hide'); 
-            setTimeout(() => { modal.classList.remove('show'); modal.classList.remove('hide'); document.body.style.overflow = ''; }, 300);
+            const m = document.getElementById('productModal');
+            m.classList.add('hide');
+            setTimeout(() => { m.classList.remove('show', 'hide'); document.body.style.overflow=''; }, 300);
         }
 
-        window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeProductModal(); });
-
-        /* [추가] FAQ 아코디언: 열/닫 매번 애니메이션 */
-        function initFaqAccordion() {
-            const items = document.querySelectorAll('.faq-item');
-            items.forEach(item => {
-                const q = item.querySelector('.faq-q');
-                const a = item.querySelector('.faq-a');
-
-                a.style.height = '0px';
-
-                q.addEventListener('click', () => {
-                    const isOpen = item.classList.contains('open');
-
-                    if (isOpen) {
-                        a.style.height = a.scrollHeight + 'px';
-                        requestAnimationFrame(() => {
-                            a.style.height = '0px';
-                        });
-                        item.classList.remove('open');
-                        return;
-                    }
-
-                    item.classList.add('open');
-                    a.style.height = a.scrollHeight + 'px';
-                });
-            });
-
-            window.addEventListener('resize', () => {
-                document.querySelectorAll('.faq-item.open .faq-a').forEach(a => {
-                    a.style.height = a.scrollHeight + 'px';
-                });
-            });
-        }
-
-        window.onload = function() {
-            type();
-            updateNotifications();
-            initFaqAccordion();
-        };
-    </script>
-    <script>
-        let leeInputSequence = '';
-        const triggerEnglish = 'dlrlwns'; // 영타
-        const triggerKorean = '이기준';   // 한타 (완성형)
-
-        window.addEventListener('keyup', (e) => {
-            // 입력된 키를 누적 (Process는 한글 조합 중 상태)
-            if (e.key !== 'Process') {
-                leeInputSequence += e.key;
-            }
-
-            // 문자열이 너무 길어지면 자름 (메모리 관리)
-            if (leeInputSequence.length > 20) {
-                leeInputSequence = leeInputSequence.slice(-20);
-            }
-
-            // 영타(dlrlwns) 또는 한타(이기준) 감지
-            if (leeInputSequence.includes(triggerEnglish) || leeInputSequence.includes(triggerKorean)) {
-                activateLeeMode();
-                leeInputSequence = ''; // 초기화
-            }
-        });
-
-        function activateLeeMode() {
-            // 중복 실행 방지
-            if (document.getElementById('lee-overlay')) return;
-
-            const overlay = document.createElement('div');
-            overlay.id = 'lee-overlay';
-            overlay.innerHTML = `<h1 class="rainbow-text">이기준</h1>`;
-            document.body.appendChild(overlay);
-
-            // 3초 후 제거
-            setTimeout(() => {
-                overlay.style.opacity = '0'; // 페이드 아웃
-                setTimeout(() => {
-                    overlay.remove();
-                }, 500);
-            }, 3000);
+        function shakeButton(btn) {
+            btn.classList.add('shake-animation');
+            setTimeout(() => btn.classList.remove('shake-animation'), 650);
         }
     </script>
-
-    <style>
-        /* 이기준 이스터에그 스타일 */
-        #lee-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.9); /* 배경 어둡게 */
-            z-index: 999999; /* 최상단 */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.5s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .rainbow-text {
-            font-size: 15vw; /* 화면 꽉 차게 */
-            font-weight: 900;
-            color: #fff;
-            margin: 0;
-            line-height: 1;
-            white-space: nowrap;
-            /* 무지개 발광 애니메이션 */
-            animation: rainbow-glow 0.5s linear infinite;
-        }
-
-        @keyframes rainbow-glow {
-            0%   { text-shadow: 0 0 20px #ff0000, 0 0 50px #ff0000, 0 0 100px #ff0000; }
-            15%  { text-shadow: 0 0 20px #ff7f00, 0 0 50px #ff7f00, 0 0 100px #ff7f00; }
-            30%  { text-shadow: 0 0 20px #ffff00, 0 0 50px #ffff00, 0 0 100px #ffff00; }
-            45%  { text-shadow: 0 0 20px #00ff00, 0 0 50px #00ff00, 0 0 100px #00ff00; }
-            60%  { text-shadow: 0 0 20px #0000ff, 0 0 50px #0000ff, 0 0 100px #0000ff; }
-            75%  { text-shadow: 0 0 20px #4b0082, 0 0 50px #4b0082, 0 0 100px #4b0082; }
-            100% { text-shadow: 0 0 20px #8b00ff, 0 0 50px #8b00ff, 0 0 100px #8b00ff; }
-        }
-    </style>
 </body>
 </html>
