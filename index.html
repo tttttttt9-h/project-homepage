@@ -158,27 +158,19 @@
 
         /* --- [PRODUCT] --- */
         .product-grid { max-width: 1100px; margin: 80px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; padding: 0 24px; }
-        .product-card { background: var(--card-bg); border-radius: 30px; padding: 50px; border: 1px solid var(--card-border); display: flex; flex-direction: column; cursor: pointer; }
+        .product-card { background: var(--card-bg); border-radius: 30px; padding: 50px; border: 1px solid var(--card-border); display: flex; flex-direction: column; cursor: pointer; overflow: hidden; }
         .product-card:not(.disabled-card):hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
         .disabled-card { opacity: 0.7; cursor: default; }
         .disabled-card:hover { transform: none; box-shadow: none; }
-        .product-img-box {
-        width: 100%;
-        height: 320px;
-        background: var(--bg-light);
-        border-radius: 20px;
-        margin: 30px 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden; /* 이미지가 넘치지 않게 */
+        
+        /* 제품 이미지 박스 수정 */
+        .product-img-box { 
+            width: 100%; height: 320px; background: var(--bg-light); border-radius: 20px; 
+            margin: 30px 0; display: flex; align-items: center; justify-content: center; 
+            overflow: hidden; 
         }
-
-        .product-img-box img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain; /* 비율 유지하며 박스 안에 맞춤 */
-        padding: 20px; /* 여백이 필요 없으면 삭제하세요 */
+        .product-img-box img { 
+            width: 100%; height: 100%; object-fit: contain; padding: 10px;
         }
 
         @keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-1px); } 40% { transform: translateX(1px); } 60% { transform: translateX(-1px); } 80% { transform: translateX(1px); } }
@@ -276,42 +268,41 @@
         .modal-close { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--card-border); background: var(--bg-light); color: var(--text-main); cursor: pointer; font-size: 20px; font-weight: 900; flex-shrink: 0; }
         .modal-close:hover { transform: scale(1.05); }
         .modal-body { display: grid; grid-template-columns: 1.35fr 1fr; gap: 26px; padding: 26px; }
-        .modal-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
+        
+        .modal-image { 
+            width: 100%; min-height: 460px; background: var(--bg-light); border-radius: 22px; 
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
         }
+        .modal-image img { width: 100%; height: 100%; object-fit: contain; }
+
         .modal-right { display: flex; flex-direction: column; min-height: 460px; }
         .modal-desc { color: var(--text-sub); font-size: 16px; line-height: 1.8; margin: 0 0 18px; white-space: pre-line; }
         .modal-actions { display: flex; gap: 14px; margin-top: auto; justify-content: flex-end; padding-top: 16px; width: 100%; }
         .modal-actions .cta-button { width: 100%; min-width: 0; }
 
-        /* [추가] 김*우 이스터에그 알림창 스타일 */
-        /* [수정] 김*우 이스터에그 알림창 스타일 */
-#easter-egg-toast {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: var(--primary-color);
-    color: white;
-    padding: 12px 28px;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    z-index: 100000;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    opacity: 0;
-    cursor: pointer; /* 클릭 가능함을 표시 */
-    backdrop-filter: blur(5px);
-}
+        #easter-egg-toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 100000;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            cursor: pointer; 
+            backdrop-filter: blur(5px);
+        }
         #easter-egg-toast.show {
             transform: translateX(-50%) translateY(0);
             opacity: 1;
         }
 
-        /* 이기준 이스터에그 스타일 */
         #lee-overlay {
             position: fixed;
             inset: 0;
@@ -489,14 +480,18 @@
                 <h4 style="color:var(--primary-color); margin-bottom: 5px;">Dormitory Edition</h4>
                 <h3 style="font-size: 28px; margin-top: 0;">LockFridge</h3>
                 <p>냉장고에 설치하는 초소형 카메라 모듈.</br>촬영된 사진은 즉시 클라우드에 저장되며, 언제 어디서나 확인 가능합니다.</p>
-                <div class="product-img-box">[ 제품 이미지 ]</div>
+                <div class="product-img-box">
+                    <img src="images/product.png" alt="LockFridge">
+                </div>
                 <button onclick="event.stopPropagation(); showPage('buy')" class="cta-button">제품 구매하기</button>
             </div>
             <div class="product-card disabled-card" style="border-style: dashed;" onclick="openProductModal('office')">
                 <h4 style="color:var(--text-sub); margin-bottom: 5px;">Office Edition</h4>
                 <h3 style="font-size: 28px; margin-top: 0; color: #86868b;">LockFridge For Office</h3>
                 <p>사원증 및 얼굴 인식 기능이 추가된 제품.</br>더 많은 기능의 관리자 페이지와 우수한 보안의 로그 서버를 제공합니다.</p>
-                <div class="product-img-box" style="opacity: 1;">[ 개발 중 ]</div>
+                <div class="product-img-box">
+                    <img src="images/product-office.png" alt="LockFridge For Office" style="filter: grayscale(1); opacity: 0.6;">
+                </div>
                 <button class="cta-button" style="background-color: #ccc; cursor: default;" onclick="event.stopPropagation(); shakeButton(this)">준비 중</button>
             </div>
         </section>
@@ -664,7 +659,8 @@
                 <button class="modal-close" aria-label="Close" onclick="closeProductModal()">×</button>
             </div>
             <div class="modal-body">
-                <div id="pm_image" class="modal-image">[ 이미지 ]</div>
+                <div id="pm_image" class="modal-image">
+                    </div>
                 <div class="modal-right">
                     <p id="pm_desc" class="modal-desc"></p>
                     <div class="modal-actions" id="pm_actions"></div>
@@ -719,34 +715,30 @@
             window.scrollTo(0, 0);
         }
 
-        // [추가] 김*우 이스터에그 함수
+        // 김*우 이스터에그 함수
         function showKimEasterEgg() {
-    // 이미 있으면 중복 방지
-    if (document.getElementById('easter-egg-toast')) return;
+            if (document.getElementById('easter-egg-toast')) return;
 
-    const toast = document.createElement('div');
-    toast.id = 'easter-egg-toast';
-    toast.innerText = 'XO, My Cyberlove';
-    document.body.appendChild(toast);
+            const toast = document.createElement('div');
+            toast.id = 'easter-egg-toast';
+            toast.innerText = 'XO, My Cyberlove';
+            document.body.appendChild(toast);
 
-    // [추가] 클릭 시 인스타그램 이동
-    toast.onclick = function() {
-        window.open('https://www.instagram.com/chuu_atrp', '_blank');
-    };
+            toast.onclick = function() {
+                window.open('https://www.instagram.com/chuu_atrp', '_blank');
+            };
 
-    // 나타나기
-    setTimeout(() => toast.classList.add('show'), 100);
+            setTimeout(() => toast.classList.add('show'), 100);
 
-    // 3초 후 사라짐 (클릭할 시간을 주기 위해 유지)
-    setTimeout(() => {
-        if (toast) {
-            toast.classList.remove('show');
             setTimeout(() => {
-                if (toast.parentNode) toast.remove();
-            }, 500);
+                if (toast) {
+                    toast.classList.remove('show');
+                    setTimeout(() => {
+                        if (toast.parentNode) toast.remove();
+                    }, 500);
+                }
+            }, 4000); 
         }
-    }, 4000); // 클릭할 여유를 주고자 시간을 4초로 약간 늘렸습니다.
-}
 
         // 이기준 이스터에그 로직
         let leeInputSequence = '';
@@ -941,10 +933,22 @@
             document.getElementById('sys_btn_no').onclick = () => m.classList.remove('show');
         }
 
-        // 제품 상세 모달
+        // 제품 상세 모달 데이터
         const productData = {
-            src04: { title: "LockFridge", badge: "Dormitory Edition", desc: "냉장고에 설치하는 초소형 카메라 모듈.\n촬영된 사진은 즉시 클라우드에 저장되며 확인 가능합니다.", imageText: "[ 제품 이미지 ]", canBuy: true },
-            office: { title: "LockFridge For Office", badge: "Office Edition", desc: "사원증 및 얼굴 인식 기능 추가.\n현재 준비 중입니다.", imageText: "[ 개발 중 ]", canBuy: false }
+            src04: { 
+                title: "LockFridge", 
+                badge: "Dormitory Edition", 
+                desc: "냉장고에 설치하는 초소형 카메라 모듈.\n촬영된 사진은 즉시 클라우드에 저장되며 확인 가능합니다.", 
+                image: "images/product.png",
+                canBuy: true 
+            },
+            office: { 
+                title: "LockFridge For Office", 
+                badge: "Office Edition", 
+                desc: "사원증 및 얼굴 인식 기능 추가.\n현재 준비 중입니다.", 
+                image: "images/product-office.png",
+                canBuy: false 
+            }
         };
 
         function openProductModal(key) {
@@ -952,11 +956,16 @@
             document.getElementById('pm_title').innerText = d.title;
             document.getElementById('pm_badge').innerText = d.badge;
             document.getElementById('pm_desc').innerText = d.desc;
-            document.getElementById('pm_image').innerText = d.imageText;
+            
+            // 이미지 삽입 로직
+            const imgBox = document.getElementById('pm_image');
+            imgBox.innerHTML = `<img src="${d.image}" alt="${d.title}">`;
+            
             const act = document.getElementById('pm_actions');
             act.innerHTML = d.canBuy ? 
                 `<button class="cta-button" style="width:100%" onclick="closeProductModal();showPage('buy')">제품 구매하기</button>` :
                 `<button class="cta-button" style="width:100%;background:#ccc" onclick="shakeButton(this)">준비 중</button>`;
+            
             document.getElementById('productModal').classList.add('show');
             document.body.style.overflow = 'hidden';
         }
